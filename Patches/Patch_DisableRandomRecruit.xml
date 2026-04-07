@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!-- Remove "Random Recruit" ritual outcome (temporarily unavailable) -->
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="RandomRecruit"]</xpath>
+	</Operation>
+
+</Patch>

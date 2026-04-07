@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "DAjuunYeGjw=",
+  "success": true,
+  "projectFilePath": "D:\\Mods\\HSKFaithTracker\\Source\\HSKFaithTracker\\HSKFaithTracker.v16.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Linya\\.nuget\\packages\\bepinex.assemblypublicizer.msbuild\\0.4.3\\bepinex.assemblypublicizer.msbuild.0.4.3.nupkg.sha512",
+    "C:\\Users\\Linya\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.3\\microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
+    "C:\\Users\\Linya\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net48\\1.0.3\\microsoft.netframework.referenceassemblies.net48.1.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<FT_Title>История веры</FT_Title>
+	<FT_Gained>Получено</FT_Gained>
+	<FT_Lost>Потеряно</FT_Lost>
+	<FT_Score>Счёт</FT_Score>
+	<FT_TipStats>Выполнено: {0}  |  Пропущено: {1}  |  Счёт: {2}</FT_TipStats>
+	<FT_Today>сегодня</FT_Today>
+	<FT_DaysAgo>{0} дн. назад</FT_DaysAgo>
+	<FT_Rituals>Доступные ритуалы:</FT_Rituals>
+	<FT_RitualActive>Доступен ({0} дн.)</FT_RitualActive>
+	<FT_RitualDone>{0} дн. назад</FT_RitualDone>
+	<FT_RitualWaiting>Ожидание</FT_RitualWaiting>
+	<FT_RitualAvailable>Доступен</FT_RitualAvailable>
+	<FT_HistoryBtn>История</FT_HistoryBtn>
+	<FT_HistoryTitle>История веры</FT_HistoryTitle>
+	<FT_Holidays>Праздники:</FT_Holidays>
+	<FT_Situational>Ситуативные ритуалы:</FT_Situational>
+	<FT_RitualIn>через {0} дн.</FT_RitualIn>
+	<FT_EarlyPenalty>Вера заброшена</FT_EarlyPenalty>
+	<FT_FaithDecay>Угасание веры</FT_FaithDecay>
+</LanguageData>

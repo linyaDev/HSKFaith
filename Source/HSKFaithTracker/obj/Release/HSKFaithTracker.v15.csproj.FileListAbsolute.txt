@@ -1,0 +1,8 @@
+D:\Mods\HSKFaithTracker\1.5\Assemblies\HSKFaithTracker.dll
+D:\Mods\HSKFaithTracker\1.5\Assemblies\HSKFaithTracker.pdb
+D:\Mods\HSKFaithTracker\Source\HSKFaithTracker\obj\Release\HSKFaithTracker.v15.csproj.AssemblyReference.cache
+D:\Mods\HSKFaithTracker\Source\HSKFaithTracker\obj\Release\HSKFaithTracker.v15.IgnoresAccessChecksTo.cs
+D:\Mods\HSKFaithTracker\Source\HSKFaithTracker\obj\Release\HSKFaithTracker.v15.GeneratedMSBuildEditorConfig.editorconfig
+D:\Mods\HSKFaithTracker\Source\HSKFaithTracker\obj\Release\HSKFaithTracker.v15.csproj.CoreCompileInputs.cache
+D:\Mods\HSKFaithTracker\Source\HSKFaithTracker\obj\Release\HSKFaithTracker.dll
+D:\Mods\HSKFaithTracker\Source\HSKFaithTracker\obj\Release\HSKFaithTracker.pdb

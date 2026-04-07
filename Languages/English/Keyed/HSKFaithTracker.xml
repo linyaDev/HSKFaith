@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<FT_Title>Faith History</FT_Title>
+	<FT_Gained>Gained</FT_Gained>
+	<FT_Lost>Lost</FT_Lost>
+	<FT_Score>Score</FT_Score>
+	<FT_TipStats>Fulfilled: {0}  |  Missed: {1}  |  Score: {2}</FT_TipStats>
+	<FT_Today>today</FT_Today>
+	<FT_DaysAgo>{0}d ago</FT_DaysAgo>
+	<FT_Rituals>Available rituals:</FT_Rituals>
+	<FT_RitualActive>Available ({0}d left)</FT_RitualActive>
+	<FT_RitualDone>{0}d ago</FT_RitualDone>
+	<FT_RitualWaiting>Waiting</FT_RitualWaiting>
+	<FT_RitualAvailable>Available</FT_RitualAvailable>
+	<FT_HistoryBtn>History</FT_HistoryBtn>
+	<FT_HistoryTitle>Faith History</FT_HistoryTitle>
+	<FT_Holidays>Holidays:</FT_Holidays>
+	<FT_Situational>Situational rituals:</FT_Situational>
+	<FT_RitualIn>in {0} days</FT_RitualIn>
+	<FT_EarlyPenalty>Faith neglected</FT_EarlyPenalty>
+	<FT_FaithDecay>Faith decay</FT_FaithDecay>
+</LanguageData>

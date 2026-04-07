@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<ThoughtDef>
+		<defName>FaithThought</defName>
+		<workerClass>HSKFaithTracker.ThoughtWorker_Faith</workerClass>
+		<stages>
+			<li>
+				<label>godless</label>
+				<description>We have abandoned our faith completely. The rituals mean nothing to us.</description>
+				<baseMoodEffect>-6</baseMoodEffect>
+			</li>
+			<li>
+				<label>faithless</label>
+				<description>We barely follow our beliefs anymore. It feels wrong.</description>
+				<baseMoodEffect>-4</baseMoodEffect>
+			</li>
+			<li>
+				<label>doubting</label>
+				<description>I'm starting to doubt our commitment to our beliefs.</description>
+				<baseMoodEffect>-2</baseMoodEffect>
+			</li>
+			<li>
+				<label>faithful</label>
+				<description>We follow our beliefs as best we can.</description>
+				<baseMoodEffect>0</baseMoodEffect>
+			</li>
+			<li>
+				<label>devout</label>
+				<description>We honor our rituals regularly. It brings comfort.</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+			<li>
+				<label>pious</label>
+				<description>Our devotion to the faith is strong and unwavering.</description>
+				<baseMoodEffect>4</baseMoodEffect>
+			</li>
+			<li>
+				<label>holy</label>
+				<description>We never miss a ritual. Our faith burns bright.</description>
+				<baseMoodEffect>6</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+</Defs>

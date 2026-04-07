@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<NeedDef>
+		<defName>Need_Faith</defName>
+		<label>faith</label>
+		<needClass>HSKFaithTracker.Need_Faith</needClass>
+		<description>How devoutly this colonist follows their ideology's ritual obligations. Completing rituals strengthens faith, ignoring them weakens it.</description>
+		<showOnNeedList>true</showOnNeedList>
+		<minIntelligence>Humanlike</minIntelligence>
+		<colonistAndPrisonersOnly>true</colonistAndPrisonersOnly>
+		<showForCaravanMembers>false</showForCaravanMembers>
+		<listPriority>109</listPriority>
+		<fallPerDay>0</fallPerDay>
+	</NeedDef>
+</Defs>
