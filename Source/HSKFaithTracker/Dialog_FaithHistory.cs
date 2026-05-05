@@ -50,8 +50,8 @@ public class Dialog_FaithHistory : Window
             Rect rowRect = new Rect(0f, rowY, viewRect.width, 28f);
 
             bool isFulfilled = r.type == RitualRecordType.Fulfilled;
-            int points = isFulfilled ? GameComponent_FaithTracker.FulfilledWeight : GameComponent_FaithTracker.MissedWeight;
-            string pointsStr = isFulfilled ? "+" + points : points.ToString();
+            int points = r.Points;
+            string pointsStr = points > 0 ? "+" + points : points.ToString();
 
             Widgets.DrawBoxSolid(rowRect, isFulfilled ? GreenBg : RedBg);
             if (i % 2 == 0)
@@ -71,7 +71,9 @@ public class Dialog_FaithHistory : Window
             Text.Anchor = TextAnchor.MiddleRight;
             int daysAgo = (Find.TickManager.TicksGame - r.tick) / 60000;
             string timeStr = daysAgo <= 0 ? "FT_Today".Translate().RawText : "FT_DaysAgo".Translate(daysAgo).RawText;
+            Text.WordWrap = false;
             Widgets.Label(new Rect(viewRect.width - 85f, rowY, 80f, 28f), timeStr);
+            Text.WordWrap = true;
 
             Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;

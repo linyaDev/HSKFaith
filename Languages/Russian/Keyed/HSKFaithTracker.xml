@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-	<FT_Title>История веры</FT_Title>
+	<FT_Title>Хроника веры</FT_Title>
 	<FT_Gained>Получено</FT_Gained>
 	<FT_Lost>Потеряно</FT_Lost>
 	<FT_Score>Счёт</FT_Score>
@@ -9,14 +9,237 @@
 	<FT_DaysAgo>{0} дн. назад</FT_DaysAgo>
 	<FT_Rituals>Доступные ритуалы:</FT_Rituals>
 	<FT_RitualActive>Доступен ({0} дн.)</FT_RitualActive>
+	<FT_RitualActiveHours>Доступен ({0} ч.)</FT_RitualActiveHours>
 	<FT_RitualDone>{0} дн. назад</FT_RitualDone>
 	<FT_RitualWaiting>Ожидание</FT_RitualWaiting>
 	<FT_RitualAvailable>Доступен</FT_RitualAvailable>
 	<FT_HistoryBtn>История</FT_HistoryBtn>
+	<FT_TabRituals>Ритуалы</FT_TabRituals>
+	<FT_TabHistory>История</FT_TabHistory>
 	<FT_HistoryTitle>История веры</FT_HistoryTitle>
 	<FT_Holidays>Праздники:</FT_Holidays>
+	<FT_Important>Важные события:</FT_Important>
 	<FT_Situational>Ситуативные ритуалы:</FT_Situational>
 	<FT_RitualIn>через {0} дн.</FT_RitualIn>
+	<FT_RitualNext>через {0} дн.</FT_RitualNext>
+	<FT_RitualCooldown>перезарядка {0} дн.</FT_RitualCooldown>
+	<FT_NoEvents>Событий ещё не случалось</FT_NoEvents>
+	<FT_UnburiedCorpse>Непогребённый труп</FT_UnburiedCorpse>
+	<FT_CorpseTooltip>Мы должны заботиться о мёртвых — даже о врагах. Труп должен быть погребён или кремирован.</FT_CorpseTooltip>
+	<FT_FStage0>безбожник</FT_FStage0>
+	<FT_FStage1>маловерный</FT_FStage1>
+	<FT_FStage2>сомневающийся</FT_FStage2>
+	<FT_FStage3>верующий</FT_FStage3>
+	<FT_FStage4>набожный</FT_FStage4>
+	<FT_FStage5>благочестивый</FT_FStage5>
+	<FT_FStage6>святой</FT_FStage6>
+	<FT_FNextLevel>до след.: {0} оч.</FT_FNextLevel>
+	<FT_Forecast>сезон: {0}</FT_Forecast>
+	<FT_YearTimer>До конца года: {0} дн.</FT_YearTimer>
+	<FT_YearTimerHours>До конца года: {0} ч.</FT_YearTimerHours>
+	<FT_YearDecay>угасание: {0}</FT_YearDecay>
+	<FT_YearDecayLabel>Угасание в год</FT_YearDecayLabel>
+	<FT_YearlySummary>Итог {0} года</FT_YearlySummary>
+	<FT_SlaveryLabel>{0}: {1} | {2} / {3} очков</FT_SlaveryLabel>
+	<FT_Slaves0>нет рабов</FT_Slaves0>
+	<FT_Slaves1>{0} раб</FT_Slaves1>
+	<FT_Slaves24>{0} раба</FT_Slaves24>
+	<FT_Slaves5>{0} рабов</FT_Slaves5>
+	<FT_SlaveryPenalty>Нехватка рабов</FT_SlaveryPenalty>
+	<FT_SlaveryFulfilled>Господство подтверждено</FT_SlaveryFulfilled>
+	<FT_SlaveryTooltip>Очков рабства: {0}/15 за секцию\nПолучение очков:\n+1 оч./день за каждого раба</FT_SlaveryTooltip>
+	<FT_SlaveryDeadline>ост. {0} дн.</FT_SlaveryDeadline>
+	<FT_SlaveryDeadlineHours>ост. {0}ч</FT_SlaveryDeadlineHours>
+	<FT_SeasonDeadline>Осталось до конца сезона: {0} дн.</FT_SeasonDeadline>
+	<FT_SeasonDeadlineHours>Осталось до конца сезона: {0}ч</FT_SeasonDeadlineHours>
 	<FT_EarlyPenalty>Вера заброшена</FT_EarlyPenalty>
+	<FT_EarlyPenaltyTooltip>Ритуалы ещё не проводились. Вера колонии слабеет из-за пренебрежения.</FT_EarlyPenaltyTooltip>
+	<FT_SlaveryPenaltyTooltip>Недостаточно рабов для идеологии превосходства. Каждая незаполненная секция стоит -2 к вере в конце сезона.</FT_SlaveryPenaltyTooltip>
 	<FT_FaithDecay>Угасание веры</FT_FaithDecay>
+	<FT_MoteFaith>вера</FT_MoteFaith>
+	<FT_Faith1>вера</FT_Faith1>
+	<FT_Faith24>веры</FT_Faith24>
+	<FT_Faith5>веры</FT_Faith5>
+	<FT_FaithDecayTooltip>Вера угасает со временем. Колонистам нужно проводить больше праздников и ритуалов, чтобы поддерживать свои убеждения.</FT_FaithDecayTooltip>
+	<FT_ClickForDetails>Нажмите для подробностей</FT_ClickForDetails>
+	<FT_MemeEffects>Эффекты:</FT_MemeEffects>
+	<FT_MemeNoEffects>Нет активных эффектов</FT_MemeNoEffects>
+	<FT_MemeImpact>Влияние: {0}</FT_MemeImpact>
+	<FT_MemeRequiredRitual>Обязательный ритуал</FT_MemeRequiredRitual>
+	<FT_GoodwillPenalty>Ваша идеология ухудшила отношения со всеми фракциями ({0} репутации)</FT_GoodwillPenalty>
+	<FT_GoodwillBonus>Ваша идеология улучшила отношения со всеми фракциями ({0} репутации)</FT_GoodwillBonus>
+	<FT_MemeSeasonalFaith>Сезонное изменение веры: {0}</FT_MemeSeasonalFaith>
+	<FT_FaithPerSeason>Вера за сезон:</FT_FaithPerSeason>
+	<FT_FaithBase>{0} (базовый)</FT_FaithBase>
+	<FT_FaithPenaltySections>до {0} за незаполненную секцию ({1} секций на убеждение)</FT_FaithPenaltySections>
+	<FT_CollectivistPenalty>Нехватка шедевров</FT_CollectivistPenalty>
+	<FT_CollectivistFulfilled>Труд народа</FT_CollectivistFulfilled>
+	<FT_CollectivistTooltip>Легендарных предметов: {0}/2 за секцию\nПолучение очков:\nкрафт предметов легендарного качества</FT_CollectivistTooltip>
+	<FT_ViewVanilla>Ванильный вид</FT_ViewVanilla>
+	<FT_ViewCustom>HSK вид</FT_ViewCustom>
+	<FT_MemeCatEarly>Источники веры</FT_MemeCatEarly>
+	<FT_MemeCatMid>Полезные</FT_MemeCatMid>
+	<FT_MemeCatLate>Требующие веры</FT_MemeCatLate>
+	<FT_MemeCatSituational>Ситуационные</FT_MemeCatSituational>
+	<FT_ForgetMeme>Забыть убеждение</FT_ForgetMeme>
+	<FT_ForgetMemeDesc>Провести ритуал забвения, чтобы отказаться от одного из убеждений идеологии. Стоит 15 очков веры.</FT_ForgetMemeDesc>
+	<FT_ForgetMemeWarn>Это стоит -15 к вере!</FT_ForgetMemeWarn>
+	<FT_Forget>Забыть</FT_Forget>
+	<FT_ForgetConfirm>Вы уверены, что хотите забыть «{0}»? Убеждение будет удалено из идеологии, вера снизится на 15 очков.</FT_ForgetConfirm>
+	<FT_MemeForgotten>{0} забыто</FT_MemeForgotten>
+	<FT_MemeForgottenMsg>Ваша колония забыла убеждение «{0}». Используйте реформирование идеологии, чтобы выбрать новое.</FT_MemeForgottenMsg>
+	<FT_MaleSupremacyFulfilled>Мужское господство</FT_MaleSupremacyFulfilled>
+	<FT_MaleSupremacyPenalty>Мужская слабость</FT_MaleSupremacyPenalty>
+	<FT_FemaleSupremacyFulfilled>Женское господство</FT_FemaleSupremacyFulfilled>
+	<FT_FemaleSupremacyPenalty>Женская слабость</FT_FemaleSupremacyPenalty>
+	<FT_GenderTomorrow>Завтра: ♂ +{0}  ♀ +{1}</FT_GenderTomorrow>
+	<FT_GenderTooltip>Получение очков:\n+1 оч./день за каждого мужчину/женщину своего пола\n+3 оч./день за раба противоположного пола</FT_GenderTooltip>
+	<FT_GenderSlaveBonus></FT_GenderSlaveBonus>
+	<FT_NudismPts>дней наготы</FT_NudismPts>
+	<FT_NudismTooltip>Очков за сезон: без одежды {0} ({1})  одетых {2}\nПолучение очков:\n+1 оч./час за каждого раздетого колониста</FT_NudismTooltip>
+	<FT_XenophiliaFulfilled>Расовая гармония</FT_XenophiliaFulfilled>
+	<FT_XenophiliaPenalty>Расовая изоляция</FT_XenophiliaPenalty>
+	<FT_Races>рас</FT_Races>
+	<FT_XenoTooltip>Очков за сезон: другие расы {0} ({1})  основная {2}\nПолучение очков:\n+1 оч./день за каждого колониста другой расы</FT_XenoTooltip>
+	<FT_XenophobiaFulfilled>Расовая чистота</FT_XenophobiaFulfilled>
+	<FT_XenophobiaPenalty>Расовое загрязнение</FT_XenophobiaPenalty>
+	<FT_XenophobiaTooltip>Очков за сезон: основная раса {0} ({1})  другие {2}\nПолучение очков:\n+1 оч./день за каждого колониста основной расы</FT_XenophobiaTooltip>
+	<FT_AnimalPersonhoodFulfilled>Животные почтены</FT_AnimalPersonhoodFulfilled>
+	<FT_AnimalPersonhoodPenalty>Мало друзей-животных</FT_AnimalPersonhoodPenalty>
+	<FT_AnimalPersonhoodTooltip>Очков животных: {0}/45 за секцию\nПолучение очков:\n+1 оч./день за каждое свободное животное</FT_AnimalPersonhoodTooltip>
+	<FT_AnimalPersonhoodPassive>+30% к приручению животных</FT_AnimalPersonhoodPassive>
+	<FT_TreePenalty>Деревья заброшены</FT_TreePenalty>
+	<FT_TreeFulfilled>Деревья почтены</FT_TreeFulfilled>
+	<FT_TreeSections>Секций: {0}/{1} | Прогноз: {2}</FT_TreeSections>
+	<FT_TreeTooltip>Деревьев посажено: {0}\nДеревьев уничтожено: {1}</FT_TreeTooltip>
+	<FT_NatureTooltip>{0}/{1} очков за сезон\nПосажено: {2}  Срублено: {3}\n\nПолучение очков:\n+1 за посаженное растение\n-2 за уничтоженное дерево</FT_NatureTooltip>
+	<FT_ColonistKilled>Колонист убит своими</FT_ColonistKilled>
+	<FT_FaithPerMeme>{0} веры за каждое убеждение в сезон</FT_FaithPerMeme>
+	<FT_FaithPerSectionTooltip>{0} веры за убеждение ({1} убеждений = {2} за сезон)</FT_FaithPerSectionTooltip>
+	<FT_BiomeBonus>Бонус биома:</FT_BiomeBonus>
+	<FT_BiomeBonusList>Биомы: {0}</FT_BiomeBonusList>
+	<FT_MemeConflicts>Конфликтует с:</FT_MemeConflicts>
+	<FT_MemeSynergy>Синергия с:</FT_MemeSynergy>
+	<FT_ConflictBullet>✗ {0}</FT_ConflictBullet>
+	<FT_SynergyBullet>✓ {0}</FT_SynergyBullet>
+	<FT_MemeGameplay>Игровая механика:</FT_MemeGameplay>
+	<FT_MemeGameplay_Supremacist>Зачем самим работать, если можно заставить других? Рабы — это не жестокость, это делегирование. Соседи вас ненавидят, но это их проблемы.</FT_MemeGameplay_Supremacist>
+	<FT_MemeGameplay_MaleSupremacy>Настоящий мужик — основа колонии. Женщины? Пусть будут, но не много. Патриархат — проверено веками.</FT_MemeGameplay_MaleSupremacy>
+	<FT_MemeGameplay_FemaleSupremacy>Мужчины полезны, но руководить должны женщины. Матриархат — это не тренд, это здравый смысл.</FT_MemeGameplay_FemaleSupremacy>
+	<FT_MemeGameplay_Nudism>Штаны — изобретение слабых. Настоящему колонисту достаточно солнца и уверенности в себе. Зимой сложнее, но вера греет.</FT_MemeGameplay_Nudism>
+	<FT_MemeGameplay_PainIsVirtue>Боль — это просто слабость, покидающая тело. А шрамы — это татуировки от жизни. Бесплатные. Иногда — болезненные. Всегда — духовные.</FT_MemeGameplay_PainIsVirtue>
+	<FT_MemeGameplay_HighLife>Трезвость — это болезнь. К счастью, лекарств полно. Таблетки, дымок, инъекции — каждая доза приближает к нирване. Нарколог? Нет, у нас проповедник.</FT_MemeGameplay_HighLife>
+	<FT_MemeGameplay_Cannibal>Не пропадать же добру. Экологично, экономично, и очередь к холодильнику стала короче. Гости почему-то перестали заходить.</FT_MemeGameplay_Cannibal>
+	<FT_MemeGameplay_NaturePrimacy>Природа дала вам всё — воздух, еду, древесину... стоп, древесину не трогать! Сажайте, поливайте, любуйтесь. А дрова купите у соседей.</FT_MemeGameplay_NaturePrimacy>
+	<FT_MemeGameplay_Blindsight>Зачем глаза, когда можно видеть душой? Да, первое время ваши колонисты будут натыкаться на стены. Но потом... потом они увидят такое, что зрячим и не снилось.</FT_MemeGameplay_Blindsight>
+	<FT_MemeGameplay_Darkness>Ночное зрение — не мутация, а образ жизни. Пока другие спотыкаются в темноте, ваши ребята там танцуют. Ну, или дерутся. Обычно дерутся.</FT_MemeGameplay_Darkness>
+	<FT_MemeGameplay_Tunneler>Окна — архитектурная ошибка. Двери — вынужденная необходимость. Идеальная комната — без того и другого. Зато с тремя слоями гранита вокруг.</FT_MemeGameplay_Tunneler>
+	<FT_MemeGameplay_Proselytizer>Колония-секта? Обижаете. Колония-семья! Просто с обязательным членством. И еженедельными проповедями. И запретом на выход.</FT_MemeGameplay_Proselytizer>
+	<FT_MemeGameplay_Transhumanist>Тело — это черновик. Финальная версия включает титановый скелет, бионические глаза и пару лишних рук. Возврат к заводским настройкам невозможен. И не нужен.</FT_MemeGameplay_Transhumanist>
+	<FT_MemeGameplay_FleshPurity>Никаких имплантов, никаких протезов, никакой синтетики. Тело дано природой и менять его — грех. Единственный апгрейд — хорошая еда и сон.</FT_MemeGameplay_FleshPurity>
+	<FT_MemeGameplay_Guilty>Все виноваты. Всегда. Даже если ничего не сделали — особенно тогда. Чувство вины тут не лечат, а культивируют. Как картошку, только полезнее.</FT_MemeGameplay_Guilty>
+	<FT_MemeGameplay_Bloodfeeding>Кровь — это новое золото. Пленники — это не проблема, а ходячие бутылки. Группа крови? Любая подойдёт.</FT_MemeGameplay_Bloodfeeding>
+	<FT_MemeGameplay_Raider>Дипломатия — для тех, у кого мало патронов. Каждый труп врага — это молитва. Мир — это просто пауза между рейдами.</FT_MemeGameplay_Raider>
+	<FT_MemeGameplay_TreeConnection>Деревья шепчут тем, кто умеет слушать. Медитация, псионика, единение с природой. Хиппи одобряют, но с мечами.</FT_MemeGameplay_TreeConnection>
+	<FT_MemeGameplay_HumanPrimacy>Человек — единственное существо, которое может выковать шедевр, а потом убить им дракона. Мастерство рук — лучшее доказательство превосходства.</FT_MemeGameplay_HumanPrimacy>
+	<FT_MemeGameplay_Ritualist>Тёмные ритуалы — не проблема, а расписание. Понедельник — призыв. Среда — подношение. Пятница — попытка закрыть портал, который открыли в понедельник. Выходные — молитва о том, чтобы оно не вернулось.</FT_MemeGameplay_Ritualist>
+	<FT_MemeGameplay_Individualist>Свобода — высшая ценность. Свобода от собраний, от коллективных решений и от людей, которые лезут с советами. Каждый сам себе начальник, психолог и мотиватор.</FT_MemeGameplay_Individualist>
+	<FT_MemeGameplay_Loyalist>Предательство — худший грех. Верность колонии превыше всего. Дезертиры и перебежчики? Таких здесь не держат.</FT_MemeGameplay_Loyalist>
+	<FT_MemeGameplay_Inhuman>Люди — слабое звено. Машины, мутанты, кто угодно — лишь бы не обычный человек. Пост-гуманизм во всей красе.</FT_MemeGameplay_Inhuman>
+	<FT_MemeGameplay_HAR_Xenophilia>Четыре руки? Добро пожаловать! Хвост? Отлично! Щупальца? Ну... ладно, тоже заходи. Главное — разнообразие.</FT_MemeGameplay_HAR_Xenophilia>
+	<FT_MemeGameplay_HAR_Xenophobia>Свои — это свои. Чужие — это чужие. Простая философия для простых времён. Несогласных провожаем до границы карты. Бесплатно.</FT_MemeGameplay_HAR_Xenophobia>
+	<FT_RancherPassive>Сниженный голод у животных колонии</FT_RancherPassive>
+	<FT_AnimalCompanionPassive>Бонус настроения за приручённых диких животных в колонии</FT_AnimalCompanionPassive>
+	<FT_StartingItems>Предметы на старте:</FT_StartingItems>
+	<FT_MemeGameplay_Rancher>Ферма — сердце колонии. Альпака — национальный герой. Курица — мелкий святой. Корова — практически божество. Люди? Люди тут обслуживающий персонал.</FT_MemeGameplay_Rancher>
+	<FT_MemeGameplay_AnimalPersonhood>Животные — это люди, только лучше. Они не жалуются, не воруют еду из холодильника... хотя нет, воруют. Но мы их всё равно любим.</FT_MemeGameplay_AnimalPersonhood>
+	<FT_MemeGameplay_Collectivist>Один за всех и все за одного. Особенно когда нужно таскать камни. Личные амбиции? Оставьте на входе. Тут важен результат. Общий результат.</FT_MemeGameplay_Collectivist>
+	<FT_FaithGeneration>Генерация веры: {0}</FT_FaithGeneration>
+	<FT_CertaintyPerSeason>Уверенность: {0} / сезон</FT_CertaintyPerSeason>
+	<FT_MemeRoles>Доступные роли:</FT_MemeRoles>
+	<FT_MemeHidden_AnimalPersonhood>Дикие животные не атакуют\nЖивотные приручаются обученными</FT_MemeHidden_AnimalPersonhood>
+	<FT_MemeHidden_Nudism>Без одежды: +10% скорость, -5% порог срыва, -15% входящий урон, -10% шанс отравления</FT_MemeHidden_Nudism>
+	<FT_MemeHidden_NaturePrimacy>+15% к урожаю растений\nВозле базы иногда вырастают дикие ягодные кусты\nДикие ягоды дают чувствительно больший урожай</FT_MemeHidden_NaturePrimacy>
+	<FT_MemeHidden_Proselytizer>Можно обращать пленников в свою веру</FT_MemeHidden_Proselytizer>
+	<FT_MemeHidden_Darkness>В темноте: +15% меткость, +10% уклонение, +5% скорость\nВ глубокой тьме: +25% меткость, +15% уклонение, +10% скорость\nНа свету: -10% меткость, -5% уклонение, -45% зрение</FT_MemeHidden_Darkness>
+	<FT_MemeHidden_Blindsight>Слепые получают истинное зрение (+5% каждые 15 дн.)\nСлепые получают псионику (раз в год)</FT_MemeHidden_Blindsight>
+
+	<FT_MemeHidden_Supremacist></FT_MemeHidden_Supremacist>
+	<FT_MemeMood>Бонус настроения: {0}</FT_MemeMood>
+	<FT_EmptySlot>Свободный слот</FT_EmptySlot>
+	<FT_MemeGoodwill>Ежегодное изменение репутации: {0}</FT_MemeGoodwill>
+	<FT_RaiderFulfilled>Добыча войны</FT_RaiderFulfilled>
+	<FT_RaiderPenalty>Праздные воины</FT_RaiderPenalty>
+	<FT_RaiderTooltip>Рейдов за сезон: {0}/1 за секцию\nПолучение очков:\nнабеги на поселения</FT_RaiderTooltip>
+	<FT_TunnelerFulfilled>Глубокие раскопки</FT_TunnelerFulfilled>
+	<FT_TunnelerTooltip>Блоков выкопано: {0}/20 за секцию\nПолучение очков:\nдобыча руды</FT_TunnelerTooltip>
+	<FT_DarknessFulfilled>Объятия теней</FT_DarknessFulfilled>
+	<FT_DarknessTooltip>Очков тьмы: {0}/10 за секцию\nПолучение очков:\nранения нанесённые в темноте</FT_DarknessTooltip>
+	<FT_DarknessPenalty>Воздействие света</FT_DarknessPenalty>
+	<FT_TunnelerPenalty>Праздные шахтёры</FT_TunnelerPenalty>
+	<FT_RancherPenalty>Застой стада</FT_RancherPenalty>
+	<FT_FleshPurityPenalty>Нечистые тела</FT_FleshPurityPenalty>
+	<FT_RancherFulfilled>Рост стада</FT_RancherFulfilled>
+	<FT_RancherTooltip>Очков скотоводства: {0}/10 за секцию\nПолучение очков:\nприручение и рождение животных\nочки зависят от типа животного</FT_RancherTooltip>
+	<FT_RancherBirths>Животные в этом сезоне:</FT_RancherBirths>
+	<FT_RancherPtsEach>оч.</FT_RancherPtsEach>
+	<FT_ProselytizeFulfilled>Слово разнесено</FT_ProselytizeFulfilled>
+	<FT_ProselytizePenalty>Застой веры</FT_ProselytizePenalty>
+	<FT_ProselytizeTooltip>Очков обращения: {0}/1 за секцию\nПолучение очков:\nкаждое обращение: +2 оч.</FT_ProselytizeTooltip>
+	<FT_TranshumanistPenalty>Неулучшенные тела</FT_TranshumanistPenalty>
+	<FT_TranshumanistFulfilled>Улучшенное человечество</FT_TranshumanistFulfilled>
+	<FT_TranshumanistTooltip>Очков за сезон: с имплантами {0} ({1})  чистых {2}\nПолучение очков:\n+1 оч./день за каждого колониста с имплантами</FT_TranshumanistTooltip>
+	<FT_FleshPurityFulfilled>Чистота тела</FT_FleshPurityFulfilled>
+	<FT_FleshPurityTooltip>Очков за сезон: чистых {0} ({1})  с имплантами {2}\nПолучение очков:\n+1 оч./день за каждого колониста без имплантов</FT_FleshPurityTooltip>
+	<FT_PainIsVirtueFulfilled>Шрамы преданности</FT_PainIsVirtueFulfilled>
+	<FT_PainIsVirtuePenalty>Комфорт без шрамов</FT_PainIsVirtuePenalty>
+	<FT_PainIsVirtueTooltip>Очков за сезон: со шрамами {0} ({1})  без шрамов {2}\nПолучение очков:\n+1 оч./день за каждого колониста со шрамами</FT_PainIsVirtueTooltip>
+	<FT_BlindsightFulfilled>Внутреннее зрение</FT_BlindsightFulfilled>
+	<FT_BlindsightPenalty>Слабость зрячих</FT_BlindsightPenalty>
+	<FT_BlindsightTooltip>Очков за сезон: слепых {0} ({1})  зрячих {2}\nПолучение очков:\n+3 оч./день за каждого слепого колониста\n+1 оч./день за каждого зрячего</FT_BlindsightTooltip>
+	<FT_CannibalFulfilled>Жатва плоти</FT_CannibalFulfilled>
+	<FT_CannibalPenalty>Голод плоти</FT_CannibalPenalty>
+	<FT_CannibalTooltip>Очков каннибализма: {0}/25 за секцию\nПолучение очков:\nразделка человека: +5 оч.\nблюдо с человеч. мясом: +1 оч.</FT_CannibalTooltip>
+	<FT_GuiltyPenalty>Безнаказанные грехи</FT_GuiltyPenalty>
+	<FT_GuiltyFulfilled>Покаяние через боль</FT_GuiltyFulfilled>
+	<FT_GuiltyTooltip>Ран за сезон: {0}\nБаланс помощи: {1}\nИтого: {2}/10 за секцию\n\nПолучение очков:\nранения колонистов: +1\nпомощь оказана: +20\nпомощь отвергнута: -10\nпросящие преданы: -30</FT_GuiltyTooltip>
+	<FT_HighLifeFulfilled>Жизнь под кайфом</FT_HighLifeFulfilled>
+	<FT_HighLifePenalty>Трезвость</FT_HighLifePenalty>
+	<FT_HighLifeTooltip>Очков кайфа: {0}/{1} за секцию\nПолучение очков:\nкаждый наркотик: +1 оч.</FT_HighLifeTooltip>
+	<FT_BloodfeedingFulfilled>Кровавая дань</FT_BloodfeedingFulfilled>
+	<FT_BloodfeedingPenalty>Кровавая жажда</FT_BloodfeedingPenalty>
+	<FT_BloodTooltip>Очков крови: {0}/6 за секцию\nПолучение очков:\nукус: +3 оч.\nпакет крови: +1 оч.</FT_BloodTooltip>
+	<FT_DaysShort>дн.</FT_DaysShort>
+	<FT_CertaintyGained>Убеждённость +{0} для {1} последователей</FT_CertaintyGained>
+	<FT_CertaintyLost>Убеждённость -{0} для {1} иноверцев</FT_CertaintyLost>
+	<FT_DevPointsAlreadyEarned>Очки развития за «{0}» уже получены. Проводите другие типы ритуалов для получения очков.</FT_DevPointsAlreadyEarned>
+	<FT_ConversionNoDevPoints>Конвертация пленника не даёт очков развития при Прозелитизме.</FT_ConversionNoDevPoints>
+	<FT_PastorRole>роль пастора</FT_PastorRole>
+	<FT_TrueSightBonus>Бонус зрения</FT_TrueSightBonus>
+	<FT_TrueSightSight>зрения</FT_TrueSightSight>
+	<FT_TrueSightNext>До адаптации зрения: {0} дн.</FT_TrueSightNext>
+	<FT_PsylinkNext>До нового уровня: {0} дн.</FT_PsylinkNext>
+	<FT_FaithShort>в.</FT_FaithShort>
+	<FT_ShowFaith>Вера</FT_ShowFaith>
+	<FT_ShowCertainty>Уверенность</FT_ShowCertainty>
+	<FT_ConversionBlocked>Мы не можем навязать свою религию силой</FT_ConversionBlocked>
+	<FT_MemeDisabled>Недоступно</FT_MemeDisabled>
+	<FT_CertaintyCurrent>Уверенность</FT_CertaintyCurrent>
+	<FT_CertaintyTotal>Всего</FT_CertaintyTotal>
+	<FT_CertaintyDay>день</FT_CertaintyDay>
+	<FT_ExchangeFaith>Обмен</FT_ExchangeFaith>
+	<FT_ExchangeFaithTip>Обменять {0} очков веры на {1} очко реформации.\nПозволяет изменить идеологию.</FT_ExchangeFaithTip>
+	<FT_FaithExchange>Обмен веры на реформацию</FT_FaithExchange>
+	<FT_FaithExchanged>Вера обменяна на очко реформации!</FT_FaithExchanged>
+	<FT_ButtonFaith>Вера</FT_ButtonFaith>
+	<FT_ButtonNeeds>Потребности</FT_ButtonNeeds>
+	<FT_OpenFaith>Вера</FT_OpenFaith>
+	<FT_OpenDiet>Диета</FT_OpenDiet>
+	<FT_OpenKarma>Карма</FT_OpenKarma>
+	<FT_AnimalTrained>{0} полностью обучен(о) благодаря {1}</FT_AnimalTrained>
+	<FT_AnimalCompanion1>Друзья животные (1-2)</FT_AnimalCompanion1>
+	<FT_AnimalCompanion2>Друзья животные (3-4)</FT_AnimalCompanion2>
+	<FT_AnimalCompanion3>Друзья животные (5-6)</FT_AnimalCompanion3>
+	<FT_AnimalCompanion4>Друзья животные (7-8)</FT_AnimalCompanion4>
+	<FT_AnimalCompanion5>Друзья животные (9+)</FT_AnimalCompanion5>
 </LanguageData>

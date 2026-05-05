@@ -14,13 +14,19 @@ public class Need_Faith : Need
     {
     }
 
+    private bool IsGuest => pawn.Faction != Faction.OfPlayer || pawn.IsQuestLodger();
+
     public override bool ShowOnNeedList
     {
         get
         {
+            if (IsGuest)
+                return false;
             if (!ModsConfig.IdeologyActive)
                 return false;
             if (pawn.Ideo == null)
+                return false;
+            if (pawn.Ideo != Faction.OfPlayer?.ideos?.PrimaryIdeo)
                 return false;
             return true;
         }
@@ -35,7 +41,7 @@ public class Need_Faith : Need
 
     public override void NeedInterval()
     {
-        if (!ShowOnNeedList)
+        if (!ShowOnNeedList || IsGuest)
             return;
 
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();

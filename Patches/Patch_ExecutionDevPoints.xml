@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <!-- Remove development points for executing guilty prisoners -->
+    <Operation Class="PatchOperationRemove">
+        <xpath>/Defs/PreceptDef[defName="Execution_RespectedIfGuilty"]/comps/li[@Class="PreceptComp_DevelopmentPoints"][eventDef="ExecutedPrisonerGuilty"]</xpath>
+    </Operation>
+
+    <!-- Remove development points for executing any prisoner (Required precept) -->
+    <Operation Class="PatchOperationRemove">
+        <xpath>/Defs/PreceptDef[defName="Execution_Required"]/comps/li[@Class="PreceptComp_DevelopmentPoints"][eventDef="ExecutedPrisoner"]</xpath>
+    </Operation>
+</Patch>

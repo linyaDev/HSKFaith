@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-	<FT_Title>Faith History</FT_Title>
+	<FT_Title>Chronicle of Faith</FT_Title>
 	<FT_Gained>Gained</FT_Gained>
 	<FT_Lost>Lost</FT_Lost>
 	<FT_Score>Score</FT_Score>
@@ -9,14 +9,235 @@
 	<FT_DaysAgo>{0}d ago</FT_DaysAgo>
 	<FT_Rituals>Available rituals:</FT_Rituals>
 	<FT_RitualActive>Available ({0}d left)</FT_RitualActive>
+	<FT_RitualActiveHours>Available ({0}h left)</FT_RitualActiveHours>
 	<FT_RitualDone>{0}d ago</FT_RitualDone>
 	<FT_RitualWaiting>Waiting</FT_RitualWaiting>
 	<FT_RitualAvailable>Available</FT_RitualAvailable>
 	<FT_HistoryBtn>History</FT_HistoryBtn>
+	<FT_TabRituals>Rituals</FT_TabRituals>
+	<FT_TabHistory>History</FT_TabHistory>
 	<FT_HistoryTitle>Faith History</FT_HistoryTitle>
 	<FT_Holidays>Holidays:</FT_Holidays>
+	<FT_Important>Important events:</FT_Important>
 	<FT_Situational>Situational rituals:</FT_Situational>
 	<FT_RitualIn>in {0} days</FT_RitualIn>
+	<FT_RitualNext>in {0}d</FT_RitualNext>
+	<FT_RitualCooldown>cooldown {0}d</FT_RitualCooldown>
+	<FT_NoEvents>No events yet</FT_NoEvents>
+	<FT_UnburiedCorpse>Unburied corpse</FT_UnburiedCorpse>
+	<FT_CorpseTooltip>We must care for the dead — even our enemies. The body should be buried or cremated.</FT_CorpseTooltip>
+	<FT_FStage0>godless</FT_FStage0>
+	<FT_FStage1>faithless</FT_FStage1>
+	<FT_FStage2>doubting</FT_FStage2>
+	<FT_FStage3>faithful</FT_FStage3>
+	<FT_FStage4>devout</FT_FStage4>
+	<FT_FStage5>pious</FT_FStage5>
+	<FT_FStage6>holy</FT_FStage6>
+	<FT_FNextLevel>next: {0} pts</FT_FNextLevel>
+	<FT_Forecast>season: {0}</FT_Forecast>
+	<FT_YearTimer>Year ends in {0}d</FT_YearTimer>
+	<FT_YearTimerHours>Year ends in {0}h</FT_YearTimerHours>
+	<FT_YearDecay>decay: {0}</FT_YearDecay>
+	<FT_YearDecayLabel>Yearly decay</FT_YearDecayLabel>
+	<FT_YearlySummary>Year {0} summary</FT_YearlySummary>
+	<FT_SlaveryLabel>{0}: {1} | {2} / {3} points</FT_SlaveryLabel>
+	<FT_Slaves1>{0} slave</FT_Slaves1>
+	<FT_Slaves5>{0} slaves</FT_Slaves5>
+	<FT_SlaveryPenalty>Slave shortage</FT_SlaveryPenalty>
+	<FT_SlaveryFulfilled>Supremacy upheld</FT_SlaveryFulfilled>
+	<FT_SlaveryTooltip>Slavery points: {0}/15 per section\nEarning points:\n+1 pt/day per slave</FT_SlaveryTooltip>
+	<FT_SlaveryDeadline>{0} days left</FT_SlaveryDeadline>
+	<FT_SlaveryDeadlineHours>{0}h left</FT_SlaveryDeadlineHours>
+	<FT_SeasonDeadline>Season ends in {0} days</FT_SeasonDeadline>
+	<FT_SeasonDeadlineHours>Season ends in {0}h</FT_SeasonDeadlineHours>
 	<FT_EarlyPenalty>Faith neglected</FT_EarlyPenalty>
+	<FT_EarlyPenaltyTooltip>No rituals have been performed yet. The colony's faith is weakening due to neglect.</FT_EarlyPenaltyTooltip>
+	<FT_SlaveryPenaltyTooltip>Not enough slaves to satisfy the Supremacist ideology. Each unfilled section costs -2 faith at the end of the season.</FT_SlaveryPenaltyTooltip>
 	<FT_FaithDecay>Faith decay</FT_FaithDecay>
+	<FT_MoteFaith>faith</FT_MoteFaith>
+	<FT_Faith1>faith</FT_Faith1>
+	<FT_Faith24>faith</FT_Faith24>
+	<FT_Faith5>faith</FT_Faith5>
+	<FT_FaithDecayTooltip>Faith fades over time. Colonists need to perform more holidays and rituals to maintain their beliefs.</FT_FaithDecayTooltip>
+	<FT_ClickForDetails>Click for details</FT_ClickForDetails>
+	<FT_MemeEffects>Effects:</FT_MemeEffects>
+	<FT_MemeNoEffects>No active effects</FT_MemeNoEffects>
+	<FT_MemeImpact>Meme impact: {0}</FT_MemeImpact>
+	<FT_MemeRequiredRitual>Required ritual</FT_MemeRequiredRitual>
+	<FT_GoodwillPenalty>Your ideology has worsened relations with all factions ({0} goodwill)</FT_GoodwillPenalty>
+	<FT_GoodwillBonus>Your ideology has improved relations with all factions ({0} goodwill)</FT_GoodwillBonus>
+	<FT_MemeSeasonalFaith>Seasonal faith change: {0}</FT_MemeSeasonalFaith>
+	<FT_FaithPerSeason>Faith per season:</FT_FaithPerSeason>
+	<FT_FaithBase>{0} (base)</FT_FaithBase>
+	<FT_FaithPenaltySections>up to {0} per unfilled section ({1} sections per meme)</FT_FaithPenaltySections>
+	<FT_CollectivistPenalty>Lack of masterwork</FT_CollectivistPenalty>
+	<FT_CollectivistFulfilled>Labor of the people</FT_CollectivistFulfilled>
+	<FT_CollectivistTooltip>Legendary items: {0}/2 per section\nEarning points:\ncrafting legendary quality items</FT_CollectivistTooltip>
+	<FT_ViewVanilla>Vanilla view</FT_ViewVanilla>
+	<FT_ViewCustom>HSK view</FT_ViewCustom>
+	<FT_MemeCatEarly>Faith sources</FT_MemeCatEarly>
+	<FT_MemeCatMid>Useful</FT_MemeCatMid>
+	<FT_MemeCatLate>Faith demanding</FT_MemeCatLate>
+	<FT_MemeCatSituational>Situational</FT_MemeCatSituational>
+	<FT_ForgetMeme>Forget a meme</FT_ForgetMeme>
+	<FT_ForgetMemeDesc>Perform a ritual of forgetting to abandon one of your ideology's memes. Costs 15 faith points.</FT_ForgetMemeDesc>
+	<FT_ForgetMemeWarn>This will cost -15 faith!</FT_ForgetMemeWarn>
+	<FT_Forget>Forget</FT_Forget>
+	<FT_ForgetConfirm>Are you sure you want to forget "{0}"? This will remove the meme from your ideology and cost 15 faith points.</FT_ForgetConfirm>
+	<FT_MemeForgotten>{0} forgotten</FT_MemeForgotten>
+	<FT_MemeForgottenMsg>Your colony has forgotten the meme "{0}". Use ideology reform to choose a new meme.</FT_MemeForgottenMsg>
+	<FT_MaleSupremacyFulfilled>Male dominance</FT_MaleSupremacyFulfilled>
+	<FT_MaleSupremacyPenalty>Male weakness</FT_MaleSupremacyPenalty>
+	<FT_FemaleSupremacyFulfilled>Female dominance</FT_FemaleSupremacyFulfilled>
+	<FT_FemaleSupremacyPenalty>Female weakness</FT_FemaleSupremacyPenalty>
+	<FT_GenderTomorrow>Tomorrow: ♂ +{0}  ♀ +{1}</FT_GenderTomorrow>
+	<FT_GenderTooltip>Earning points:\n+1 pt/day per male/female of their gender\n+3 pt/day per slave of opposite gender</FT_GenderTooltip>
+	<FT_GenderSlaveBonus></FT_GenderSlaveBonus>
+	<FT_NudismPts>nude days</FT_NudismPts>
+	<FT_NudismTooltip>Season points: unclothed {0} ({1})  clothed {2}\nEarning points:\n+1 pt/hour per unclothed colonist</FT_NudismTooltip>
+	<FT_XenophiliaFulfilled>Racial harmony</FT_XenophiliaFulfilled>
+	<FT_XenophiliaPenalty>Racial isolation</FT_XenophiliaPenalty>
+	<FT_Races>races</FT_Races>
+	<FT_XenoTooltip>Season points: other races {0} ({1})  main {2}\nEarning points:\n+1 pt/day per colonist of other race</FT_XenoTooltip>
+	<FT_XenophobiaFulfilled>Racial purity</FT_XenophobiaFulfilled>
+	<FT_XenophobiaPenalty>Racial contamination</FT_XenophobiaPenalty>
+	<FT_XenophobiaTooltip>Season points: main race {0} ({1})  others {2}\nEarning points:\n+1 pt/day per colonist of main race</FT_XenophobiaTooltip>
+	<FT_AnimalPersonhoodFulfilled>Animals respected</FT_AnimalPersonhoodFulfilled>
+	<FT_AnimalPersonhoodPenalty>Too few animal companions</FT_AnimalPersonhoodPenalty>
+	<FT_AnimalPersonhoodTooltip>Animal points: {0}/45 per section\nEarning points:\n+1 pt/day per free colony animal</FT_AnimalPersonhoodTooltip>
+	<FT_AnimalPersonhoodPassive>+30% animal taming</FT_AnimalPersonhoodPassive>
+	<FT_TreePenalty>Trees neglected</FT_TreePenalty>
+	<FT_TreeFulfilled>Trees honored</FT_TreeFulfilled>
+	<FT_TreeSections>Sections: {0}/{1} | Forecast: {2}</FT_TreeSections>
+	<FT_TreeTooltip>Trees planted: {0}\nTrees destroyed: {1}</FT_TreeTooltip>
+	<FT_NatureTooltip>{0}/{1} points this season\nPlanted: {2}  Destroyed: {3}\n\nEarning points:\n+1 per plant sown\n-2 per tree destroyed</FT_NatureTooltip>
+	<FT_ColonistKilled>Colonist killed by own</FT_ColonistKilled>
+	<FT_FaithPerMeme>{0} faith per meme each season</FT_FaithPerMeme>
+	<FT_FaithPerSectionTooltip>{0} faith per meme ({1} memes = {2} total each season)</FT_FaithPerSectionTooltip>
+	<FT_BiomeBonus>Biome bonus:</FT_BiomeBonus>
+	<FT_BiomeBonusList>Biomes: {0}</FT_BiomeBonusList>
+	<FT_MemeConflicts>Conflicts with:</FT_MemeConflicts>
+	<FT_MemeSynergy>Synergy with:</FT_MemeSynergy>
+	<FT_ConflictBullet>✗ {0}</FT_ConflictBullet>
+	<FT_SynergyBullet>✓ {0}</FT_SynergyBullet>
+	<FT_MemeGameplay>Gameplay mechanic:</FT_MemeGameplay>
+	<FT_MemeGameplay_Supremacist>Why work when you can make others do it? Slaves aren't cruelty, they're delegation. Neighbors hate you, but that's their problem.</FT_MemeGameplay_Supremacist>
+	<FT_MemeGameplay_MaleSupremacy>Real men run the colony. Women? Sure, but not too many. Patriarchy — tested through the ages.</FT_MemeGameplay_MaleSupremacy>
+	<FT_MemeGameplay_FemaleSupremacy>Men are useful, but women should be in charge. Matriarchy isn't a trend, it's common sense.</FT_MemeGameplay_FemaleSupremacy>
+	<FT_MemeGameplay_Nudism>Pants are for the weak. A true colonist needs only sunshine and confidence. Winter is trickier, but faith keeps you warm.</FT_MemeGameplay_Nudism>
+	<FT_MemeGameplay_PainIsVirtue>Pain is just weakness leaving the body. And scars are life's tattoos. Free of charge. Sometimes painful. Always spiritual.</FT_MemeGameplay_PainIsVirtue>
+	<FT_MemeGameplay_HighLife>Sobriety is a disease. Luckily, there's plenty of medicine. Pills, smoke, injections — every dose brings you closer to nirvana. Rehab? No, we have a preacher.</FT_MemeGameplay_HighLife>
+	<FT_MemeGameplay_Cannibal>Waste not, want not. Eco-friendly, economical, and the fridge line got shorter. Guests stopped visiting for some reason.</FT_MemeGameplay_Cannibal>
+	<FT_MemeGameplay_NaturePrimacy>Nature gave you everything — air, food, wood... wait, don't touch the wood! Plant, water, admire. Buy firewood from the neighbors.</FT_MemeGameplay_NaturePrimacy>
+	<FT_MemeGameplay_Blindsight>Why have eyes when you can see with your soul? Sure, your colonists will bump into walls at first. But then... then they'll see things the sighted could never dream of.</FT_MemeGameplay_Blindsight>
+	<FT_MemeGameplay_Darkness>Night vision isn't a mutation, it's a lifestyle. While others stumble in the dark, your people dance there. Well, or fight. Usually fight.</FT_MemeGameplay_Darkness>
+	<FT_MemeGameplay_Tunneler>Windows are an architectural mistake. Doors are a forced necessity. The ideal room has neither. Just three layers of granite all around.</FT_MemeGameplay_Tunneler>
+	<FT_MemeGameplay_Proselytizer>Colony-cult? How dare you. Colony-family! Just with mandatory membership. And weekly sermons. And no exit policy.</FT_MemeGameplay_Proselytizer>
+	<FT_MemeGameplay_Transhumanist>The body is a rough draft. The final version includes a titanium skeleton, bionic eyes, and a couple extra arms. Factory reset is impossible. And unnecessary.</FT_MemeGameplay_Transhumanist>
+	<FT_MemeGameplay_FleshPurity>No implants, no prosthetics, no synthetics. The body is given by nature and changing it is a sin. The only upgrade allowed — good food and sleep.</FT_MemeGameplay_FleshPurity>
+	<FT_MemeGameplay_Guilty>Everyone is guilty. Always. Even if they did nothing — especially then. Guilt isn't treated here, it's cultivated. Like potatoes, only more useful.</FT_MemeGameplay_Guilty>
+	<FT_MemeGameplay_Bloodfeeding>Blood is the new gold. Prisoners aren't a problem, they're walking bottles. Blood type? Any will do.</FT_MemeGameplay_Bloodfeeding>
+	<FT_MemeGameplay_Raider>Diplomacy is for those with few bullets. Every enemy corpse is a prayer. Peace is just a pause between raids.</FT_MemeGameplay_Raider>
+	<FT_MemeGameplay_TreeConnection>Trees whisper to those who listen. Meditation, psionics, unity with nature. Hippies approve, but with swords.</FT_MemeGameplay_TreeConnection>
+	<FT_MemeGameplay_HumanPrimacy>Humans are the only beings that can forge a masterpiece and then slay a dragon with it. The skill of hands is the ultimate proof of superiority.</FT_MemeGameplay_HumanPrimacy>
+	<FT_MemeGameplay_Ritualist>Dark rituals aren't a problem, they're a schedule. Monday — summoning. Wednesday — offering. Friday — trying to close the portal opened on Monday. Weekends — praying it doesn't come back.</FT_MemeGameplay_Ritualist>
+	<FT_MemeGameplay_Individualist>Freedom is the highest value. Freedom from meetings, collective decisions, and people who offer unsolicited advice. Everyone is their own boss, therapist, and motivator.</FT_MemeGameplay_Individualist>
+	<FT_MemeGameplay_Loyalist>Betrayal is the worst sin. Loyalty to the colony above all. Deserters and defectors? We don't keep those here.</FT_MemeGameplay_Loyalist>
+	<FT_MemeGameplay_Inhuman>Humans are the weak link. Machines, mutants, whatever — as long as it's not a regular human. Post-humanism at its finest.</FT_MemeGameplay_Inhuman>
+	<FT_MemeGameplay_HAR_Xenophilia>Four arms? Welcome! Tail? Great! Tentacles? Well... okay, come in too. Diversity is key.</FT_MemeGameplay_HAR_Xenophilia>
+	<FT_MemeGameplay_HAR_Xenophobia>Ours is ours. Theirs is theirs. Simple philosophy for simple times. Dissenters get escorted to the map edge. Free of charge.</FT_MemeGameplay_HAR_Xenophobia>
+	<FT_RancherPassive>Reduced hunger for colony animals</FT_RancherPassive>
+	<FT_AnimalCompanionPassive>Mood bonus for tamed wild animals in colony</FT_AnimalCompanionPassive>
+	<FT_StartingItems>Starting items:</FT_StartingItems>
+	<FT_MemeGameplay_Rancher>The farm is the heart of the colony. Alpaca — national hero. Chicken — minor saint. Cow — practically a deity. People? People here are just the support staff.</FT_MemeGameplay_Rancher>
+	<FT_MemeGameplay_AnimalPersonhood>Animals are people, only better. They don't complain, don't steal food from the fridge... well actually, they do steal. But we love them anyway.</FT_MemeGameplay_AnimalPersonhood>
+	<FT_MemeGameplay_Collectivist>One for all and all for one. Especially when hauling rocks. Personal ambitions? Leave them at the door. What matters here is the result. The collective result.</FT_MemeGameplay_Collectivist>
+	<FT_FaithGeneration>Faith generation: {0}</FT_FaithGeneration>
+	<FT_CertaintyPerSeason>Certainty: {0} / season</FT_CertaintyPerSeason>
+	<FT_MemeRoles>Available roles:</FT_MemeRoles>
+	<FT_MemeHidden_AnimalPersonhood>Wild animals won't attack\nAnimals are tamed already trained</FT_MemeHidden_AnimalPersonhood>
+	<FT_MemeHidden_Nudism>Unclothed: +10% speed, -5% mental break threshold, -15% incoming damage, -10% food poison chance</FT_MemeHidden_Nudism>
+	<FT_MemeHidden_NaturePrimacy>+15% plant harvest yield\nWild berry bushes occasionally grow near base\nWild berries yield significantly more</FT_MemeHidden_NaturePrimacy>
+	<FT_MemeHidden_Proselytizer>Can convert prisoners to your faith</FT_MemeHidden_Proselytizer>
+	<FT_MemeHidden_Darkness>In darkness: +15% accuracy, +10% dodge, +5% speed\nIn deep darkness: +25% accuracy, +15% dodge, +10% speed\nIn light: -10% accuracy, -5% dodge, -45% sight</FT_MemeHidden_Darkness>
+	<FT_MemeHidden_Blindsight>Blind colonists gain true sight (+5% every 15 days)\nBlind colonists gain psylink (once per year)</FT_MemeHidden_Blindsight>
+
+	<FT_MemeHidden_Supremacist></FT_MemeHidden_Supremacist>
+	<FT_MemeMood>Mood bonus: {0}</FT_MemeMood>
+	<FT_EmptySlot>Free slot</FT_EmptySlot>
+	<FT_MemeGoodwill>Yearly goodwill change: {0}</FT_MemeGoodwill>
+	<FT_RaiderFulfilled>Spoils of war</FT_RaiderFulfilled>
+	<FT_RaiderPenalty>Idle warriors</FT_RaiderPenalty>
+	<FT_RaiderTooltip>Raids this season: {0}/1 per section\nEarning points:\nraiding settlements</FT_RaiderTooltip>
+	<FT_TunnelerFulfilled>Deep excavation</FT_TunnelerFulfilled>
+	<FT_TunnelerTooltip>Blocks mined: {0}/20 per section\nEarning points:\nmining ore</FT_TunnelerTooltip>
+	<FT_DarknessFulfilled>Embrace of shadows</FT_DarknessFulfilled>
+	<FT_DarknessTooltip>Darkness points: {0}/10 per section\nEarning points:\ndamage dealt in darkness</FT_DarknessTooltip>
+	<FT_DarknessPenalty>Light exposure</FT_DarknessPenalty>
+	<FT_TunnelerPenalty>Idle miners</FT_TunnelerPenalty>
+	<FT_RancherPenalty>Stagnant herd</FT_RancherPenalty>
+	<FT_FleshPurityPenalty>Impure bodies</FT_FleshPurityPenalty>
+	<FT_RancherFulfilled>Herd growth</FT_RancherFulfilled>
+	<FT_RancherTooltip>Ranching points: {0}/10 per section\nEarning points:\ntaming and birth of animals\npoints depend on animal type</FT_RancherTooltip>
+	<FT_RancherBirths>Animals this season:</FT_RancherBirths>
+	<FT_RancherPtsEach>pts each</FT_RancherPtsEach>
+	<FT_ProselytizeFulfilled>Word spread</FT_ProselytizeFulfilled>
+	<FT_ProselytizePenalty>Stagnant faith</FT_ProselytizePenalty>
+	<FT_ProselytizeTooltip>Conversion points: {0}/1 per section\nEarning points:\neach conversion: +2 pts</FT_ProselytizeTooltip>
+	<FT_TranshumanistPenalty>Unenhanced bodies</FT_TranshumanistPenalty>
+	<FT_TranshumanistFulfilled>Enhanced humanity</FT_TranshumanistFulfilled>
+	<FT_TranshumanistTooltip>Season points: implanted {0} ({1})  pure {2}\nEarning points:\n+1 pt/day per implanted colonist</FT_TranshumanistTooltip>
+	<FT_FleshPurityFulfilled>Body purity</FT_FleshPurityFulfilled>
+	<FT_FleshPurityTooltip>Season points: pure {0} ({1})  implanted {2}\nEarning points:\n+1 pt/day per colonist without implants</FT_FleshPurityTooltip>
+	<FT_PainIsVirtueFulfilled>Scarred devotion</FT_PainIsVirtueFulfilled>
+	<FT_PainIsVirtuePenalty>Unscarred comfort</FT_PainIsVirtuePenalty>
+	<FT_PainIsVirtueTooltip>Season points: scarred {0} ({1})  unscarred {2}\nEarning points:\n+1 pt/day per scarred colonist</FT_PainIsVirtueTooltip>
+	<FT_BlindsightFulfilled>Inner vision</FT_BlindsightFulfilled>
+	<FT_BlindsightPenalty>Sighted weakness</FT_BlindsightPenalty>
+	<FT_BlindsightTooltip>Season points: blind {0} ({1})  sighted {2}\nEarning points:\n+3 pt/day per blind colonist\n+1 pt/day per sighted colonist</FT_BlindsightTooltip>
+	<FT_CannibalFulfilled>Flesh harvest</FT_CannibalFulfilled>
+	<FT_CannibalPenalty>Flesh hunger</FT_CannibalPenalty>
+	<FT_CannibalTooltip>Cannibalism points: {0}/25 per section\nEarning points:\nbutchering human: +5 pts\nhuman meat meal: +1 pt</FT_CannibalTooltip>
+	<FT_GuiltyPenalty>Unpunished sins</FT_GuiltyPenalty>
+	<FT_GuiltyFulfilled>Penance through pain</FT_GuiltyFulfilled>
+	<FT_GuiltyTooltip>Wounds this season: {0}\nCharity balance: {1}\nTotal: {2}/10 per section\n\nEarning points:\ncolonist injuries: +1\nhelp given: +20\nhelp refused: -10\nhelp betrayed: -30</FT_GuiltyTooltip>
+	<FT_HighLifeFulfilled>High life</FT_HighLifeFulfilled>
+	<FT_HighLifePenalty>Sobriety</FT_HighLifePenalty>
+	<FT_HighLifeTooltip>Drug points: {0}/{1} per section\nEarning points:\neach drug consumed: +1 pt</FT_HighLifeTooltip>
+	<FT_BloodfeedingFulfilled>Blood tribute</FT_BloodfeedingFulfilled>
+	<FT_BloodfeedingPenalty>Blood thirst</FT_BloodfeedingPenalty>
+	<FT_BloodTooltip>Blood points: {0}/6 per section\nEarning points:\nbite: +3 pts\nhemogen pack: +1 pt</FT_BloodTooltip>
+	<FT_DaysShort>days</FT_DaysShort>
+	<FT_CertaintyGained>Certainty +{0} for {1} followers</FT_CertaintyGained>
+	<FT_CertaintyLost>Certainty -{0} for {1} non-believers</FT_CertaintyLost>
+	<FT_DevPointsAlreadyEarned>Development points for "{0}" already earned. Try other ritual types to earn more.</FT_DevPointsAlreadyEarned>
+	<FT_ConversionNoDevPoints>Prisoner conversion does not grant development points with Proselytizer.</FT_ConversionNoDevPoints>
+	<FT_PastorRole>pastor role</FT_PastorRole>
+	<FT_TrueSightBonus>Sight bonus</FT_TrueSightBonus>
+	<FT_TrueSightSight>sight</FT_TrueSightSight>
+	<FT_TrueSightNext>Until sight adaptation: {0} days</FT_TrueSightNext>
+	<FT_PsylinkNext>Until next level: {0} days</FT_PsylinkNext>
+	<FT_FaithShort>f.</FT_FaithShort>
+	<FT_ShowFaith>Faith</FT_ShowFaith>
+	<FT_ShowCertainty>Certainty</FT_ShowCertainty>
+	<FT_ConversionBlocked>We cannot force our religion upon others</FT_ConversionBlocked>
+	<FT_MemeDisabled>Unavailable</FT_MemeDisabled>
+	<FT_CertaintyCurrent>Certainty</FT_CertaintyCurrent>
+	<FT_CertaintyTotal>Total</FT_CertaintyTotal>
+	<FT_CertaintyDay>day</FT_CertaintyDay>
+	<FT_ExchangeFaith>Exchange</FT_ExchangeFaith>
+	<FT_ExchangeFaithTip>Exchange {0} faith points for {1} reformation point.\nAllows changing your ideology.</FT_ExchangeFaithTip>
+	<FT_FaithExchange>Faith exchanged for reformation</FT_FaithExchange>
+	<FT_FaithExchanged>Faith exchanged for reformation point!</FT_FaithExchanged>
+	<FT_ButtonFaith>Faith</FT_ButtonFaith>
+	<FT_ButtonNeeds>Needs</FT_ButtonNeeds>
+	<FT_OpenFaith>Faith</FT_OpenFaith>
+	<FT_OpenDiet>Diet</FT_OpenDiet>
+	<FT_OpenKarma>Karma</FT_OpenKarma>
+	<FT_AnimalTrained>{0} fully trained by {1}</FT_AnimalTrained>
+	<FT_AnimalCompanion1>Animal companions (1-2)</FT_AnimalCompanion1>
+	<FT_AnimalCompanion2>Animal companions (3-4)</FT_AnimalCompanion2>
+	<FT_AnimalCompanion3>Animal companions (5-6)</FT_AnimalCompanion3>
+	<FT_AnimalCompanion4>Animal companions (7-8)</FT_AnimalCompanion4>
+	<FT_AnimalCompanion5>Animal companions (9+)</FT_AnimalCompanion5>
 </LanguageData>

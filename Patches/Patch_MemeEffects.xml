@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <!-- Supremacist: late, -3/season, -2/unfilled, 0/filled -->
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Supremacist"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <statOffsets>
+                        <MeleeHitChance>0.25</MeleeHitChance>
+                        <ShootingAccuracyPawn>0.25</ShootingAccuracyPawn>
+                        <SuppressionPower>0.10</SuppressionPower>
+                        <SlaveSuppressionFallRate>-0.10</SlaveSuppressionFallRate>
+                    </statOffsets>
+                    <seasonalFaithChange>-3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <memeGroup>late</memeGroup>
+                    <conflictingMemes>
+                        <li>Loyalist</li>
+                        <li>Guilty</li>
+                        <li>Individualist</li>
+                    </conflictingMemes>
+                    <synergyMemes>
+                        <li>Bloodfeeding</li>
+                        <li>MaleSupremacy</li>
+                        <li>FemaleSupremacy</li>
+                        <li>Cannibal</li>
+                    </synergyMemes>
+                    <certaintyPerSeason>-0.09</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+
+    <!-- Collectivist: mid -->
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Collectivist"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <statOffsets>
+                        <WorkSpeedGlobal>0.25</WorkSpeedGlobal>
+                        <ConstructionSpeed>0.20</ConstructionSpeed>
+                        <GlobalLearningFactor>0.05</GlobalLearningFactor>
+                    </statOffsets>
+                    <seasonalFaithChange>-2</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <memeGroup>mid</memeGroup>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+
+    <!-- ==================== EARLY (+3/season, +1/filled, -2/unfilled) ==================== -->
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="MaleSupremacy"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <certaintyPerSeason>0.09</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="FemaleSupremacy"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <certaintyPerSeason>0.09</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Nudism"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <certaintyPerSeason>0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="PainIsVirtue"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Blindsight"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>mid</memeGroup>
+                    <seasonalFaithChange>-2</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="HighLife"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                    <startingItems>
+                        <PsychoidLeaves>300</PsychoidLeaves>
+                        <Seed_Psychoid>20</Seed_Psychoid>
+                        <SmokeleafLeaves>300</SmokeleafLeaves>
+                        <Seed_Smokeleaf>20</Seed_Smokeleaf>
+                        <Berserk_herb>10</Berserk_herb>
+                    </startingItems>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="HighLife"]</xpath>
+        <value>
+            <startingResearchProjects>
+                <li>Drugs_A1</li>
+                <li>Drug_plants_A1</li>
+            </startingResearchProjects>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Cannibal"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="AnimalPersonhood"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <statOffsets>
+                        <TameAnimalChance>0.30</TameAnimalChance>
+                    </statOffsets>
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <passiveEffect>FT_AnimalCompanionPassive</passiveEffect>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="NaturePrimacy"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <statOffsets>
+                        <PlantHarvestYield>0.15</PlantHarvestYield>
+                    </statOffsets>
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>2</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                    <startingItems>
+                        <Seed_TreeWillow>15</Seed_TreeWillow>
+                        <Seed_GrayPine>15</Seed_GrayPine>
+                        <Seed_TreeCecropia>15</Seed_TreeCecropia>
+                    </startingItems>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="NaturePrimacy"]</xpath>
+        <value>
+            <startingResearchProjects>
+                <li>Flowers_A1</li>
+                <li>Flowers_A2</li>
+                <li>TreeSowing</li>
+            </startingResearchProjects>
+        </value>
+    </Operation>
+
+    <!-- ==================== MID (-2/season, +1/filled, -2/unfilled) ==================== -->
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="FleshPurity"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>mid</memeGroup>
+                    <statOffsets>
+                        <ImmunityGainSpeed>0.25</ImmunityGainSpeed>
+                        <MedicalSurgerySuccessChance>0.30</MedicalSurgerySuccessChance>
+                    </statOffsets>
+                    <seasonalFaithChange>-2</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Darkness"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Proselytizer"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>mid</memeGroup>
+                    <seasonalFaithChange>-2</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <certaintyPerSeason>0.30</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Rancher"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>mid</memeGroup>
+                    <seasonalFaithChange>-2</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <passiveEffect>FT_RancherPassive</passiveEffect>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Tunneler"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>mid</memeGroup>
+                    <seasonalFaithChange>-2</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <statFactors>
+                        <MiningSpeed>1.3</MiningSpeed>
+                    </statFactors>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="TreeConnection"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>mid</memeGroup>
+                    <seasonalFaithChange>-2</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <biomeStatBonuses>
+                        <li>
+                            <biomes>
+                                <li>TemperateForest</li>
+                                <li>BorealForest</li>
+                                <li>TropicalRainforest</li>
+                                <li>TropicalSwamp</li>
+                                <li>TemperateSwamp</li>
+                                <li>DenseTemperateForest</li>
+                                <li>DenseBorealForest</li>
+                            </biomes>
+                            <statOffsets>
+                                <MeleeHitChance>0.20</MeleeHitChance>
+                                <ShootingAccuracyPawn>0.20</ShootingAccuracyPawn>
+                            </statOffsets>
+                        </li>
+                    </biomeStatBonuses>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Ritualist"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>mid</memeGroup>
+                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+
+    <!-- ==================== LATE (-3/season, 0/filled, -2/unfilled) ==================== -->
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="HumanPrimacy"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>late</memeGroup>
+                    <seasonalFaithChange>-3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <certaintyPerSeason>-0.09</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Raider"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>late</memeGroup>
+                    <seasonalFaithChange>-3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <certaintyPerSeason>-0.09</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Transhumanist"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>late</memeGroup>
+                    <statOffsets>
+                        <ResearchSpeed>0.30</ResearchSpeed>
+                        <MedicalSurgerySuccessChance>0.20</MedicalSurgerySuccessChance>
+                    </statOffsets>
+                    <seasonalFaithChange>-3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <certaintyPerSeason>-0.09</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Guilty"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>late</memeGroup>
+                    <statOffsets>
+                        <IncomingDamageFactor>-0.20</IncomingDamageFactor>
+                    </statOffsets>
+                    <seasonalFaithChange>-3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-2</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
+                    <certaintyPerSeason>-0.09</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Individualist"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>mid</memeGroup>
+                    <statOffsets>
+                        <GlobalLearningFactor>0.30</GlobalLearningFactor>
+                        <TradePriceImprovement>0.20</TradePriceImprovement>
+                    </statOffsets>
+                    <seasonalFaithChange>1</seasonalFaithChange>
+                    <certaintyPerSeason>0.12</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Loyalist"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>late</memeGroup>
+                    <seasonalFaithChange>-3</seasonalFaithChange>
+                    <moodBonus>10</moodBonus>
+                    <certaintyPerSeason>0.18</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/MemeDef[defName="Inhuman"]</xpath>
+        <value>
+            <modExtensions>
+                <li Class="HSKFaithTracker.MemeEffectExtension">
+                    <memeGroup>late</memeGroup>
+                    <seasonalFaithChange>-3</seasonalFaithChange>
+                    <certaintyPerSeason>-0.09</certaintyPerSeason>
+                </li>
+            </modExtensions>
+        </value>
+    </Operation>
+
+    <!-- Bloodfeeding: early if Biotech -->
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Biotech</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/MemeDef[defName="Bloodfeeding"]</xpath>
+            <value>
+                <modExtensions>
+                    <li Class="HSKFaithTracker.MemeEffectExtension">
+                        <memeGroup>early</memeGroup>
+                        <seasonalFaithChange>3</seasonalFaithChange>
+                        <faithPerSection>1</faithPerSection>
+                        <penaltyPerSection>-1</penaltyPerSection>
+                        <certaintyPerSeason>0.06</certaintyPerSeason>
+                    </li>
+                </modExtensions>
+            </value>
+        </match>
+    </Operation>
+
+    <!-- HAR memes: early if Humanoid Alien Races -->
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Humanoid Alien Races</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <operations>
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs/MemeDef[defName="HAR_Xenophilia"]</xpath>
+                    <value>
+                        <modExtensions>
+                            <li Class="HSKFaithTracker.MemeEffectExtension">
+                                <memeGroup>early</memeGroup>
+                                <seasonalFaithChange>3</seasonalFaithChange>
+                                <faithPerSection>1</faithPerSection>
+                                <penaltyPerSection>-1</penaltyPerSection>
+                                <certaintyPerSeason>0.09</certaintyPerSeason>
+                            </li>
+                        </modExtensions>
+                    </value>
+                </li>
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs/MemeDef[defName="HAR_Xenophobia"]</xpath>
+                    <value>
+                        <modExtensions>
+                            <li Class="HSKFaithTracker.MemeEffectExtension">
+                                <memeGroup>early</memeGroup>
+                                <seasonalFaithChange>3</seasonalFaithChange>
+                                <faithPerSection>1</faithPerSection>
+                                <penaltyPerSection>-1</penaltyPerSection>
+                                <certaintyPerSeason>0.09</certaintyPerSeason>
+                            </li>
+                        </modExtensions>
+                    </value>
+                </li>
+            </operations>
+        </match>
+    </Operation>
+
+    <!-- Supremacist: add HAR_Xenophilia conflict if HAR loaded -->
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Humanoid Alien Races</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/MemeDef[defName="Supremacist"]/modExtensions/li[@Class="HSKFaithTracker.MemeEffectExtension"]/conflictingMemes</xpath>
+            <value>
+                <li>HAR_Xenophilia</li>
+            </value>
+        </match>
+    </Operation>
+</Patch>

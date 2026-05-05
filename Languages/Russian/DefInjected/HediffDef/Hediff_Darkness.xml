@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <FT_DarknessBonus.label>сила тьмы</FT_DarknessBonus.label>
+    <FT_DarknessBonus.description>Бой в темноте даёт бонус к ближнему и дальнему бою.</FT_DarknessBonus.description>
+    <FT_DeepDarknessBonus.label>глубокая тьма</FT_DeepDarknessBonus.label>
+    <FT_DeepDarknessBonus.description>Глубокая тьма наполняет последователя силой. Боевые способности значительно повышены.</FT_DeepDarknessBonus.description>
+    <FT_LightWeakness.label>проклятие света</FT_LightWeakness.label>
+    <FT_LightWeakness.description>Яркий свет ослепляет последователя тьмы. Боевые способности снижены.</FT_LightWeakness.description>
+</LanguageData>

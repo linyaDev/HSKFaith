@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ThoughtDef>
+        <defName>FT_FleshPurityMood</defName>
+        <thoughtClass>Thought_Situational</thoughtClass>
+        <workerClass>HSKFaithTracker.ThoughtWorker_FleshPurity</workerClass>
+        <validWhileDespawned>false</validWhileDespawned>
+        <stages>
+            <li>
+                <label>pure body</label>
+                <description>My body is untouched by artificial modifications. As it should be.</description>
+                <baseMoodEffect>10</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+</Defs>

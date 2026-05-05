@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!-- Rebalance Ideology apparel: align armor with comparable HSK items,
+	     add MentalBreakThreshold -0.02 to all ideo clothing -->
+
+
+	<!-- ========== Body: Strap ========== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_BodyStrap"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.55</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_BodyStrap"]/equippedStatOffsets</xpath>
+		<value>
+			<equippedStatOffsets>
+				<SlaveSuppressionOffset>0.15</SlaveSuppressionOffset>
+				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+			</equippedStatOffsets>
+		</value>
+	</Operation>
+
+
+	<!-- ========== Body: Burka ========== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Burka"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.85</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Burka"]/equippedStatOffsets</xpath>
+		<value>
+			<equippedStatOffsets>
+				<MoveSpeed>-0.4</MoveSpeed>
+				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+			</equippedStatOffsets>
+		</value>
+	</Operation>
+
+
+	<!-- ========== Body: Robe (has equippedStatOffsets from HSK def) ========== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Robe"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>1.0</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Apparel_Robe"]/equippedStatOffsets</xpath>
+		<value>
+			<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+		</value>
+	</Operation>
+
+
+	<!-- ========== Body: Blindfold (no equippedStatOffsets) ========== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Blindfold"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.16</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Apparel_Blindfold"]</xpath>
+		<value>
+			<equippedStatOffsets>
+				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+			</equippedStatOffsets>
+		</value>
+	</Operation>
+
+
+	<!-- ========== Headgear without equippedStatOffsets (HatMakeableBase -> ApparelBase) ========== -->
+	<!-- Headwrap, Broadwrap, VisageMask, Slicecap, Tailcap, Shadecone, Flophat -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Headwrap"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.20</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Broadwrap"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.48</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_VisageMask"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.88</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_AuthorityCap"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.40</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_AuthorityCap"]/equippedStatOffsets</xpath>
+		<value>
+			<equippedStatOffsets>
+				<SuppressionPower>0.1</SuppressionPower>
+				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+			</equippedStatOffsets>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Tailcap"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.24</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Shadecone"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.52</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Flophat"]/statBases/StuffEffectMultiplierArmor</xpath>
+		<value>
+			<StuffEffectMultiplierArmor>0.32</StuffEffectMultiplierArmor>
+		</value>
+	</Operation>
+
+	<!-- Add MentalBreakThreshold to all headgear that has no equippedStatOffsets -->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Apparel_Headwrap" or defName="Apparel_Broadwrap" or defName="Apparel_VisageMask" or defName="Apparel_Slicecap" or defName="Apparel_Tailcap" or defName="Apparel_Shadecone" or defName="Apparel_Flophat" or defName="Apparel_TortureCrown"]</xpath>
+		<value>
+			<equippedStatOffsets>
+				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+			</equippedStatOffsets>
+		</value>
+	</Operation>
+
+
+	<!-- ========== Head: Collar (slave — no MentalBreakThreshold, armor unchanged) ========== -->
+
+</Patch>

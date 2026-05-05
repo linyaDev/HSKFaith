@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <!-- Reduce role activation from 3 believers to 1 -->
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/PreceptDef[activationBelieverCount=3]/activationBelieverCount</xpath>
+        <value>
+            <activationBelieverCount>2</activationBelieverCount>
+        </value>
+    </Operation>
+</Patch>
