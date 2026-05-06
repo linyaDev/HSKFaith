@@ -6,11 +6,25 @@ using Verse;
 
 namespace HSKFaithTracker;
 
+// Allow ability-based conversion to bypass Proselytizer check
+[HarmonyPatch(typeof(CompAbilityEffect_Convert), nameof(CompAbilityEffect_Convert.Apply))]
+public static class Patch_AbilityConvertFlag
+{
+    public static bool abilityConversion;
+
+    public static void Prefix() => abilityConversion = true;
+    public static void Postfix() => abilityConversion = false;
+}
+
 [HarmonyPatch(typeof(Pawn_IdeoTracker), nameof(Pawn_IdeoTracker.IdeoConversionAttempt))]
 public static class Patch_IdeoConversion
 {
     public static bool Prefix(Pawn_IdeoTracker __instance, float certaintyReduction, Ideo initiatorIdeo, ref bool __result)
     {
+        // Ability conversion (e.g. Moralist role) always allowed
+        if (Patch_AbilityConvertFlag.abilityConversion)
+            return true;
+
         // If initiator's ideology doesn't have Proselytizer meme — block conversion
         if (initiatorIdeo?.memes == null || !initiatorIdeo.memes.Any(m => m.defName == "Proselytizer"))
         {
