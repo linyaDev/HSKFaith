@@ -25,7 +25,7 @@ public class MainButtonWorker_Needs : MainButtonWorker
     {
         get
         {
-            karmaLoaded ??= ModsConfig.IsActive("linya.karmahsk");
+            karmaLoaded ??= ModsConfig.IsActive("linya.hskkarma");
             return karmaLoaded.Value;
         }
     }
