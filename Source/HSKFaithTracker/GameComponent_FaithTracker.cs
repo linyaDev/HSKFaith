@@ -1369,7 +1369,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (sections <= 0 || total <= 0) return;
 
         float ratio = (float)scarredPoints / total;
-        int filled = System.Math.Min((int)(ratio * sections * 2), sections);
+        int filled = System.Math.Min((int)(ratio * sections), sections);
         int unfilled = sections - filled;
         RecordSections("PainIsVirtue", filled, unfilled);
     }
