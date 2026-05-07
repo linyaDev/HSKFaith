@@ -2036,7 +2036,7 @@ Text.Anchor = TextAnchor.MiddleRight;
         int sections = comp.MemeCount;
 
         float ratio = total > 0 ? (float)comp.scarredPoints / total : 0f;
-        int filledSec = total > 0 ? System.Math.Min((int)(ratio * sections * 2), sections) : 0;
+        int filledSec = total > 0 ? System.Math.Min((int)(ratio * sections), sections) : 0;
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filledSec, sections);
 
