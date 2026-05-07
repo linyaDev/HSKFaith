@@ -991,7 +991,7 @@ Text.Anchor = TextAnchor.MiddleRight;
 
         // For xenophilia: other races should dominate
         float ratio = total > 0 ? (float)comp.xenoPhiliaOtherPoints / total : 0f;
-        int filledSec = total > 0 ? System.Math.Min((int)(ratio * sections * 2), sections) : 0;
+        int filledSec = GameComponent_FaithTracker.FilledFromRatio(ratio, sections);
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filledSec, sections);
 
@@ -1102,7 +1102,7 @@ Text.Anchor = TextAnchor.MiddleRight;
         int sections = comp.MemeCount;
 
         float ratio = total > 0 ? (float)comp.xenoMainRacePoints / total : 0.5f;
-        int filledSec = total > 0 ? System.Math.Min((int)(ratio * sections * 2), sections) : 0;
+        int filledSec = GameComponent_FaithTracker.FilledFromRatio(ratio, sections);
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filledSec, sections);
 
@@ -1821,7 +1821,7 @@ Text.Anchor = TextAnchor.MiddleRight;
         int sections = comp.MemeCount;
 
         float ratio = total > 0 ? (float)comp.transImplantedPoints / total : 0f;
-        int filledSec = total > 0 ? System.Math.Min((int)(ratio * sections * 2), sections) : 0;
+        int filledSec = GameComponent_FaithTracker.FilledFromRatio(ratio, sections);
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filledSec, sections);
 
@@ -1928,7 +1928,7 @@ Text.Anchor = TextAnchor.MiddleRight;
         int sections = comp.MemeCount;
 
         float ratio = total > 0 ? (float)comp.purePoints / total : 0f;
-        int filledSec = total > 0 ? System.Math.Min((int)(ratio * sections * 2), sections) : 0;
+        int filledSec = GameComponent_FaithTracker.FilledFromRatio(ratio, sections);
         int unfilled = sections - filledSec;
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filledSec, sections);
@@ -2147,7 +2147,7 @@ Text.Anchor = TextAnchor.MiddleRight;
         int sections = comp.MemeCount;
 
         float ratio = total > 0 ? (float)comp.blindPoints / total : 0f;
-        int filledSec = total > 0 ? System.Math.Min((int)(ratio * sections * 2), sections) : 0;
+        int filledSec = GameComponent_FaithTracker.FilledFromRatio(ratio, sections);
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filledSec, sections);
 
@@ -2738,7 +2738,7 @@ Text.Anchor = TextAnchor.MiddleRight;
 
         int sections = comp.MemeCount;
         float treeRatio = total > 0 ? (float)planted / total : 0.5f;
-        int filledSec = total > 0 ? System.Math.Min((int)(treeRatio * sections * 2), sections) : sections;
+        int filledSec = total > 0 ? GameComponent_FaithTracker.FilledFromRatio(treeRatio, sections) : sections;
         int unfilledSec = sections - filledSec;
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filledSec, sections);
@@ -2956,7 +2956,7 @@ Text.Anchor = TextAnchor.MiddleRight;
         int sections = comp.MemeCount;
         int total = comp.nudismPoints + comp.nudismDressedPoints;
         float ratio = total > 0 ? (float)comp.nudismPoints / total : 0f;
-        int filledSections = total > 0 ? System.Math.Min((int)(ratio * sections * 2), sections) : 0;
+        int filledSections = GameComponent_FaithTracker.FilledFromRatio(ratio, sections);
         int forecast = ComputeForecast(ext, filledSections, sections);
 
         DrawForecastLabel(inRect, y, forecastW, blockH, forecast);

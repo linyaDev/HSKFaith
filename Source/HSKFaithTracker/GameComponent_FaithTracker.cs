@@ -263,6 +263,11 @@ public class GameComponent_FaithTracker : GameComponent
         return Faction.OfPlayer?.ideos?.PrimaryIdeo?.memes;
     }
 
+    public static int FilledFromRatio(float ratio, int sections)
+    {
+        return sections > 0 ? System.Math.Min((int)(ratio * sections), sections) : 0;
+    }
+
     private void RecordSections(string memeName, int filled, int unfilled)
     {
         var memes = GetPlayerMemes();
@@ -1167,7 +1172,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (sections <= 0) return;
 
         float ratio = (float)dominant / total;
-        int filled = System.Math.Min((int)(ratio * sections * 2), sections);
+        int filled = FilledFromRatio(ratio, sections);
 
         int unfilled = sections - filled;
         string memeName = isMale ? "MaleSupremacy" : "FemaleSupremacy";
@@ -1185,7 +1190,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (total > 0)
         {
             float ratio = (float)treesSown / total;
-            int filled = System.Math.Min((int)(ratio * sections * 2), sections);
+            int filled = FilledFromRatio(ratio, sections);
             int unfilled = sections - filled;
             RecordSections("TreeConnection", filled, unfilled);
         }
@@ -1225,7 +1230,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (sections <= 0 || total <= 0) return;
 
         float ratio = (float)xenoPhiliaOtherPoints / total;
-        int filled = System.Math.Min((int)(ratio * sections * 2), sections);
+        int filled = FilledFromRatio(ratio, sections);
         int unfilled = sections - filled;
         RecordSections("HAR_Xenophilia", filled, unfilled);
     }
@@ -1238,7 +1243,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (sections <= 0 || total <= 0) return;
 
         float ratio = (float)xenoMainRacePoints / total;
-        int filled = System.Math.Min((int)(ratio * sections * 2), sections);
+        int filled = FilledFromRatio(ratio, sections);
         int unfilled = sections - filled;
         RecordSections("HAR_Xenophobia", filled, unfilled);
     }
@@ -1342,7 +1347,7 @@ public class GameComponent_FaithTracker : GameComponent
 
         // Implanted should dominate
         float ratio = (float)transImplantedPoints / total;
-        int filled = System.Math.Min((int)(ratio * sections * 2), sections);
+        int filled = FilledFromRatio(ratio, sections);
         int unfilled = sections - filled;
         RecordSections("Transhumanist", filled, unfilled);
     }
@@ -1355,7 +1360,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (sections <= 0 || total <= 0) return;
 
         float ratio = (float)purePoints / total;
-        int filled = System.Math.Min((int)(ratio * sections * 2), sections);
+        int filled = FilledFromRatio(ratio, sections);
         int unfilled = sections - filled;
 
         RecordSections("FleshPurity", filled, unfilled);
@@ -1369,7 +1374,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (sections <= 0 || total <= 0) return;
 
         float ratio = (float)scarredPoints / total;
-        int filled = System.Math.Min((int)(ratio * sections), sections);
+        int filled = FilledFromRatio(ratio, sections);
         int unfilled = sections - filled;
         RecordSections("PainIsVirtue", filled, unfilled);
     }
@@ -1382,7 +1387,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (sections <= 0 || total <= 0) return;
 
         float ratio = (float)blindPoints / total;
-        int filled = System.Math.Min((int)(ratio * sections * 2), sections);
+        int filled = FilledFromRatio(ratio, sections);
         int unfilled = sections - filled;
         RecordSections("Blindsight", filled, unfilled);
     }
@@ -1440,7 +1445,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (total > 0)
         {
             float ratio = (float)nudismPoints / total;
-            filled = System.Math.Min((int)(ratio * sections * 2), sections);
+            filled = FilledFromRatio(ratio, sections);
         }
         int unfilled = sections - filled;
         RecordSections("Nudism", filled, unfilled);
