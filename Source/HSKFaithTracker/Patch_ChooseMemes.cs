@@ -28,7 +28,7 @@ public static class Patch_ChooseMemes
 
     private static readonly HashSet<string> disabledMemes = new HashSet<string>
     {
-        "Ritualist", "Inhuman", "Raider", "TreeConnection"
+        "Ritualist", "Inhuman", "Raider"
     };
 
     static MethodBase TargetMethod()
