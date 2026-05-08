@@ -265,7 +265,8 @@ public class GameComponent_FaithTracker : GameComponent
 
     public static int FilledFromRatio(float ratio, int sections)
     {
-        return sections > 0 ? System.Math.Min((int)(ratio * sections), sections) : 0;
+        if (sections <= 0) return 0;
+        return System.Math.Min((int)(ratio * sections + 0.5f), sections);
     }
 
     private void RecordSections(string memeName, int filled, int unfilled)

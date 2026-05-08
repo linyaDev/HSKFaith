@@ -20,7 +20,7 @@ public static class Patch_LegendaryCraft
 
     public static void Postfix(QualityCategory __result, Pawn pawn)
     {
-        if (__result < QualityCategory.Normal) // TODO: change back to Legendary after testing
+        if (__result < QualityCategory.Legendary)
             return;
 
         if (pawn?.Faction != Faction.OfPlayer)
