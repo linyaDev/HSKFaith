@@ -85,6 +85,7 @@ public class GameComponent_FaithTracker : GameComponent
     public int naturePlantsSown;
     public int natureTreesCut;
     public int treesSown;
+    public int treeConnectionPoints;
     public int cachedHereticCount;
     public int animalKills;
     public int animalCompanionPoints;
@@ -451,6 +452,7 @@ public class GameComponent_FaithTracker : GameComponent
         UpdateNudismHediffs();
         UpdateSupremacistHediffs();
         UpdateGenderHediffs();
+        DailyTreeConnection();
         DailyNaturePrimacySpawn();
     }
 
@@ -790,6 +792,23 @@ public class GameComponent_FaithTracker : GameComponent
         }
     }
 
+    private void DailyTreeConnection()
+    {
+        if (!HasMeme("TreeConnection")) return;
+
+        int dryadCount = 0;
+        foreach (var map in Find.Maps)
+        {
+            if (!map.IsPlayerHome) continue;
+            foreach (var pawn in map.mapPawns.AllPawnsSpawned)
+            {
+                if (pawn.Faction == Faction.OfPlayer && pawn.RaceProps.Dryad)
+                    dryadCount++;
+            }
+        }
+        treeConnectionPoints += dryadCount;
+    }
+
     private void DailyNaturePrimacySpawn()
     {
         if (!HasMeme("NaturePrimacy")) return;
@@ -1122,6 +1141,7 @@ public class GameComponent_FaithTracker : GameComponent
         naturePlantsSown = 0;
         natureTreesCut = 0;
         treesSown = 0;
+        treeConnectionPoints = 0;
         xenoPhiliaMainPoints = 0;
         xenoPhiliaOtherPoints = 0;
         xenoMainRacePoints = 0;
@@ -1183,22 +1203,13 @@ public class GameComponent_FaithTracker : GameComponent
     private void SeasonTreeConnection()
     {
         if (!HasMeme("TreeConnection")) return;
-        int destroyed = Find.CurrentMap?.treeDestructionTracker?.PlayerResponsibleTreeDestructionCount ?? 0;
-        int total = treesSown + destroyed;
         int sections = MemeCount;
         if (sections <= 0) return;
 
-        if (total > 0)
-        {
-            float ratio = (float)treesSown / total;
-            int filled = FilledFromRatio(ratio, sections);
-            int unfilled = sections - filled;
-            RecordSections("TreeConnection", filled, unfilled);
-        }
-        else
-        {
-            RecordSections("TreeConnection", 1, 0);
-        }
+        // 30 points per section (1 dryad/day = 15 over season, division = 30)
+        int filled = System.Math.Min(treeConnectionPoints / 30, sections);
+        int unfilled = sections - filled;
+        RecordSections("TreeConnection", filled, unfilled);
     }
 
     private void SeasonAnimalPersonhood()
@@ -1675,6 +1686,7 @@ public class GameComponent_FaithTracker : GameComponent
         Scribe_Values.Look(ref TrueSightDayCounter, "trueSightDayCounter");
         Scribe_Values.Look(ref sightedPoints, "sightedPoints");
         Scribe_Values.Look(ref treesSown, "treesSown");
+        Scribe_Values.Look(ref treeConnectionPoints, "treeConnectionPoints");
         Scribe_Values.Look(ref malePoints, "malePoints");
         Scribe_Values.Look(ref femalePoints, "femalePoints");
         Scribe_Values.Look(ref lastDailyCheck, "lastDailyCheck");

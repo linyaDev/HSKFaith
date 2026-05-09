@@ -2732,13 +2732,11 @@ Text.Anchor = TextAnchor.MiddleRight;
         y += 4f;
 
         float blockH = 22f + barH;
-        int planted = comp.treesSown;
-        int destroyed = Find.CurrentMap?.treeDestructionTracker?.PlayerResponsibleTreeDestructionCount ?? 0;
-        int total = planted + destroyed;
+        int points = comp.treeConnectionPoints;
+        int pointsPerSection = 30;
 
         int sections = comp.MemeCount;
-        float treeRatio = total > 0 ? (float)planted / total : 0.5f;
-        int filledSec = total > 0 ? GameComponent_FaithTracker.FilledFromRatio(treeRatio, sections) : sections;
+        int filledSec = sections > 0 ? System.Math.Min(points / pointsPerSection, sections) : 0;
         int unfilledSec = sections - filledSec;
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filledSec, sections);
@@ -2777,17 +2775,14 @@ Text.Anchor = TextAnchor.MiddleRight;
 
         Widgets.DrawBoxSolid(new Rect(barX, y, barW, barH), new Color(0.1f, 0.1f, 0.1f, 0.8f));
 
-        if (total > 0)
+        // Fill bar based on points progress
+        int totalNeeded = pointsPerSection * sections;
+        if (totalNeeded > 0)
         {
-            float plantedW = ((float)planted / total) * barW;
-            float destroyedW = barW - plantedW;
-
-            if (plantedW > 0f)
-                Widgets.DrawBoxSolid(new Rect(barX, y, plantedW, barH), TreePlantedColor);
-            if (destroyedW > 0f)
-                Widgets.DrawBoxSolid(new Rect(barX + plantedW, y, destroyedW, barH), TreeDestroyedColor);
-
-            Widgets.DrawBoxSolid(new Rect(barX + plantedW - 1f, y, 2f, barH), new Color(1f, 1f, 1f, 0.6f));
+            float fillRatio = System.Math.Min((float)points / totalNeeded, 1f);
+            float fillW = fillRatio * barW;
+            if (fillW > 0f)
+                Widgets.DrawBoxSolid(new Rect(barX, y, fillW, barH), TreePlantedColor);
 
             // Section dividers
             for (int s = 1; s < sections; s++)
@@ -2798,19 +2793,10 @@ Text.Anchor = TextAnchor.MiddleRight;
 
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.MiddleCenter;
-            if (plantedW > 30f)
-            {
-                GUI.color = Color.white;
-                Widgets.Label(new Rect(barX, y, plantedW, barH), planted.ToString());
-            }
-            if (destroyedW > 30f)
-            {
-                GUI.color = Color.white;
-                Widgets.Label(new Rect(barX + plantedW, y, destroyedW, barH), destroyed.ToString());
-            }
+            GUI.color = Color.white;
+            Widgets.Label(new Rect(barX, y, barW, barH), points + " / " + totalNeeded);
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
-            GUI.color = Color.white;
         }
 
         Widgets.DrawBox(new Rect(barX, y, barW, barH), 1);
@@ -2820,11 +2806,9 @@ Text.Anchor = TextAnchor.MiddleRight;
         if (Mouse.IsOver(barRect))
         {
             Widgets.DrawHighlight(barRect);
-            int tipFilled = filledSec;
-            int tipUnfilled = unfilledSec;
             TooltipHandler.TipRegion(barRect,
-                "FT_TreeTooltip".Translate(planted, destroyed)
-                + "\n" + "FT_TreeSections".Translate(tipFilled, sections, forecast.ToStringWithSign()));
+                "FT_TreeTooltip".Translate(points, pointsPerSection)
+                + "\n" + "FT_TreeSections".Translate(filledSec, sections, forecast.ToStringWithSign()));
         }
 
         y += barH + 8f;

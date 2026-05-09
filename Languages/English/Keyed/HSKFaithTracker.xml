@@ -109,7 +109,7 @@
 	<FT_TreePenalty>Trees neglected</FT_TreePenalty>
 	<FT_TreeFulfilled>Trees honored</FT_TreeFulfilled>
 	<FT_TreeSections>Sections: {0}/{1} | Forecast: {2}</FT_TreeSections>
-	<FT_TreeTooltip>Trees planted: {0}\nTrees destroyed: {1}</FT_TreeTooltip>
+	<FT_TreeTooltip>Points: {0} (need {1} per section)\n+1/day per dryad\n+30 per Gauranlen reproduction</FT_TreeTooltip>
 	<FT_NatureTooltip>{0}/{1} points this season\nPlanted: {2}  Destroyed: {3}\n\nEarning points:\n+1 per plant sown\n-2 per tree destroyed</FT_NatureTooltip>
 	<FT_ColonistKilled>Colonist killed by own</FT_ColonistKilled>
 	<FT_FaithPerMeme>{0} faith per meme each season</FT_FaithPerMeme>
@@ -138,7 +138,7 @@
 	<FT_MemeGameplay_Guilty>Everyone is guilty. Always. Even if they did nothing — especially then. Guilt isn't treated here, it's cultivated. Like potatoes, only more useful.</FT_MemeGameplay_Guilty>
 	<FT_MemeGameplay_Bloodfeeding>Blood is the new gold. Prisoners aren't a problem, they're walking bottles. Blood type? Any will do.</FT_MemeGameplay_Bloodfeeding>
 	<FT_MemeGameplay_Raider>Diplomacy is for those with few bullets. Every enemy corpse is a prayer. Peace is just a pause between raids.</FT_MemeGameplay_Raider>
-	<FT_MemeGameplay_TreeConnection>Trees whisper to those who listen. Meditation, psionics, unity with nature. Hippies approve, but with swords.</FT_MemeGameplay_TreeConnection>
+	<FT_MemeGameplay_TreeConnection>Grow Gauranlen trees, nurture dryads, and let them multiply. Each dryad strengthens your faith daily, and tree division is a sacred act. The forest gives — if you give back.</FT_MemeGameplay_TreeConnection>
 	<FT_MemeGameplay_HumanPrimacy>Humans are the only beings that can forge a masterpiece and then slay a dragon with it. The skill of hands is the ultimate proof of superiority.</FT_MemeGameplay_HumanPrimacy>
 	<FT_MemeGameplay_Ritualist>Dark rituals aren't a problem, they're a schedule. Monday — summoning. Wednesday — offering. Friday — trying to close the portal opened on Monday. Weekends — praying it doesn't come back.</FT_MemeGameplay_Ritualist>
 	<FT_MemeGameplay_Individualist>Freedom is the highest value. Freedom from meetings, collective decisions, and people who offer unsolicited advice. Everyone is their own boss, therapist, and motivator.</FT_MemeGameplay_Individualist>
