@@ -34,7 +34,20 @@ public static class Patch_StartingItems
             }
         }
 
-        if (items.Count == 0) return;
+        // Collect starting animals
+        var animals = new List<(PawnKindDef kind, int count, Gender gender)>();
+        foreach (var meme in ideo.memes)
+        {
+            var ext2 = meme.GetModExtension<MemeEffectExtension>();
+            if (ext2?.startingAnimals == null) continue;
+            foreach (var entry in ext2.startingAnimals)
+            {
+                if (entry.kindDef != null && entry.count > 0)
+                    animals.Add((entry.kindDef, entry.count, entry.gender));
+            }
+        }
+
+        if (items.Count == 0 && animals.Count == 0) return;
 
         // Find a spot near colonists
         var colonist = map.mapPawns.FreeColonistsSpawned.FirstOrDefault();
@@ -42,5 +55,17 @@ public static class Patch_StartingItems
 
         foreach (var thing in items)
             GenPlace.TryPlaceThing(thing, dropCell, map, ThingPlaceMode.Near);
+
+        // Spawn animals
+        foreach (var (kind, count, gender) in animals)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(
+                    kind, Faction.OfPlayer, forceGenerateNewPawn: true,
+                    fixedGender: gender != Gender.None ? gender : (Gender?)null));
+                GenSpawn.Spawn(pawn, CellFinder.RandomClosewalkCellNear(dropCell, map, 5), map);
+            }
+        }
     }
 }

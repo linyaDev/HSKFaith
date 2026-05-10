@@ -368,6 +368,16 @@
                     <penaltyPerSection>-2</penaltyPerSection>
                     <sectionsPerMeme>1</sectionsPerMeme>
                     <certaintyPerSeason>-0.06</certaintyPerSeason>
+                    <startingItems>
+                        <RF_Gun_Deringer>1</RF_Gun_Deringer>
+                        <Ammo_45ACP_FMJ>36</Ammo_45ACP_FMJ>
+                    </startingItems>
+                    <startingAnimals>
+                        <li>
+                            <kindDef>Donkey</kindDef>
+                            <count>1</count>
+                        </li>
+                    </startingAnimals>
                 </li>
             </modExtensions>
         </value>

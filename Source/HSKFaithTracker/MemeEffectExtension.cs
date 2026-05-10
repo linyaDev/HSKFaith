@@ -30,6 +30,14 @@ public class MemeEffectExtension : DefModExtension
     public string memeGroup;
     public float certaintyPerSeason; // certainty bonus/penalty per season (e.g. 0.05 = +5%)
     public List<ThingDefCountClass> startingItems;
+    public List<StartingAnimal> startingAnimals;
+}
+
+public class StartingAnimal
+{
+    public PawnKindDef kindDef;
+    public int count = 1;
+    public Gender gender = Gender.None; // None = random
 }
 
 public class BiomeStatBonus

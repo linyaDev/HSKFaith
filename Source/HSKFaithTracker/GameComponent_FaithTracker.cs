@@ -106,6 +106,7 @@ public class GameComponent_FaithTracker : GameComponent
 
     // Raider mechanic
     public int raiderPoints;
+    public int raiderProtectionUntilTick;
 
     // Tunneler mechanic
     public int tunnelerPoints;
@@ -1667,6 +1668,7 @@ public class GameComponent_FaithTracker : GameComponent
         Scribe_Values.Look(ref guiltyWounds, "guiltyWounds");
         Scribe_Values.Look(ref guiltyCharityPoints, "guiltyCharityPoints");
         Scribe_Values.Look(ref raiderPoints, "raiderPoints");
+        Scribe_Values.Look(ref raiderProtectionUntilTick, "raiderProtectionUntilTick");
         Scribe_Values.Look(ref tunnelerPoints, "tunnelerPoints");
         Scribe_Values.Look(ref darknessPoints, "darknessPoints");
         Scribe_Values.Look(ref rancherPoints, "rancherPoints");
