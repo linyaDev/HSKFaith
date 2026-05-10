@@ -19,8 +19,8 @@ public class MemeEffectExtension : DefModExtension
 
     public int ComputeSeasonTotal(int filled, int unfilled)
     {
-        int bonus = faithPerSection != 0 ? faithPerSection : 1;
-        int penalty = penaltyPerSection != 0 ? penaltyPerSection : -2;
+        int bonus = faithPerSection;
+        int penalty = penaltyPerSection;
         return seasonalFaithChange + bonus * filled + penalty * unfilled;
     }
     public int moodBonus; // mood bonus from thought (for tooltip display)

@@ -45,8 +45,8 @@
                         <ConstructionSpeed>0.20</ConstructionSpeed>
                         <GlobalLearningFactor>0.05</GlobalLearningFactor>
                     </statOffsets>
-                    <seasonalFaithChange>-2</seasonalFaithChange>
-                    <faithPerSection>1</faithPerSection>
+                    <seasonalFaithChange>-1</seasonalFaithChange>
+                    <faithPerSection>0</faithPerSection>
                     <penaltyPerSection>-2</penaltyPerSection>
                     <memeGroup>mid</memeGroup>
                     <certaintyPerSeason>-0.06</certaintyPerSeason>
@@ -118,8 +118,8 @@
             <modExtensions>
                 <li Class="HSKFaithTracker.MemeEffectExtension">
                     <memeGroup>mid</memeGroup>
-                    <seasonalFaithChange>-2</seasonalFaithChange>
-                    <faithPerSection>1</faithPerSection>
+                    <seasonalFaithChange>-1</seasonalFaithChange>
+                    <faithPerSection>0</faithPerSection>
                     <penaltyPerSection>-2</penaltyPerSection>
                     <sectionsPerMeme>1</sectionsPerMeme>
                     <certaintyPerSeason>-0.06</certaintyPerSeason>
@@ -233,8 +233,8 @@
                         <ImmunityGainSpeed>0.25</ImmunityGainSpeed>
                         <MedicalSurgerySuccessChance>0.30</MedicalSurgerySuccessChance>
                     </statOffsets>
-                    <seasonalFaithChange>-2</seasonalFaithChange>
-                    <faithPerSection>1</faithPerSection>
+                    <seasonalFaithChange>-1</seasonalFaithChange>
+                    <faithPerSection>0</faithPerSection>
                     <penaltyPerSection>-2</penaltyPerSection>
                     <sectionsPerMeme>1</sectionsPerMeme>
                     <certaintyPerSeason>-0.06</certaintyPerSeason>
@@ -262,8 +262,8 @@
             <modExtensions>
                 <li Class="HSKFaithTracker.MemeEffectExtension">
                     <memeGroup>mid</memeGroup>
-                    <seasonalFaithChange>-2</seasonalFaithChange>
-                    <faithPerSection>1</faithPerSection>
+                    <seasonalFaithChange>-1</seasonalFaithChange>
+                    <faithPerSection>0</faithPerSection>
                     <penaltyPerSection>-2</penaltyPerSection>
                     <sectionsPerMeme>1</sectionsPerMeme>
                     <certaintyPerSeason>0.30</certaintyPerSeason>
@@ -277,8 +277,8 @@
             <modExtensions>
                 <li Class="HSKFaithTracker.MemeEffectExtension">
                     <memeGroup>mid</memeGroup>
-                    <seasonalFaithChange>-2</seasonalFaithChange>
-                    <faithPerSection>1</faithPerSection>
+                    <seasonalFaithChange>-1</seasonalFaithChange>
+                    <faithPerSection>0</faithPerSection>
                     <penaltyPerSection>-2</penaltyPerSection>
                     <sectionsPerMeme>1</sectionsPerMeme>
                     <passiveEffect>FT_RancherPassive</passiveEffect>
@@ -293,8 +293,8 @@
             <modExtensions>
                 <li Class="HSKFaithTracker.MemeEffectExtension">
                     <memeGroup>mid</memeGroup>
-                    <seasonalFaithChange>-2</seasonalFaithChange>
-                    <faithPerSection>1</faithPerSection>
+                    <seasonalFaithChange>-1</seasonalFaithChange>
+                    <faithPerSection>0</faithPerSection>
                     <penaltyPerSection>-2</penaltyPerSection>
                     <sectionsPerMeme>1</sectionsPerMeme>
                     <statFactors>
@@ -311,8 +311,8 @@
             <modExtensions>
                 <li Class="HSKFaithTracker.MemeEffectExtension">
                     <memeGroup>mid</memeGroup>
-                    <seasonalFaithChange>-2</seasonalFaithChange>
-                    <faithPerSection>1</faithPerSection>
+                    <seasonalFaithChange>-1</seasonalFaithChange>
+                    <faithPerSection>0</faithPerSection>
                     <penaltyPerSection>-2</penaltyPerSection>
                     <sectionsPerMeme>1</sectionsPerMeme>
                     <certaintyPerSeason>-0.06</certaintyPerSeason>
