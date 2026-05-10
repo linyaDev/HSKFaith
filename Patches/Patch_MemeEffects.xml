@@ -323,6 +323,12 @@
             </modExtensions>
         </value>
     </Operation>
+    <!-- TreeConnection: boost PruningSpeed from +0.25 to +0.50 -->
+    <Operation Class="PatchOperationReplace" MayRequire="Ludeon.RimWorld.Ideology">
+        <xpath>/Defs/PreceptDef[defName="GauranlenConnection_Strong"]/statOffsets/PruningSpeed</xpath>
+        <value><PruningSpeed>0.50</PruningSpeed></value>
+    </Operation>
+
     <Operation Class="PatchOperationAdd">
         <xpath>/Defs/MemeDef[defName="Ritualist"]</xpath>
         <value>

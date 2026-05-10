@@ -111,7 +111,7 @@
 	<FT_TreePenalty>Деревья заброшены</FT_TreePenalty>
 	<FT_TreeFulfilled>Деревья почтены</FT_TreeFulfilled>
 	<FT_TreeSections>Секций: {0}/{1} | Прогноз: {2}</FT_TreeSections>
-	<FT_TreeTooltip>Очки: {0} (нужно {1} на секцию)\n+1/день за каждую дриаду\n+30 за посадку дерева</FT_TreeTooltip>
+	<FT_TreeTooltip>Очки: {0} (нужно {1} на секцию)\n+1/день за каждую дриаду\n+30 за посадку дерева Гауранлен</FT_TreeTooltip>
 	<FT_NatureTooltip>{0}/{1} очков за сезон\nПосажено: {2}  Срублено: {3}\n\nПолучение очков:\n+1 за посаженное растение\n-2 за уничтоженное дерево</FT_NatureTooltip>
 	<FT_ColonistKilled>Колонист убит своими</FT_ColonistKilled>
 	<FT_FaithPerMeme>{0} веры за каждое убеждение в сезон</FT_FaithPerMeme>

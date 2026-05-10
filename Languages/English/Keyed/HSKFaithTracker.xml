@@ -109,7 +109,7 @@
 	<FT_TreePenalty>Trees neglected</FT_TreePenalty>
 	<FT_TreeFulfilled>Trees honored</FT_TreeFulfilled>
 	<FT_TreeSections>Sections: {0}/{1} | Forecast: {2}</FT_TreeSections>
-	<FT_TreeTooltip>Points: {0} (need {1} per section)\n+1/day per dryad\n+30 per tree planted</FT_TreeTooltip>
+	<FT_TreeTooltip>Points: {0} (need {1} per section)\n+1/day per dryad\n+30 per Gauranlen tree planted</FT_TreeTooltip>
 	<FT_NatureTooltip>{0}/{1} points this season\nPlanted: {2}  Destroyed: {3}\n\nEarning points:\n+1 per plant sown\n-2 per tree destroyed</FT_NatureTooltip>
 	<FT_ColonistKilled>Colonist killed by own</FT_ColonistKilled>
 	<FT_FaithPerMeme>{0} faith per meme each season</FT_FaithPerMeme>

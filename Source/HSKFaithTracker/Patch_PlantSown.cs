@@ -25,10 +25,6 @@ public static class Patch_PlantSown
         var pawn = __instance.pawn;
         var plant = pawn?.CurJob?.GetTarget(TargetIndex.A).Thing as Plant;
         if (plant?.def?.plant != null && plant.def.plant.IsTree)
-        {
             comp.treesSown++;
-            if (comp.HasMeme("TreeConnection"))
-                comp.treeConnectionPoints += 30;
-        }
     }
 }
