@@ -171,6 +171,8 @@
 	<FT_RaiderFulfilled>Добыча войны</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Праздные воины</FT_RaiderPenalty>
 	<FT_RaiderTooltip>Рейдов за сезон: {0}/1 за секцию\nПолучение очков:\nнабеги на поселения</FT_RaiderTooltip>
+	<FT_RaiderReady>Защита от рейдов готова</FT_RaiderReady>
+	<FT_RaiderReadyDesc>Отправьте 2+ колонистов в караван для активации 4-дневной защиты от рейдов.</FT_RaiderReadyDesc>
 	<FT_RaiderProtection>Защита от рейдов</FT_RaiderProtection>
 	<FT_RaiderProtectionDesc>Ваши рейдеры в походе. Колония защищена от крупных угроз ещё {0} дней.</FT_RaiderProtectionDesc>
 	<FT_TunnelerFulfilled>Глубокие раскопки</FT_TunnelerFulfilled>
