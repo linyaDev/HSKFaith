@@ -169,6 +169,8 @@
 	<FT_RaiderFulfilled>Spoils of war</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Idle warriors</FT_RaiderPenalty>
 	<FT_RaiderTooltip>Raids this season: {0}/1 per section\nEarning points:\nraiding settlements</FT_RaiderTooltip>
+	<FT_RaiderProtection>Raid protection active</FT_RaiderProtection>
+	<FT_RaiderProtectionDesc>Your raiders are out pillaging. The colony is protected from major threats for {0} more days.</FT_RaiderProtectionDesc>
 	<FT_TunnelerFulfilled>Deep excavation</FT_TunnelerFulfilled>
 	<FT_TunnelerTooltip>Blocks mined: {0}/20 per section\nEarning points:\nmining ore</FT_TunnelerTooltip>
 	<FT_DarknessFulfilled>Embrace of shadows</FT_DarknessFulfilled>

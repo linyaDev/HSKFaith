@@ -9,12 +9,13 @@ namespace HSKFaithTracker;
 
 /// <summary>
 /// When Raider meme is active and 2+ colonists form a caravan,
-/// block all ThreatBig incidents for 4 days.
+/// block all ThreatBig incidents for 4 days. Cooldown: 15 days.
 /// </summary>
 [HarmonyPatch(typeof(CaravanMaker), nameof(CaravanMaker.MakeCaravan))]
 public static class Patch_RaiderCaravanFormed
 {
     private const int ProtectionDays = 4;
+    private const int CooldownDays = 15;
 
     public static void Postfix(IEnumerable<Pawn> pawns, Faction faction)
     {
@@ -26,8 +27,18 @@ public static class Patch_RaiderCaravanFormed
         int colonists = pawns.Count(p => p.IsColonist && !p.IsSlave);
         if (colonists < 2) return;
 
-        comp.raiderProtectionUntilTick = Find.TickManager.TicksGame + (ProtectionDays * 60000);
-        Log.Message($"[HSKFaith] Raider protection: {colonists} colonists left, {ProtectionDays} days protection");
+        int now = Find.TickManager.TicksGame;
+
+        // Check cooldown
+        if (now < comp.raiderProtectionCooldownUntilTick)
+        {
+            Log.Message($"[HSKFaith] Raider protection on cooldown, {(comp.raiderProtectionCooldownUntilTick - now) / 60000f:F1} days left");
+            return;
+        }
+
+        comp.raiderProtectionUntilTick = now + (ProtectionDays * 60000);
+        comp.raiderProtectionCooldownUntilTick = now + (CooldownDays * 60000);
+        Log.Message($"[HSKFaith] Raider protection: {colonists} colonists left, {ProtectionDays} days protection, {CooldownDays} days cooldown");
     }
 }
 

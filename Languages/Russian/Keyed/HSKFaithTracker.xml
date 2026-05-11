@@ -171,6 +171,8 @@
 	<FT_RaiderFulfilled>Добыча войны</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Праздные воины</FT_RaiderPenalty>
 	<FT_RaiderTooltip>Рейдов за сезон: {0}/1 за секцию\nПолучение очков:\nнабеги на поселения</FT_RaiderTooltip>
+	<FT_RaiderProtection>Защита от рейдов</FT_RaiderProtection>
+	<FT_RaiderProtectionDesc>Ваши рейдеры в походе. Колония защищена от крупных угроз ещё {0} дней.</FT_RaiderProtectionDesc>
 	<FT_TunnelerFulfilled>Глубокие раскопки</FT_TunnelerFulfilled>
 	<FT_TunnelerTooltip>Блоков выкопано: {0}/20 за секцию\nПолучение очков:\nдобыча руды</FT_TunnelerTooltip>
 	<FT_DarknessFulfilled>Объятия теней</FT_DarknessFulfilled>
