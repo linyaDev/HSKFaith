@@ -169,6 +169,7 @@
 	<FT_RaiderFulfilled>Spoils of war</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Idle warriors</FT_RaiderPenalty>
 	<FT_RaiderTooltip>Raids this season: {0}/1 per section\nEarning points:\nraiding settlements</FT_RaiderTooltip>
+	<FT_ArmoryDiscovered>An armory has been discovered nearby. Advanced equipment awaits those brave enough to take it.</FT_ArmoryDiscovered>
 	<FT_RaiderReady>Safe to raid</FT_RaiderReady>
 	<FT_RaiderReadyDesc>The spirits favor the bold. Now is a good time for a raid.</FT_RaiderReadyDesc>
 	<FT_RaiderProtection>We are safe</FT_RaiderProtection>
