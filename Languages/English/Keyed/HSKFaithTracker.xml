@@ -169,10 +169,10 @@
 	<FT_RaiderFulfilled>Spoils of war</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Idle warriors</FT_RaiderPenalty>
 	<FT_RaiderTooltip>Raids this season: {0}/1 per section\nEarning points:\nraiding settlements</FT_RaiderTooltip>
-	<FT_RaiderReady>Raid protection ready</FT_RaiderReady>
-	<FT_RaiderReadyDesc>Send 2+ colonists on a caravan to activate 4 days of raid protection.</FT_RaiderReadyDesc>
-	<FT_RaiderProtection>Raid protection active</FT_RaiderProtection>
-	<FT_RaiderProtectionDesc>Your raiders are out pillaging. The colony is protected from major threats for {0} more days.</FT_RaiderProtectionDesc>
+	<FT_RaiderReady>Safe to raid</FT_RaiderReady>
+	<FT_RaiderReadyDesc>The spirits favor the bold. Now is a good time for a raid.</FT_RaiderReadyDesc>
+	<FT_RaiderProtection>We are safe</FT_RaiderProtection>
+	<FT_RaiderProtectionDesc>Our warriors are out raiding. We prepared well — no attacks expected. Protection lasts for {0} more days.</FT_RaiderProtectionDesc>
 	<FT_TunnelerFulfilled>Deep excavation</FT_TunnelerFulfilled>
 	<FT_TunnelerTooltip>Blocks mined: {0}/20 per section\nEarning points:\nmining ore</FT_TunnelerTooltip>
 	<FT_DarknessFulfilled>Embrace of shadows</FT_DarknessFulfilled>

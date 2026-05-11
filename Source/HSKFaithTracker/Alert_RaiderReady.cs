@@ -10,7 +10,7 @@ public class Alert_RaiderReady : Alert
     {
         defaultLabel = "FT_RaiderReady".Translate();
         defaultExplanation = "FT_RaiderReadyDesc".Translate();
-        defaultPriority = AlertPriority.Medium;
+        defaultPriority = AlertPriority.Critical;
     }
 
     public override Color BGColor => new Color(0.2f, 0.5f, 0.7f, 0.35f);

@@ -9,7 +9,7 @@ public class Alert_RaiderProtection : Alert
     public Alert_RaiderProtection()
     {
         defaultLabel = "FT_RaiderProtection".Translate();
-        defaultPriority = AlertPriority.Medium;
+        defaultPriority = AlertPriority.Critical;
     }
 
     public override Color BGColor => new Color(0.2f, 0.6f, 0.2f, 0.35f);
