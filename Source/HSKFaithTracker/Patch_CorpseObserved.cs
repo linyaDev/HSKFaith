@@ -59,8 +59,8 @@ public static class Patch_CorpseObserved
         if (comp == null)
             return;
 
-        // No corpse penalty for cannibals and bloodfeeders
-        if (comp.HasMeme("Cannibal") || comp.HasMeme("Bloodfeeding"))
+        // No corpse penalty for cannibals, bloodfeeders and raiders
+        if (comp.HasMeme("Cannibal") || comp.HasMeme("Bloodfeeding") || comp.HasMeme("Raider"))
             return;
 
         // Max 5 corpse records total

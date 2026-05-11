@@ -45,15 +45,19 @@ public static class RaiderProtectionCheck
 [HarmonyPatch(typeof(IncidentWorker), nameof(IncidentWorker.CanFireNow))]
 public static class Patch_RaiderThreatBlock
 {
-    public static void Postfix(IncidentWorker __instance, ref bool __result)
+    public static void Postfix(IncidentWorker __instance, IncidentParms parms, ref bool __result)
     {
         if (!__result) return;
+        if (parms.forced) return; // don't block quest/forced incidents
         if (__instance.def.category != IncidentCategoryDefOf.ThreatBig) return;
 
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
         if (comp == null) return;
 
         if (Find.TickManager.TicksGame < comp.raiderProtectionUntilTick)
+        {
             __result = false;
+            Log.Message($"[HSKFaith] Threat blocked by raider protection: {__instance.def.defName}");
+        }
     }
 }
