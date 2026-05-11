@@ -13,7 +13,7 @@ namespace HSKFaithTracker;
 /// </summary>
 public static class RaiderProtectionCheck
 {
-    private const int ProtectionDays = 4;
+    private const int ProtectionDays = 2;
     private const int CooldownDays = 15;
 
     public static void CheckCaravans(GameComponent_FaithTracker comp)

@@ -5,21 +5,14 @@ using Verse;
 namespace HSKFaithTracker;
 
 /// <summary>
-/// +1 raiderPoints when HistoryEvent "Raided" fires (once per raid, not per pawn).
+/// +1 raiderPoints when History.Notify_PlayerRaidedSomeone fires.
+/// This is the most reliable hook — fires for settlements, WorkSites, BanditCamps.
 /// </summary>
-[HarmonyPatch(typeof(HistoryEventsManager), nameof(HistoryEventsManager.RecordEvent))]
+[HarmonyPatch(typeof(History), nameof(History.Notify_PlayerRaidedSomeone))]
 public static class Patch_Raider
 {
-    private static int lastRaidTick = -1;
-
-    public static void Postfix(HistoryEvent ev)
+    public static void Postfix()
     {
-        if (ev.def?.defName != "Raided") return;
-
-        int tick = Find.TickManager.TicksGame;
-        if (tick == lastRaidTick) return;
-        lastRaidTick = tick;
-
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
         if (comp == null || !comp.HasMeme("Raider")) return;
 
