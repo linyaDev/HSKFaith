@@ -417,6 +417,10 @@ public class GameComponent_FaithTracker : GameComponent
         int today = GenDate.DaysPassed;
         int ticks = Find.TickManager.TicksGame;
 
+        // Raider protection check every half hour
+        if (ticks % 1250 == 0)
+            RaiderProtectionCheck.CheckCaravans(this);
+
         // Check meme changes every game hour
         if (ticks - lastMemeCheckTick >= MemeCheckInterval)
         {

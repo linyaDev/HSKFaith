@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using RimWorld;
@@ -8,37 +7,38 @@ using Verse;
 namespace HSKFaithTracker;
 
 /// <summary>
-/// When Raider meme is active and 2+ colonists form a caravan,
-/// block all ThreatBig incidents for 4 days. Cooldown: 15 days.
+/// When Raider meme is active and 2+ colonists are in a caravan,
+/// activate 4 days of ThreatBig protection. Cooldown: 15 days.
+/// Checked every hour (2500 ticks) in GameComponent.
 /// </summary>
-[HarmonyPatch(typeof(CaravanMaker), nameof(CaravanMaker.MakeCaravan))]
-public static class Patch_RaiderCaravanFormed
+public static class RaiderProtectionCheck
 {
     private const int ProtectionDays = 4;
     private const int CooldownDays = 15;
 
-    public static void Postfix(IEnumerable<Pawn> pawns, Faction faction)
+    public static void CheckCaravans(GameComponent_FaithTracker comp)
     {
-        if (faction != Faction.OfPlayer) return;
-
-        var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
-        if (comp == null || !comp.HasMeme("Raider")) return;
-
-        int colonists = pawns.Count(p => p.IsColonist && !p.IsSlave);
-        if (colonists < 2) return;
+        if (!comp.HasMeme("Raider")) return;
 
         int now = Find.TickManager.TicksGame;
 
-        // Check cooldown
-        if (now < comp.raiderProtectionCooldownUntilTick)
-        {
-            Log.Message($"[HSKFaith] Raider protection on cooldown, {(comp.raiderProtectionCooldownUntilTick - now) / 60000f:F1} days left");
-            return;
-        }
+        // Already protected or on cooldown
+        if (now < comp.raiderProtectionUntilTick) return;
+        if (now < comp.raiderProtectionCooldownUntilTick) return;
 
-        comp.raiderProtectionUntilTick = now + (ProtectionDays * 60000);
-        comp.raiderProtectionCooldownUntilTick = now + (CooldownDays * 60000);
-        Log.Message($"[HSKFaith] Raider protection: {colonists} colonists left, {ProtectionDays} days protection, {CooldownDays} days cooldown");
+        // Check if any player caravan has 2+ colonists
+        foreach (var caravan in Find.WorldObjects.Caravans)
+        {
+            if (!caravan.IsPlayerControlled) continue;
+            int colonists = caravan.PawnsListForReading.Count(p => p.IsColonist && !p.IsSlave);
+            if (colonists >= 2)
+            {
+                comp.raiderProtectionUntilTick = now + (ProtectionDays * 60000);
+                comp.raiderProtectionCooldownUntilTick = now + (CooldownDays * 60000);
+                Log.Message($"[HSKFaith] Raider protection: {colonists} colonists in caravan, {ProtectionDays} days protection");
+                return;
+            }
+        }
     }
 }
 
