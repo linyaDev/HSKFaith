@@ -1166,7 +1166,7 @@ public class GameComponent_FaithTracker : GameComponent
         rancherPoints = 0;
         rancherBirths.Clear();
         rancherPtsPerAnimal.Clear();
-        raiderPoints = 0;
+        // raiderPoints not reset — carries over between seasons
         tunnelerPoints = 0;
         darknessPoints = 0;
         scarredPoints = 0;
@@ -1298,11 +1298,12 @@ public class GameComponent_FaithTracker : GameComponent
         int sections = MemeCount;
         if (sections <= 0) return;
 
-        // 1 raid per section
+        // 1 raid per section, carry over excess
         int filled = System.Math.Min(raiderPoints, sections);
         int unfilled = sections - filled;
 
         RecordSections("Raider", filled, unfilled);
+        raiderPoints = System.Math.Max(0, raiderPoints - sections);
     }
 
     private void SeasonTunneler()

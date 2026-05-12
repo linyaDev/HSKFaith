@@ -2,22 +2,18 @@ using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using RimWorld.Planet;
-using RimWorld.QuestGen;
 using UnityEngine;
 using Verse;
-using Verse.Grammar;
 
 namespace HSKFaithTracker;
 
-public class SitePartWorker_FaithArmory : SitePartWorker
+public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
 {
-    private static readonly SimpleCurve ThreatPointsLootMarketValue = new SimpleCurve
-    {
-        new CurvePoint(100f, 200f),
-        new CurvePoint(250f, 450f),
-        new CurvePoint(800f, 1000f),
-        new CurvePoint(10000f, 2000f)
-    };
+    private const float ThreatMultiplier = 2.0f;
+
+    public override IEnumerable<PreceptDef> DisallowedPrecepts => Enumerable.Empty<PreceptDef>();
+
+    public override PawnGroupKindDef WorkerGroupKind => PawnGroupKindDefOf.Settlement;
 
     public override SitePartParams GenerateDefaultParams(float myThreatPoints,
 #if V15
@@ -28,59 +24,75 @@ public class SitePartWorker_FaithArmory : SitePartWorker
         Faction faction)
     {
         SitePartParams parms = base.GenerateDefaultParams(myThreatPoints, tile, faction);
-        parms.threatPoints = Mathf.Max(parms.threatPoints, faction.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Settlement));
-        parms.lootMarketValue = ThreatPointsLootMarketValue.Evaluate(parms.threatPoints);
+        parms.threatPoints *= ThreatMultiplier;
         return parms;
     }
 
-    public override string GetArrivedLetterPart(Map map, out LetterDef preferredLetterDef, out LookTargets lookTargets)
+    public override bool FactionCanOwn(Faction faction)
     {
-        string text = base.GetArrivedLetterPart(map, out preferredLetterDef, out lookTargets);
-        lookTargets = new LookTargets(map.Parent);
-        return text;
+        if (faction == null) return false;
+        TechLevel playerTech = Faction.OfPlayer?.def?.techLevel ?? TechLevel.Neolithic;
+        // Allow factions at most 1 tech level above player
+        return (int)faction.def.techLevel <= (int)playerTech + 1;
     }
 
-    public override void Notify_GeneratedByQuestGen(SitePart part, Slate slate, List<Rule> outExtraDescriptionRules, Dictionary<string, string> outExtraDescriptionConstants)
+    public override void Init(Site site, SitePart sitePart)
     {
-        base.Notify_GeneratedByQuestGen(part, slate, outExtraDescriptionRules, outExtraDescriptionConstants);
-        int enemiesCount = GetEnemiesCount(part.site, part.parms);
-        outExtraDescriptionRules.Add(new Rule_String("enemiesCount", enemiesCount.ToString()));
-        outExtraDescriptionRules.Add(new Rule_String("enemiesLabel", GetEnemiesLabel(part.site, enemiesCount)));
+        // Skip base.Init loot generation — we do our own
+        sitePart.things = new ThingOwner<Thing>(sitePart);
 
-        // Generate the armory loot
-        Thing loot = GenerateArmoryLoot();
-        if (loot != null)
+        TechLevel playerTech = Faction.OfPlayer?.def?.techLevel ?? TechLevel.Neolithic;
+        TechLevel nextTech = (TechLevel)Mathf.Min((int)playerTech + 1, (int)TechLevel.Spacer);
+        bool isWeapons = def.defName == "FaithArmory_Weapons";
+
+        if (isWeapons)
         {
-            outExtraDescriptionRules.Add(new Rule_String("armoryLoot", loot.LabelCap));
-            slate.Set("armoryLoot", loot);
-            slate.Set("armoryLootLabel", loot.LabelCap);
+            Thing weapon = GenerateWeapon(nextTech);
+            if (weapon != null)
+            {
+                sitePart.things.TryAdd(weapon);
+                Thing ammo = GenerateAmmo(weapon.def);
+                if (ammo != null)
+                    sitePart.things.TryAdd(ammo);
+            }
         }
-    }
-
-    public override string GetPostProcessedThreatLabel(Site site, SitePart sitePart)
-    {
-        return base.GetPostProcessedThreatLabel(site, sitePart) + ": " +
-            "KnownSiteThreatEnemyCountAppend".Translate(GetEnemiesCount(site, sitePart.parms), "Enemies".Translate());
-    }
-
-    private int GetEnemiesCount(Site site, SitePartParams parms)
-    {
-        return PawnGroupMakerUtility.GeneratePawnKindsExample(new PawnGroupMakerParms
+        else
         {
-            tile = site.Tile,
-            faction = site.Faction,
-            groupKind = PawnGroupKindDefOf.Settlement,
-            points = parms.threatPoints,
-            inhabitants = true,
-            seed = OutpostSitePartUtility.GetPawnGroupMakerSeed(parms)
-        }).Count();
+            // 2 random armor pieces from different slots
+            var slots = new List<string> { "FullHead", "Torso", "Hands", "Legs" };
+            slots.Shuffle();
+            foreach (string bodyPart in slots.Take(2))
+            {
+                Thing armor = GenerateArmorPiece(nextTech, bodyPart);
+                if (armor != null)
+                    sitePart.things.TryAdd(armor);
+            }
+        }
+        sitePart.lootThings = new List<ThingDefCount>();
+
+        sitePart.expectedEnemyCount = GenStep_WorkSitePawns.GetEnemiesCount(site, sitePart.parms, WorkerGroupKind);
     }
 
-    private string GetEnemiesLabel(Site site, int enemiesCount)
+    public override IEnumerable<CampLootThingStruct> LootThings(
+#if V15
+        int tile
+#else
+        PlanetTile tile
+#endif
+    )
     {
-        if (site.Faction == null)
-            return (enemiesCount == 1) ? "Enemy".Translate() : "Enemies".Translate();
-        return enemiesCount != 1 ? site.Faction.def.pawnsPlural : site.Faction.def.pawnSingular;
+        yield break;
+    }
+
+    public override bool CanSpawnOn(
+#if V15
+        int tile
+#else
+        PlanetTile tile
+#endif
+    )
+    {
+        return true;
     }
 
     public static Thing GenerateWeapon(TechLevel techLevel)
@@ -89,7 +101,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker
             .Where(d => d.IsWeapon
                 && d.techLevel == techLevel
                 && d.HasComp(typeof(CompQuality))
-                && d.MadeFromStuff == false
+                && !d.MadeFromStuff
                 && !d.destroyOnDrop
                 && d.tradeability != Tradeability.None)
             .ToList();
@@ -102,22 +114,76 @@ public class SitePartWorker_FaithArmory : SitePartWorker
         return weapon;
     }
 
-    public static Thing GenerateArmor(TechLevel techLevel)
+    public static Thing GenerateAmmo(ThingDef weaponDef)
     {
+        // Find CompProperties_AmmoUser via reflection (CE dependency)
+        var ammoComp = weaponDef.comps?.FirstOrDefault(c => c.GetType().Name == "CompProperties_AmmoUser");
+        if (ammoComp == null) return null;
+
+        // Get ammoSet field
+        var ammoSetField = ammoComp.GetType().GetField("ammoSet");
+        if (ammoSetField == null) return null;
+
+        var ammoSet = ammoSetField.GetValue(ammoComp);
+        if (ammoSet == null) return null;
+
+        // Get ammoTypes list
+        var ammoTypesField = ammoSet.GetType().GetField("ammoTypes");
+        if (ammoTypesField == null) return null;
+
+        var ammoTypes = ammoTypesField.GetValue(ammoSet) as System.Collections.IList;
+        if (ammoTypes == null || ammoTypes.Count == 0) return null;
+
+        // Pick first ammo type (FMJ usually)
+        var firstLink = ammoTypes[0];
+        var ammoField = firstLink.GetType().GetField("ammo");
+        if (ammoField == null) return null;
+
+        var ammoDef = ammoField.GetValue(firstLink) as ThingDef;
+        if (ammoDef == null) return null;
+
+        // Get magazine size for count
+        var magSizeField = ammoComp.GetType().GetField("magazineSize");
+        int magSize = magSizeField != null ? (int)magSizeField.GetValue(ammoComp) : 6;
+        int ammoCount = magSize * 6; // 6 magazines worth
+
+        Thing ammo = ThingMaker.MakeThing(ammoDef);
+        ammo.stackCount = ammoCount;
+        return ammo;
+    }
+
+    // Map tech level to HSK apparel tags
+    private static readonly Dictionary<TechLevel, List<string>> armorTagsByTech = new Dictionary<TechLevel, List<string>>
+    {
+        { TechLevel.Medieval, new List<string> { "Medieval", "MedievalKnightly", "NorbalWarrior" } },
+        { TechLevel.Industrial, new List<string> { "IndustrialMilitaryAdvanced", "IndustrialMilitaryBasic", "SectarianMedium", "BrotherhoodMedium" } },
+        { TechLevel.Spacer, new List<string> { "SpacerMilitary", "Spacer", "OrionMedium", "SyndicateMedium" } },
+    };
+
+    public static Thing GenerateArmorPiece(TechLevel techLevel, string bodyPartGroup)
+    {
+        if (!armorTagsByTech.TryGetValue(techLevel, out var tags))
+            return null;
+
         var candidates = DefDatabase<ThingDef>.AllDefs
             .Where(d => d.IsApparel
-                && d.techLevel == techLevel
-                && d.HasComp(typeof(CompQuality))
-                && d.apparel?.bodyPartGroups?.Any(bp => bp.defName == "Torso") == true
+                && d.apparel?.bodyPartGroups?.Any(bp => bp.defName == bodyPartGroup) == true
+                && d.apparel?.tags?.Any(t => tags.Contains(t)) == true
+                && d.statBases?.Any(s => s.stat == StatDefOf.ArmorRating_Sharp && s.value >= 1) == true
                 && d.tradeability != Tradeability.None)
             .ToList();
 
-        if (!candidates.Any()) return null;
+        if (!candidates.Any())
+        {
+            Log.Warning($"[HSKFaith] FaithArmory: no armor for {bodyPartGroup} at {techLevel}, tags: {string.Join(",", tags)}");
+            return null;
+        }
 
         ThingDef chosen = candidates.RandomElement();
         ThingDef stuff = GenStuff.DefaultStuffFor(chosen);
         Thing armor = ThingMaker.MakeThing(chosen, stuff);
         armor.TryGetComp<CompQuality>()?.SetQuality(QualityCategory.Excellent, ArtGenerationContext.Outsider);
+        Log.Message($"[HSKFaith] FaithArmory: generated {chosen.defName} for {bodyPartGroup} ({techLevel})");
         return armor;
     }
 }

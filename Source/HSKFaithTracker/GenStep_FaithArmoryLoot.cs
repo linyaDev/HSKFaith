@@ -1,12 +1,11 @@
 using System.Linq;
 using RimWorld;
-using UnityEngine;
 using Verse;
 
 namespace HSKFaithTracker;
 
 /// <summary>
-/// Spawns a single weapon or armor of the next tech era at excellent quality.
+/// Spawns the armory loot (pre-generated in SitePartWorker_FaithArmory.Init) inside the outpost.
 /// </summary>
 public class GenStep_FaithArmoryLoot : GenStep
 {
@@ -14,25 +13,23 @@ public class GenStep_FaithArmoryLoot : GenStep
 
     public override void Generate(Map map, GenStepParams parms)
     {
-        TechLevel playerTech = Faction.OfPlayer?.def?.techLevel ?? TechLevel.Neolithic;
-        TechLevel nextTech = (TechLevel)Mathf.Min((int)playerTech + 1, (int)TechLevel.Spacer);
-
-        bool isWeapons = parms.sitePart?.def?.defName == "FaithArmory_Weapons";
-
-        Thing loot = isWeapons
-            ? SitePartWorker_FaithArmory.GenerateWeapon(nextTech)
-            : SitePartWorker_FaithArmory.GenerateArmor(nextTech);
-
-        if (loot == null)
+        if (parms.sitePart?.things == null || parms.sitePart.things.Count == 0)
         {
-            Log.Warning($"[HSKFaith] FaithArmory: could not generate {(isWeapons ? "weapon" : "armor")} for tech {nextTech}");
+            Log.Warning("[HSKFaith] FaithArmory: no loot in sitePart.things");
             return;
         }
 
+        // Try to find a cell inside a roofed building (the outpost)
         IntVec3 cell = map.Center;
-        CellFinder.TryFindRandomCellNear(map.Center, map, 10, (IntVec3 c) => c.Standable(map) && !c.Fogged(map), out cell);
-        GenPlace.TryPlaceThing(loot, cell, map, ThingPlaceMode.Near);
+        bool found = CellFinder.TryFindRandomCellNear(map.Center, map, 15,
+            (IntVec3 c) => c.Standable(map) && c.Roofed(map) && c.GetRoom(map)?.IsDoorway == false,
+            out cell);
 
-        Log.Message($"[HSKFaith] FaithArmory: spawned {loot.LabelCap} ({nextTech}) at {cell}");
+        if (!found)
+            CellFinder.TryFindRandomCellNear(map.Center, map, 10,
+                (IntVec3 c) => c.Standable(map), out cell);
+
+        parms.sitePart.things.TryDropAll(cell, map, ThingPlaceMode.Near);
+        Log.Message($"[HSKFaith] FaithArmory: loot dropped at {cell}, {parms.sitePart.things.Count} items");
     }
 }
