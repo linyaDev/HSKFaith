@@ -107,6 +107,7 @@ public class GameComponent_FaithTracker : GameComponent
     // Raider mechanic
     public int raiderPoints;
     public int raiderProtectionUntilTick;
+    private int lastRaiderWorkSiteDay = -1;
     public int raiderProtectionCooldownUntilTick;
 
     // Tunneler mechanic
@@ -460,6 +461,7 @@ public class GameComponent_FaithTracker : GameComponent
         UpdateGenderHediffs();
         DailyTreeConnection();
         DailyNaturePrimacySpawn();
+        DailyRaiderWorkSite(today);
     }
 
     private int ComputeMemeHash()
@@ -1292,6 +1294,35 @@ public class GameComponent_FaithTracker : GameComponent
         RecordSections("Bloodfeeding", filled, unfilled);
     }
 
+    private void DailyRaiderWorkSite(int today)
+    {
+        if (!HasMeme("Raider")) return;
+        if (lastRaiderWorkSiteDay >= 0 && today - lastRaiderWorkSiteDay < 7) return;
+
+        var scriptDef = DefDatabase<QuestScriptDef>.GetNamedSilentFail("OpportunitySite_WorkSite");
+        if (scriptDef == null) return;
+
+        Map map = Find.AnyPlayerHomeMap;
+        if (map == null) return;
+
+        float points = StorytellerUtility.DefaultThreatPointsNow(map);
+        Quest quest = QuestUtility.GenerateQuestAndMakeAvailable(scriptDef, points);
+
+        // Override timeout to 15 days
+        int timeoutTicks = 15 * 60000;
+        foreach (var part in quest.PartsListForReading)
+        {
+            if (part is QuestPart_WorldObjectTimeout timeout)
+                timeout.delayTicks = timeoutTicks;
+            else if (part is QuestPart_Delay delay && !(part is QuestPart_WorldObjectTimeout))
+                delay.delayTicks = timeoutTicks;
+        }
+
+        lastRaiderWorkSiteDay = today;
+        DebugLog($"Raider: spawned WorkSite quest '{quest.name}', points {points:F0}, timeout 15d");
+        Log.Message($"[HSKFaith] Raider: spawned WorkSite quest '{quest.name}', timeout 15 days");
+    }
+
     private void SeasonRaider()
     {
         if (!HasMeme("Raider")) return;
@@ -1676,6 +1707,7 @@ public class GameComponent_FaithTracker : GameComponent
         Scribe_Values.Look(ref raiderPoints, "raiderPoints");
         Scribe_Values.Look(ref raiderProtectionUntilTick, "raiderProtectionUntilTick");
         Scribe_Values.Look(ref raiderProtectionCooldownUntilTick, "raiderProtectionCooldownUntilTick");
+        Scribe_Values.Look(ref lastRaiderWorkSiteDay, "lastRaiderWorkSiteDay", -1);
         Scribe_Values.Look(ref tunnelerPoints, "tunnelerPoints");
         Scribe_Values.Look(ref darknessPoints, "darknessPoints");
         Scribe_Values.Look(ref rancherPoints, "rancherPoints");

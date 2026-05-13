@@ -9,7 +9,7 @@ namespace HSKFaithTracker;
 
 public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
 {
-    private const float ThreatMultiplier = 2.0f;
+    private const float ThreatMultiplier = 2.5f;
 
     public override IEnumerable<PreceptDef> DisallowedPrecepts => Enumerable.Empty<PreceptDef>();
 
@@ -101,16 +101,21 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
             .Where(d => d.IsWeapon
                 && d.techLevel == techLevel
                 && d.HasComp(typeof(CompQuality))
-                && !d.MadeFromStuff
                 && !d.destroyOnDrop
-                && d.tradeability != Tradeability.None)
+                && d.tradeability != Tradeability.None
+                && !d.defName.StartsWith("TFJ_")
+                && !d.defName.StartsWith("RK_"))
             .ToList();
 
         if (!candidates.Any()) return null;
 
+        Log.Message($"[HSKFaith] FaithArmory weapon candidates ({techLevel}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
+
         ThingDef chosen = candidates.RandomElement();
-        Thing weapon = ThingMaker.MakeThing(chosen);
+        ThingDef stuff = GenStuff.DefaultStuffFor(chosen);
+        Thing weapon = ThingMaker.MakeThing(chosen, stuff);
         weapon.TryGetComp<CompQuality>()?.SetQuality(QualityCategory.Excellent, ArtGenerationContext.Outsider);
+        Log.Message($"[HSKFaith] FaithArmory: generated weapon {chosen.defName}{(stuff != null ? $" ({stuff.defName})" : "")} ({techLevel})");
         return weapon;
     }
 
@@ -155,7 +160,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
     // Map tech level to HSK apparel tags
     private static readonly Dictionary<TechLevel, List<string>> armorTagsByTech = new Dictionary<TechLevel, List<string>>
     {
-        { TechLevel.Medieval, new List<string> { "Medieval", "MedievalKnightly", "NorbalWarrior" } },
+        { TechLevel.Medieval, new List<string> { "Medieval", "MedievalKnightly", "NorbalWarrior", "NorbalKingly", "NorbalSage", "EmpireMedium", "EmpireScout", "EmpireLight", "BanditsLight", "RenegadesLight", "PredatorsScout" } },
         { TechLevel.Industrial, new List<string> { "IndustrialMilitaryAdvanced", "IndustrialMilitaryBasic", "SectarianMedium", "BrotherhoodMedium" } },
         { TechLevel.Spacer, new List<string> { "SpacerMilitary", "Spacer", "OrionMedium", "SyndicateMedium" } },
     };
@@ -178,6 +183,8 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
             Log.Warning($"[HSKFaith] FaithArmory: no armor for {bodyPartGroup} at {techLevel}, tags: {string.Join(",", tags)}");
             return null;
         }
+
+        Log.Message($"[HSKFaith] FaithArmory armor candidates ({techLevel}, {bodyPartGroup}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
 
         ThingDef chosen = candidates.RandomElement();
         ThingDef stuff = GenStuff.DefaultStuffFor(chosen);
