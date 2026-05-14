@@ -170,7 +170,7 @@
 	<FT_MemeGoodwill>Ежегодное изменение репутации: {0}</FT_MemeGoodwill>
 	<FT_RaiderFulfilled>Добыча войны</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Праздные воины</FT_RaiderPenalty>
-	<FT_RaiderTooltip>Рейдов за сезон: {0}/1 за секцию\nПолучение очков:\nнабеги на поселения</FT_RaiderTooltip>
+	<FT_RaiderTooltip>Очки рейдов: {0} (нужно {1} за сезон)\nВ запасе на след. сезон: {2}\nПолучение очков:\n+3 за набег на поселения</FT_RaiderTooltip>
 	<FT_ArmoryDiscovered>Поблизости обнаружена оружейная. Продвинутое снаряжение ждёт тех, кто достаточно смел, чтобы его забрать.</FT_ArmoryDiscovered>
 	<FT_RaiderReady>Безопасно для рейда</FT_RaiderReady>
 	<FT_RaiderReadyDesc>Духи благоволят смелым. Сейчас хорошее время для набега.</FT_RaiderReadyDesc>

@@ -216,25 +216,27 @@ public class Dialog_FaithDebug : Window
             return;
         }
 
-        float points = StorytellerUtility.DefaultThreatPointsNow(map);
-        Quest quest = QuestUtility.GenerateQuestAndMakeAvailable(scriptDef, points);
+        IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.Misc, map);
+        Quest quest = QuestUtility.GenerateQuestAndMakeAvailable(scriptDef, parms.points);
 
         // Override timeout
+        int originalTicks = 1800000;
         int customTicks = customTimeoutDays * 60000;
         foreach (var part in quest.PartsListForReading)
         {
             if (part is QuestPart_WorldObjectTimeout timeout)
-            {
                 timeout.delayTicks = customTicks;
-            }
-            // Also fix the matching Delay quest part (quest expiry)
             else if (part is QuestPart_Delay delay && !(part is QuestPart_WorldObjectTimeout))
-            {
                 delay.delayTicks = customTicks;
-            }
         }
 
+        // Fix quest description: timeout and loot
+        string oldDuration = originalTicks.ToStringTicksToPeriod();
+        string newDuration = customTicks.ToStringTicksToPeriod();
+        quest.description = quest.description.Replace(oldDuration, newDuration);
+        GameComponent_FaithTracker.FixQuestLootDescription(quest);
+
         Messages.Message($"WorkSite quest spawned ({quest.name}), timeout {customTimeoutDays}d", MessageTypeDefOf.PositiveEvent);
-        Log.Message($"[HSKFaith] Debug: WorkSite quest generated, points {points:F0}, timeout {customTimeoutDays}d");
+        Log.Message($"[HSKFaith] Debug: WorkSite quest generated, points {parms.points:F0}, timeout {customTimeoutDays}d");
     }
 }

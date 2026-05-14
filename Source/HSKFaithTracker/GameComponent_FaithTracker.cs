@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
 using Verse;
 
@@ -1305,10 +1306,11 @@ public class GameComponent_FaithTracker : GameComponent
         Map map = Find.AnyPlayerHomeMap;
         if (map == null) return;
 
-        float points = StorytellerUtility.DefaultThreatPointsNow(map);
-        Quest quest = QuestUtility.GenerateQuestAndMakeAvailable(scriptDef, points);
+        IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.Misc, map);
+        Quest quest = QuestUtility.GenerateQuestAndMakeAvailable(scriptDef, parms.points);
 
         // Override timeout to 15 days
+        int originalTicks = 1800000;
         int timeoutTicks = 15 * 60000;
         foreach (var part in quest.PartsListForReading)
         {
@@ -1318,9 +1320,44 @@ public class GameComponent_FaithTracker : GameComponent
                 delay.delayTicks = timeoutTicks;
         }
 
+        // Fix quest description: timeout and loot
+        string oldDuration = originalTicks.ToStringTicksToPeriod();
+        string newDuration = timeoutTicks.ToStringTicksToPeriod();
+        quest.description = quest.description.Replace(oldDuration, newDuration);
+        FixQuestLootDescription(quest);
+
         lastRaiderWorkSiteDay = today;
-        DebugLog($"Raider: spawned WorkSite quest '{quest.name}', points {points:F0}, timeout 15d");
-        Log.Message($"[HSKFaith] Raider: spawned WorkSite quest '{quest.name}', timeout 15 days");
+        DebugLog($"Raider: spawned WorkSite quest '{quest.name}', points {parms.points:F0}, timeout 15d");
+        Log.Message($"[HSKFaith] Raider: spawned WorkSite quest '{quest.name}', points {parms.points:F0}, timeout 15 days");
+    }
+
+    public static void FixQuestLootDescription(Quest quest)
+    {
+        // Find the site from quest parts
+        Site site = null;
+        foreach (var part in quest.PartsListForReading)
+        {
+            if (part is QuestPart_WorldObjectTimeout wot && wot.worldObject is Site s)
+            {
+                site = s;
+                break;
+            }
+        }
+        if (site?.parts == null || !site.parts.Any()) return;
+        var things = site.parts[0].things;
+        var thingsList = ((IEnumerable<Thing>)things).ToList();
+        if (!thingsList.Any()) return;
+
+        // Build full loot string
+        string fullLoot = string.Join(", ", thingsList.Select(t => $"{t.LabelCapNoCount} x{t.stackCount}"));
+
+        // Replace the vanilla single-item loot in description
+        ThingDef firstDef = thingsList.First().def;
+        int firstCount = thingsList.Where(t => t.def == firstDef).Sum(t => t.stackCount);
+        string vanillaLoot = firstDef.label + " x" + firstCount;
+        string desc = quest.description.ToString();
+        if (desc.Contains(vanillaLoot))
+            quest.description = desc.Replace(vanillaLoot, fullLoot);
     }
 
     private void SeasonRaider()

@@ -16,7 +16,7 @@ public static class Patch_Raider
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
         if (comp == null || !comp.HasMeme("Raider")) return;
 
-        comp.raiderPoints++;
-        Log.Message($"[HSKFaith] Raider: +1 point (total {comp.raiderPoints})");
+        comp.raiderPoints += 3;
+        Log.Message($"[HSKFaith] Raider: +3 points (total {comp.raiderPoints})");
     }
 }

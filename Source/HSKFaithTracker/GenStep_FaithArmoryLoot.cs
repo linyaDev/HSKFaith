@@ -15,7 +15,7 @@ public class GenStep_FaithArmoryLoot : GenStep
     {
         if (parms.sitePart?.things == null || parms.sitePart.things.Count == 0)
         {
-            Log.Warning("[HSKFaith] FaithArmory: no loot in sitePart.things");
+            Log.Warning("[HSKFaith] FaithStash: no loot in sitePart.things");
             return;
         }
 
@@ -30,6 +30,6 @@ public class GenStep_FaithArmoryLoot : GenStep
                 (IntVec3 c) => c.Standable(map), out cell);
 
         parms.sitePart.things.TryDropAll(cell, map, ThingPlaceMode.Near);
-        Log.Message($"[HSKFaith] FaithArmory: loot dropped at {cell}, {parms.sitePart.things.Count} items");
+        Log.Message($"[HSKFaith] FaithStash: loot dropped at {cell}, {parms.sitePart.things.Count} items");
     }
 }

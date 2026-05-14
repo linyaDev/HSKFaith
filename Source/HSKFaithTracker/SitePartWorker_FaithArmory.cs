@@ -9,24 +9,15 @@ namespace HSKFaithTracker;
 
 public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
 {
-    private const float ThreatMultiplier = 2.5f;
+    private const float ArmoryThreatMultiplier = 2.5f;
+    private const float StashThreatMultiplier = 1.5f;
 
     public override IEnumerable<PreceptDef> DisallowedPrecepts => Enumerable.Empty<PreceptDef>();
 
-    public override PawnGroupKindDef WorkerGroupKind => PawnGroupKindDefOf.Settlement;
+    public override PawnGroupKindDef WorkerGroupKind => PawnGroupKindDefOf.Combat;
 
-    public override SitePartParams GenerateDefaultParams(float myThreatPoints,
-#if V15
-        int tile,
-#else
-        PlanetTile tile,
-#endif
-        Faction faction)
-    {
-        SitePartParams parms = base.GenerateDefaultParams(myThreatPoints, tile, faction);
-        parms.threatPoints *= ThreatMultiplier;
-        return parms;
-    }
+    // GenerateDefaultParams is NOT called by QuestNode_Root_WorkSite — multiplier applied in Init() instead
+
 
     public override bool FactionCanOwn(Faction faction)
     {
@@ -38,39 +29,53 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
 
     public override void Init(Site site, SitePart sitePart)
     {
+        // Apply threat multiplier (GenerateDefaultParams is bypassed by QuestNode_Root_WorkSite)
+        float mult = def.defName.StartsWith("FaithArmory") ? ArmoryThreatMultiplier : StashThreatMultiplier;
+        float before = sitePart.parms.threatPoints;
+        sitePart.parms.threatPoints *= mult;
+        Log.Message($"[HSKFaith] {def.defName}: threat {before:F0} x{mult} = {sitePart.parms.threatPoints:F0}");
+
         // Skip base.Init loot generation — we do our own
         sitePart.things = new ThingOwner<Thing>(sitePart);
 
         TechLevel playerTech = Faction.OfPlayer?.def?.techLevel ?? TechLevel.Neolithic;
         TechLevel nextTech = (TechLevel)Mathf.Min((int)playerTech + 1, (int)TechLevel.Spacer);
-        bool isWeapons = def.defName == "FaithArmory_Weapons";
-
-        if (isWeapons)
+        switch (def.defName)
         {
-            Thing weapon = GenerateWeapon(nextTech);
-            if (weapon != null)
+            case "FaithArmory_Weapons":
             {
-                sitePart.things.TryAdd(weapon);
-                Thing ammo = GenerateAmmo(weapon.def);
-                if (ammo != null)
-                    sitePart.things.TryAdd(ammo);
+                Thing weapon = GenerateWeapon(nextTech);
+                if (weapon != null)
+                {
+                    sitePart.things.TryAdd(weapon);
+                    Thing ammo = GenerateAmmo(weapon.def);
+                    if (ammo != null)
+                        sitePart.things.TryAdd(ammo);
+                }
+                break;
             }
-        }
-        else
-        {
-            // 2 random armor pieces from different slots
-            var slots = new List<string> { "FullHead", "Torso", "Hands", "Legs" };
-            slots.Shuffle();
-            foreach (string bodyPart in slots.Take(2))
+            case "FaithArmory_Armor":
             {
-                Thing armor = GenerateArmorPiece(nextTech, bodyPart);
-                if (armor != null)
-                    sitePart.things.TryAdd(armor);
+                var slots = new List<string> { "FullHead", "Torso", "Hands", "Legs" };
+                slots.Shuffle();
+                foreach (string bodyPart in slots.Take(2))
+                {
+                    Thing armor = GenerateArmorPiece(nextTech, bodyPart);
+                    if (armor != null)
+                        sitePart.things.TryAdd(armor);
+                }
+                break;
             }
+            case "FaithStash_Leather":
+                GenerateLeatherLoot(sitePart);
+                break;
+            case "FaithStash_Steel":
+                GenerateSteelLoot(sitePart);
+                break;
         }
         sitePart.lootThings = new List<ThingDefCount>();
 
-        sitePart.expectedEnemyCount = GenStep_WorkSitePawns.GetEnemiesCount(site, sitePart.parms, WorkerGroupKind);
+        Log.Message($"[HSKFaith] {def.defName} Init: faction={site.Faction?.Name}, threatPts={sitePart.parms.threatPoints:F0}, loot={sitePart.things?.Count ?? 0} items");
     }
 
     public override IEnumerable<CampLootThingStruct> LootThings(
@@ -109,13 +114,13 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
 
         if (!candidates.Any()) return null;
 
-        Log.Message($"[HSKFaith] FaithArmory weapon candidates ({techLevel}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
+        Log.Message($"[HSKFaith] FaithStash weapon candidates ({techLevel}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
 
         ThingDef chosen = candidates.RandomElement();
         ThingDef stuff = GenStuff.DefaultStuffFor(chosen);
         Thing weapon = ThingMaker.MakeThing(chosen, stuff);
-        weapon.TryGetComp<CompQuality>()?.SetQuality(QualityCategory.Excellent, ArtGenerationContext.Outsider);
-        Log.Message($"[HSKFaith] FaithArmory: generated weapon {chosen.defName}{(stuff != null ? $" ({stuff.defName})" : "")} ({techLevel})");
+        weapon.TryGetComp<CompQuality>()?.SetQuality((QualityCategory)Rand.RangeInclusive((int)QualityCategory.Normal, (int)QualityCategory.Excellent), ArtGenerationContext.Outsider);
+        Log.Message($"[HSKFaith] FaithStash: generated weapon {chosen.defName}{(stuff != null ? $" ({stuff.defName})" : "")} ({techLevel})");
         return weapon;
     }
 
@@ -180,17 +185,95 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
 
         if (!candidates.Any())
         {
-            Log.Warning($"[HSKFaith] FaithArmory: no armor for {bodyPartGroup} at {techLevel}, tags: {string.Join(",", tags)}");
+            Log.Warning($"[HSKFaith] FaithStash: no armor for {bodyPartGroup} at {techLevel}, tags: {string.Join(",", tags)}");
             return null;
         }
 
-        Log.Message($"[HSKFaith] FaithArmory armor candidates ({techLevel}, {bodyPartGroup}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
+        Log.Message($"[HSKFaith] FaithStash armor candidates ({techLevel}, {bodyPartGroup}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
 
         ThingDef chosen = candidates.RandomElement();
         ThingDef stuff = GenStuff.DefaultStuffFor(chosen);
         Thing armor = ThingMaker.MakeThing(chosen, stuff);
-        armor.TryGetComp<CompQuality>()?.SetQuality(QualityCategory.Excellent, ArtGenerationContext.Outsider);
-        Log.Message($"[HSKFaith] FaithArmory: generated {chosen.defName} for {bodyPartGroup} ({techLevel})");
+        armor.TryGetComp<CompQuality>()?.SetQuality((QualityCategory)Rand.RangeInclusive((int)QualityCategory.Normal, (int)QualityCategory.Excellent), ArtGenerationContext.Outsider);
+        Log.Message($"[HSKFaith] FaithStash: generated {chosen.defName} for {bodyPartGroup} ({techLevel})");
         return armor;
+    }
+
+    private static readonly Dictionary<TechLevel, List<string>> leatherByTech = new Dictionary<TechLevel, List<string>>
+    {
+        { TechLevel.Medieval, new List<string> { "Leather_Bear", "Leather_Wolf", "Leather_Rhinoceros", "Leather_Elephant" } },
+        { TechLevel.Industrial, new List<string> { "Leather_Thrumbo", "Leather_FireDragonskin", "Leather_KirinHide", "Leather_BarghestFur" } },
+        { TechLevel.Spacer, new List<string> { "Hyperweave", "DevilstrandCloth", "Synthread" } },
+    };
+
+    private static void GenerateLeatherLoot(SitePart sitePart)
+    {
+        TechLevel playerTech = Faction.OfPlayer?.def?.techLevel ?? TechLevel.Neolithic;
+        TechLevel nextTech = (TechLevel)Mathf.Min((int)playerTech + 1, (int)TechLevel.Spacer);
+
+        if (!leatherByTech.TryGetValue(nextTech, out var pool))
+            pool = leatherByTech[TechLevel.Medieval];
+
+        var candidates = pool
+            .Select(name => DefDatabase<ThingDef>.GetNamedSilentFail(name))
+            .Where(d => d != null)
+            .ToList();
+
+        if (!candidates.Any())
+        {
+            Log.Warning("[HSKFaith] FaithStash: no leather/fabric candidates found");
+            return;
+        }
+
+        Log.Message($"[HSKFaith] FaithStash leather/fabric candidates ({nextTech}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
+
+        candidates.Shuffle();
+        foreach (var mat in candidates.Take(2))
+        {
+            Thing thing = ThingMaker.MakeThing(mat);
+            thing.stackCount = Rand.RangeInclusive(80, 120);
+            sitePart.things.TryAdd(thing);
+            Log.Message($"[HSKFaith] FaithStash: generated {mat.defName} x{thing.stackCount}");
+        }
+    }
+
+    private static readonly Dictionary<TechLevel, List<string>> alloysByTech = new Dictionary<TechLevel, List<string>>
+    {
+        { TechLevel.Medieval, new List<string> { "AlnicoAlloy" } },
+        { TechLevel.Industrial, new List<string> { "Chromium", "NickelBar", "Cobalt", "AluminiumBar", "CarbonAlloy", "DepletedUranium" } },
+        { TechLevel.Spacer, new List<string> { "Tungsten", "Plasteel", "Titanium", "StelliteAlloy", "NitinolAlloy", "PobediteAlloy" } },
+    };
+
+    private static void GenerateSteelLoot(SitePart sitePart)
+    {
+        TechLevel playerTech = Faction.OfPlayer?.def?.techLevel ?? TechLevel.Neolithic;
+        TechLevel nextTech = (TechLevel)Mathf.Min((int)playerTech + 1, (int)TechLevel.Spacer);
+
+        // Alloys from next tech level only
+        if (!alloysByTech.TryGetValue(nextTech, out var pool))
+            pool = alloysByTech[TechLevel.Medieval];
+
+        // Resolve to ThingDefs
+        var candidates = pool
+            .Select(name => DefDatabase<ThingDef>.GetNamedSilentFail(name))
+            .Where(d => d != null)
+            .ToList();
+
+        if (!candidates.Any())
+        {
+            Log.Warning("[HSKFaith] FaithStash: no alloy candidates found");
+            return;
+        }
+
+        Log.Message($"[HSKFaith] FaithStash alloy candidates ({nextTech}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
+
+        candidates.Shuffle();
+        foreach (var alloy in candidates.Take(2))
+        {
+            Thing thing = ThingMaker.MakeThing(alloy);
+            thing.stackCount = 250;
+            sitePart.things.TryAdd(thing);
+            Log.Message($"[HSKFaith] FaithStash: generated {alloy.defName} x{thing.stackCount}");
+        }
     }
 }

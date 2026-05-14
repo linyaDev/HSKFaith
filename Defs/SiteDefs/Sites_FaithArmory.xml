@@ -43,6 +43,44 @@
     </tags>
   </SitePartDef>
 
+  <SitePartDef>
+    <defName>FaithStash_Leather</defName>
+    <label>leather stash</label>
+    <description>A small outpost with a stockpile of rare leather and cloth. Guarded by hostile forces.</description>
+    <workerClass>HSKFaithTracker.SitePartWorker_FaithArmory</workerClass>
+    <siteTexture>World/WorldObjects/Sites/Outpost</siteTexture>
+    <expandingIconTexture>World/WorldObjects/Expanding/Sites/Outpost</expandingIconTexture>
+    <applyFactionColorToSiteTexture>true</applyFactionColorToSiteTexture>
+    <showFactionInInspectString>true</showFactionInInspectString>
+    <requiresFaction>true</requiresFaction>
+    <wantsThreatPoints>true</wantsThreatPoints>
+    <minThreatPoints>250</minThreatPoints>
+    <approachOrderString>Attack {0}</approachOrderString>
+    <approachingReportString>Attacking {0}</approachingReportString>
+    <tags>
+      <li>WorkSite</li>
+    </tags>
+  </SitePartDef>
+
+  <SitePartDef>
+    <defName>FaithStash_Steel</defName>
+    <label>steel stockpile</label>
+    <description>A small outpost with a large stockpile of steel. Guarded by hostile forces.</description>
+    <workerClass>HSKFaithTracker.SitePartWorker_FaithArmory</workerClass>
+    <siteTexture>World/WorldObjects/Sites/Outpost</siteTexture>
+    <expandingIconTexture>World/WorldObjects/Expanding/Sites/Outpost</expandingIconTexture>
+    <applyFactionColorToSiteTexture>true</applyFactionColorToSiteTexture>
+    <showFactionInInspectString>true</showFactionInInspectString>
+    <requiresFaction>true</requiresFaction>
+    <wantsThreatPoints>true</wantsThreatPoints>
+    <minThreatPoints>250</minThreatPoints>
+    <approachOrderString>Attack {0}</approachOrderString>
+    <approachingReportString>Attacking {0}</approachingReportString>
+    <tags>
+      <li>WorkSite</li>
+    </tags>
+  </SitePartDef>
+
   <!-- ====== Gen Steps ====== -->
 
   <GenStepDef>
@@ -79,6 +117,42 @@
   <GenStepDef>
     <defName>FaithArmory_Armor_Loot</defName>
     <linkWithSite>FaithArmory_Armor</linkWithSite>
+    <order>455</order>
+    <genStep Class="HSKFaithTracker.GenStep_FaithArmoryLoot" />
+  </GenStepDef>
+
+  <GenStepDef>
+    <defName>FaithStash_Leather_Outpost</defName>
+    <linkWithSite>FaithStash_Leather</linkWithSite>
+    <order>450</order>
+    <genStep Class="GenStep_Outpost">
+      <size>12</size>
+      <allowGeneratingThronerooms>false</allowGeneratingThronerooms>
+      <allowGeneratingFarms>false</allowGeneratingFarms>
+    </genStep>
+  </GenStepDef>
+
+  <GenStepDef>
+    <defName>FaithStash_Leather_Loot</defName>
+    <linkWithSite>FaithStash_Leather</linkWithSite>
+    <order>455</order>
+    <genStep Class="HSKFaithTracker.GenStep_FaithArmoryLoot" />
+  </GenStepDef>
+
+  <GenStepDef>
+    <defName>FaithStash_Steel_Outpost</defName>
+    <linkWithSite>FaithStash_Steel</linkWithSite>
+    <order>450</order>
+    <genStep Class="GenStep_Outpost">
+      <size>12</size>
+      <allowGeneratingThronerooms>false</allowGeneratingThronerooms>
+      <allowGeneratingFarms>false</allowGeneratingFarms>
+    </genStep>
+  </GenStepDef>
+
+  <GenStepDef>
+    <defName>FaithStash_Steel_Loot</defName>
+    <linkWithSite>FaithStash_Steel</linkWithSite>
     <order>455</order>
     <genStep Class="HSKFaithTracker.GenStep_FaithArmoryLoot" />
   </GenStepDef>

@@ -1432,8 +1432,9 @@ Text.Anchor = TextAnchor.MiddleRight;
         if (Mouse.IsOver(barRect))
         {
             Widgets.DrawHighlight(barRect);
+            int carryOver = System.Math.Max(0, comp.raiderPoints - sections);
             TooltipHandler.TipRegion(barRect,
-                "FT_RaiderTooltip".Translate(comp.raiderPoints));
+                "FT_RaiderTooltip".Translate(comp.raiderPoints, sections, carryOver));
         }
 
         y += barH + 8f;
