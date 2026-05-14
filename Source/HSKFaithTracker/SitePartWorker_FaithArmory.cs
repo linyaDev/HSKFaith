@@ -29,11 +29,25 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
 
     public override void Init(Site site, SitePart sitePart)
     {
+        // Replace faction if tech level too high
+        if (site.Faction != null && !FactionCanOwn(site.Faction))
+        {
+            var oldFaction = site.Faction;
+            var better = Find.FactionManager.AllFactionsListForReading
+                .Where(f => FactionCanOwn(f) && f.HostileTo(Faction.OfPlayer) && f.def.humanlikeFaction)
+                .RandomElementWithFallback();
+            if (better != null)
+            {
+                site.SetFaction(better);
+                Log.Message($"[HSKFaith] {def.defName}: replaced faction {oldFaction.Name}({oldFaction.def.techLevel}) -> {better.Name}({better.def.techLevel})");
+            }
+        }
+
         // Apply threat multiplier (GenerateDefaultParams is bypassed by QuestNode_Root_WorkSite)
         float mult = def.defName.StartsWith("FaithArmory") ? ArmoryThreatMultiplier : StashThreatMultiplier;
         float before = sitePart.parms.threatPoints;
         sitePart.parms.threatPoints *= mult;
-        Log.Message($"[HSKFaith] {def.defName}: threat {before:F0} x{mult} = {sitePart.parms.threatPoints:F0}");
+        Log.Message($"[HSKFaith] {def.defName}: faction={site.Faction?.Name}({site.Faction?.def?.techLevel}), threat {before:F0} x{mult} = {sitePart.parms.threatPoints:F0}");
 
         // Skip base.Init loot generation — we do our own
         sitePart.things = new ThingOwner<Thing>(sitePart);
