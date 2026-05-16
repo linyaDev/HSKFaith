@@ -65,7 +65,8 @@ public static class Patch_WorkSitePawns
         BaseGen.globalSettings.map = map;
         BaseGen.Generate();
 
-        Log.Message($"[HSKFaith] Patch_WorkSitePawns: generated combat group, points={points:F0}, faction={faction.Name}");
+        int spawned = map.mapPawns.AllPawnsSpawned.Count(p => p.Faction == faction);
+        Log.Message($"[HSKFaith] Patch_WorkSitePawns: site={parms.sitePart.def.defName}, faction={faction.Name}({faction.def.techLevel}), points={groupParms.points:F0}, spawned={spawned}");
         return false; // skip vanilla
     }
 }

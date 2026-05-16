@@ -92,6 +92,11 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
         Log.Message($"[HSKFaith] {def.defName} Init: faction={site.Faction?.Name}, threatPts={sitePart.parms.threatPoints:F0}, loot={sitePart.things?.Count ?? 0} items");
     }
 
+    public override string GetPostProcessedThreatLabel(Site site, SitePart sitePart)
+    {
+        return site.Label;
+    }
+
     public override IEnumerable<CampLootThingStruct> LootThings(
 #if V15
         int tile
@@ -169,7 +174,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
         // Get magazine size for count
         var magSizeField = ammoComp.GetType().GetField("magazineSize");
         int magSize = magSizeField != null ? (int)magSizeField.GetValue(ammoComp) : 6;
-        int ammoCount = magSize * 6; // 6 magazines worth
+        int ammoCount = System.Math.Min(System.Math.Max(magSize * 6, 45), 220);
 
         Thing ammo = ThingMaker.MakeThing(ammoDef);
         ammo.stackCount = ammoCount;
@@ -253,9 +258,9 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
 
     private static readonly Dictionary<TechLevel, List<string>> alloysByTech = new Dictionary<TechLevel, List<string>>
     {
-        { TechLevel.Medieval, new List<string> { "AlnicoAlloy" } },
+        { TechLevel.Medieval, new List<string> { "Steel", "Bronze" } },
         { TechLevel.Industrial, new List<string> { "Chromium", "NickelBar", "Cobalt", "AluminiumBar", "CarbonAlloy", "DepletedUranium" } },
-        { TechLevel.Spacer, new List<string> { "Tungsten", "Plasteel", "Titanium", "StelliteAlloy", "NitinolAlloy", "PobediteAlloy" } },
+        { TechLevel.Spacer, new List<string> { "Tungsten", "Plasteel", "Titanium", "StelliteAlloy", "NitinolAlloy", "PobediteAlloy", "AlnicoAlloy" } },
     };
 
     private static void GenerateSteelLoot(SitePart sitePart)

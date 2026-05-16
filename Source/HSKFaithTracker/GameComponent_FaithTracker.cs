@@ -1349,7 +1349,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (!thingsList.Any()) return;
 
         // Build full loot string
-        string fullLoot = string.Join(", ", thingsList.Select(t => $"{t.LabelCapNoCount} x{t.stackCount}"));
+        string fullLoot = string.Join(", ", thingsList.Select(t => $"{t.def.LabelCap} x{t.stackCount}"));
 
         // Replace the vanilla single-item loot in description
         ThingDef firstDef = thingsList.First().def;

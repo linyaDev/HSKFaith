@@ -19,7 +19,7 @@
 		<value>
 			<equippedStatOffsets>
 				<SlaveSuppressionOffset>0.15</SlaveSuppressionOffset>
-				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+				<MentalBreakThreshold>-0.01</MentalBreakThreshold>
 			</equippedStatOffsets>
 		</value>
 	</Operation>
@@ -39,7 +39,7 @@
 		<value>
 			<equippedStatOffsets>
 				<MoveSpeed>-0.4</MoveSpeed>
-				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+				<MentalBreakThreshold>-0.01</MentalBreakThreshold>
 			</equippedStatOffsets>
 		</value>
 	</Operation>
@@ -57,7 +57,7 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="Apparel_Robe"]/equippedStatOffsets</xpath>
 		<value>
-			<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+			<MentalBreakThreshold>-0.01</MentalBreakThreshold>
 		</value>
 	</Operation>
 
@@ -75,7 +75,7 @@
 		<xpath>Defs/ThingDef[defName="Apparel_Blindfold"]</xpath>
 		<value>
 			<equippedStatOffsets>
-				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+				<MentalBreakThreshold>-0.01</MentalBreakThreshold>
 			</equippedStatOffsets>
 		</value>
 	</Operation>
@@ -117,7 +117,7 @@
 		<value>
 			<equippedStatOffsets>
 				<SuppressionPower>0.1</SuppressionPower>
-				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+				<MentalBreakThreshold>-0.01</MentalBreakThreshold>
 			</equippedStatOffsets>
 		</value>
 	</Operation>
@@ -148,7 +148,7 @@
 		<xpath>Defs/ThingDef[defName="Apparel_Headwrap" or defName="Apparel_Broadwrap" or defName="Apparel_VisageMask" or defName="Apparel_Slicecap" or defName="Apparel_Tailcap" or defName="Apparel_Shadecone" or defName="Apparel_Flophat" or defName="Apparel_TortureCrown"]</xpath>
 		<value>
 			<equippedStatOffsets>
-				<MentalBreakThreshold>-0.02</MentalBreakThreshold>
+				<MentalBreakThreshold>-0.01</MentalBreakThreshold>
 			</equippedStatOffsets>
 		</value>
 	</Operation>
