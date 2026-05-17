@@ -48,6 +48,28 @@ public static class Patch_StartingItems
         }
 
         // Unlock starting research
+        // Temporarily remove blocked prerequisites to prevent recursive unlock
+        var blockedPrereqs = new HashSet<string> { "Electricity", "Batteries", "MicroelectronicsBasics" };
+        var removedPrereqs = new List<(ResearchProjectDef proj, ResearchProjectDef prereq)>();
+
+        foreach (var meme in ideo.memes)
+        {
+            var ext3 = meme.GetModExtension<MemeEffectExtension>();
+            if (ext3?.startingResearchProjects == null) continue;
+            foreach (var proj in ext3.startingResearchProjects)
+            {
+                if (proj?.prerequisites == null) continue;
+                for (int i = proj.prerequisites.Count - 1; i >= 0; i--)
+                {
+                    if (blockedPrereqs.Contains(proj.prerequisites[i].defName))
+                    {
+                        removedPrereqs.Add((proj, proj.prerequisites[i]));
+                        proj.prerequisites.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
         foreach (var meme in ideo.memes)
         {
             var ext3 = meme.GetModExtension<MemeEffectExtension>();
@@ -61,6 +83,10 @@ public static class Patch_StartingItems
                 }
             }
         }
+
+        // Restore removed prerequisites
+        foreach (var (proj, prereq) in removedPrereqs)
+            proj.prerequisites.Add(prereq);
 
         if (items.Count == 0 && animals.Count == 0) return;
 
