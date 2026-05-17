@@ -22,6 +22,6 @@ public static class Patch_NaturePrimacyWildHarvest
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
         if (comp == null || !comp.HasMeme("NaturePrimacy")) return;
 
-        __result *= 6;
+        __result *= 2;
     }
 }

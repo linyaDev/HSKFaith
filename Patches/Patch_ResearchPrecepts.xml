@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!-- Nerf fast and very fast research precepts to +0% (cannot remove — referenced by faction defs) -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>/Defs/PreceptDef[defName="Research_Fast"]/statFactors/ResearchSpeed</xpath>
+		<value>
+			<ResearchSpeed>1.0</ResearchSpeed>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>/Defs/PreceptDef[defName="Research_VeryFast"]/statFactors/ResearchSpeed</xpath>
+		<value>
+			<ResearchSpeed>1.0</ResearchSpeed>
+		</value>
+	</Operation>
+
+</Patch>
