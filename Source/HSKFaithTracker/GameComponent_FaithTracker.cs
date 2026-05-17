@@ -132,6 +132,9 @@ public class GameComponent_FaithTracker : GameComponent
         rancherPtsPerAnimal[animalLabel] = pts;
     }
 
+    // Ritualist mechanic
+    public int ritualistPoints;
+
     // Proselytizer mechanic
     public int proselytizePoints;
 
@@ -1120,6 +1123,7 @@ public class GameComponent_FaithTracker : GameComponent
         SeasonTunneler();
         SeasonDarkness();
         SeasonRaider();
+        SeasonRitualist();
         SeasonNudism();
         SeasonNaturePrimacy();
         SeasonPassiveMemes();
@@ -1372,6 +1376,19 @@ public class GameComponent_FaithTracker : GameComponent
 
         RecordSections("Raider", filled, unfilled);
         raiderPoints = System.Math.Max(0, raiderPoints - sections);
+    }
+
+    private void SeasonRitualist()
+    {
+        if (!HasMeme("Ritualist")) return;
+        int sections = MemeCount;
+        if (sections <= 0) return;
+
+        int filled = System.Math.Min(ritualistPoints, sections);
+        int unfilled = sections - filled;
+
+        RecordSections("Ritualist", filled, unfilled);
+        ritualistPoints = 0;
     }
 
     private void SeasonTunneler()
@@ -1752,6 +1769,7 @@ public class GameComponent_FaithTracker : GameComponent
         if (rancherBirths == null) rancherBirths = new Dictionary<string, int>();
         Scribe_Collections.Look(ref rancherPtsPerAnimal, "rancherPtsPerAnimal", LookMode.Value, LookMode.Value);
         if (rancherPtsPerAnimal == null) rancherPtsPerAnimal = new Dictionary<string, int>();
+        Scribe_Values.Look(ref ritualistPoints, "ritualistPoints");
         Scribe_Values.Look(ref proselytizePoints, "proselytizePoints");
         Scribe_Values.Look(ref purePoints, "purePoints");
         Scribe_Values.Look(ref implantedPoints, "implantedPoints");

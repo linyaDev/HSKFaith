@@ -31,6 +31,7 @@ public class MemeEffectExtension : DefModExtension
     public float certaintyPerSeason; // certainty bonus/penalty per season (e.g. 0.05 = +5%)
     public List<ThingDefCountClass> startingItems;
     public List<StartingAnimal> startingAnimals;
+    public List<ResearchProjectDef> startingResearchProjects;
 }
 
 public class StartingAnimal

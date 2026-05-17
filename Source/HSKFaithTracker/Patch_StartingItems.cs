@@ -47,6 +47,21 @@ public static class Patch_StartingItems
             }
         }
 
+        // Unlock starting research
+        foreach (var meme in ideo.memes)
+        {
+            var ext3 = meme.GetModExtension<MemeEffectExtension>();
+            if (ext3?.startingResearchProjects == null) continue;
+            foreach (var proj in ext3.startingResearchProjects)
+            {
+                if (proj != null && !proj.IsFinished)
+                {
+                    Find.ResearchManager.FinishProject(proj);
+                    Log.Message($"[HSKFaith] Starting research unlocked: {proj.LabelCap}");
+                }
+            }
+        }
+
         if (items.Count == 0 && animals.Count == 0) return;
 
         // Find a spot near colonists
@@ -68,4 +83,5 @@ public static class Patch_StartingItems
             }
         }
     }
+
 }

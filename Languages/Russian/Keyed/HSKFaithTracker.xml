@@ -151,6 +151,7 @@
 	<FT_RancherPassive>Сниженный голод у животных колонии</FT_RancherPassive>
 	<FT_AnimalCompanionPassive>Бонус настроения за приручённых диких животных в колонии</FT_AnimalCompanionPassive>
 	<FT_StartingItems>Предметы на старте:</FT_StartingItems>
+	<FT_StartingResearch>Исследования на старте:</FT_StartingResearch>
 	<FT_MemeGameplay_Rancher>Ферма — сердце колонии. Альпака — национальный герой. Курица — мелкий святой. Корова — практически божество. Люди? Люди тут обслуживающий персонал.</FT_MemeGameplay_Rancher>
 	<FT_MemeGameplay_AnimalPersonhood>Животные — это люди, только лучше. Они не жалуются, не воруют еду из холодильника... хотя нет, воруют. Но мы их всё равно любим.</FT_MemeGameplay_AnimalPersonhood>
 	<FT_MemeGameplay_Collectivist>Один за всех и все за одного. Особенно когда нужно таскать камни. Личные амбиции? Оставьте на входе. Тут важен результат. Общий результат.</FT_MemeGameplay_Collectivist>
@@ -170,7 +171,8 @@
 	<FT_MemeGoodwill>Ежегодное изменение репутации: {0}</FT_MemeGoodwill>
 	<FT_RaiderFulfilled>Добыча войны</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Праздные воины</FT_RaiderPenalty>
-	<FT_RaiderTooltip>Очки рейдов: {0} (нужно {1} за сезон)\nВ запасе на след. сезон: {2}\nПолучение очков:\n+3 за набег на поселения</FT_RaiderTooltip>
+	<FT_RitualistTooltip>Очки ритуалов: {0} (нужно {1} за сезон)\nПолучение очков:\n+2 за проведённый ритуал</FT_RitualistTooltip>
+	<FT_RaiderTooltip>Очки рейдов: {0} (нужно {1} за сезон)\nВ запасе на след. сезон: {2}\nПо��учение очков:\n+3 за набег на поселения</FT_RaiderTooltip>
 	<FT_ArmoryDiscovered>Поблизости обнаружена оружейная. Продвинутое снаряжение ждёт тех, кто достаточно смел, чтобы его забрать.</FT_ArmoryDiscovered>
 	<FT_RaiderReady>Безопасно для рейда</FT_RaiderReady>
 	<FT_RaiderReadyDesc>Духи благоволят смелым. Сейчас хорошее время для набега.</FT_RaiderReadyDesc>

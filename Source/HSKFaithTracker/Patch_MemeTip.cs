@@ -59,6 +59,14 @@ public static class Patch_MemeTip
                     block += "\n    " + item.thingDef.LabelCap + " x" + item.count;
         }
 
+        if (ext.startingResearchProjects != null && ext.startingResearchProjects.Count > 0)
+        {
+            block += "\n  " + "FT_StartingResearch".Translate();
+            foreach (var proj in ext.startingResearchProjects)
+                if (proj != null)
+                    block += "\n    " + proj.LabelCap;
+        }
+
         if (ext.yearlyGoodwillChange != 0)
             block += "\n  " + "FT_MemeGoodwill".Translate(ext.yearlyGoodwillChange.ToStringWithSign());
 

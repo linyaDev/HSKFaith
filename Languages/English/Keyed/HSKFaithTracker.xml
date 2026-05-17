@@ -149,6 +149,7 @@
 	<FT_RancherPassive>Reduced hunger for colony animals</FT_RancherPassive>
 	<FT_AnimalCompanionPassive>Mood bonus for tamed wild animals in colony</FT_AnimalCompanionPassive>
 	<FT_StartingItems>Starting items:</FT_StartingItems>
+	<FT_StartingResearch>Starting research:</FT_StartingResearch>
 	<FT_MemeGameplay_Rancher>The farm is the heart of the colony. Alpaca — national hero. Chicken — minor saint. Cow — practically a deity. People? People here are just the support staff.</FT_MemeGameplay_Rancher>
 	<FT_MemeGameplay_AnimalPersonhood>Animals are people, only better. They don't complain, don't steal food from the fridge... well actually, they do steal. But we love them anyway.</FT_MemeGameplay_AnimalPersonhood>
 	<FT_MemeGameplay_Collectivist>One for all and all for one. Especially when hauling rocks. Personal ambitions? Leave them at the door. What matters here is the result. The collective result.</FT_MemeGameplay_Collectivist>
@@ -168,6 +169,7 @@
 	<FT_MemeGoodwill>Yearly goodwill change: {0}</FT_MemeGoodwill>
 	<FT_RaiderFulfilled>Spoils of war</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Idle warriors</FT_RaiderPenalty>
+	<FT_RitualistTooltip>Ritual points: {0} (need {1} per season)\nEarning points:\n+2 per completed ritual</FT_RitualistTooltip>
 	<FT_RaiderTooltip>Raid points: {0} (need {1} per season)\nCarry over to next season: {2}\nEarning points:\n+3 per raid on settlements</FT_RaiderTooltip>
 	<FT_ArmoryDiscovered>An armory has been discovered nearby. Advanced equipment awaits those brave enough to take it.</FT_ArmoryDiscovered>
 	<FT_RaiderReady>Safe to raid</FT_RaiderReady>

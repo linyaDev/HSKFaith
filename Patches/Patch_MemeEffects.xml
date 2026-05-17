@@ -144,17 +144,12 @@
                         <Seed_Smokeleaf>20</Seed_Smokeleaf>
                         <Berserk_herb>10</Berserk_herb>
                     </startingItems>
+                    <startingResearchProjects>
+                        <li>Drugs_A1</li>
+                        <li>Drug_plants_A1</li>
+                    </startingResearchProjects>
                 </li>
             </modExtensions>
-        </value>
-    </Operation>
-    <Operation Class="PatchOperationAdd">
-        <xpath>/Defs/MemeDef[defName="HighLife"]</xpath>
-        <value>
-            <startingResearchProjects>
-                <li>Drugs_A1</li>
-                <li>Drug_plants_A1</li>
-            </startingResearchProjects>
         </value>
     </Operation>
     <Operation Class="PatchOperationAdd">
@@ -207,18 +202,13 @@
                         <Seed_GrayPine>15</Seed_GrayPine>
                         <Seed_TreeCecropia>15</Seed_TreeCecropia>
                     </startingItems>
+                    <startingResearchProjects>
+                        <li>Flowers_A1</li>
+                        <li>Flowers_A2</li>
+                        <li>TreeSowing</li>
+                    </startingResearchProjects>
                 </li>
             </modExtensions>
-        </value>
-    </Operation>
-    <Operation Class="PatchOperationAdd">
-        <xpath>/Defs/MemeDef[defName="NaturePrimacy"]</xpath>
-        <value>
-            <startingResearchProjects>
-                <li>Flowers_A1</li>
-                <li>Flowers_A2</li>
-                <li>TreeSowing</li>
-            </startingResearchProjects>
         </value>
     </Operation>
 
@@ -301,6 +291,9 @@
                         <MiningSpeed>1.3</MiningSpeed>
                     </statFactors>
                     <certaintyPerSeason>-0.06</certaintyPerSeason>
+                    <startingResearchProjects>
+                        <li>Stonecutting</li>
+                    </startingResearchProjects>
                 </li>
             </modExtensions>
         </value>
@@ -334,8 +327,20 @@
         <value>
             <modExtensions>
                 <li Class="HSKFaithTracker.MemeEffectExtension">
-                    <memeGroup>mid</memeGroup>
+                    <memeGroup>early</memeGroup>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>1</faithPerSection>
+                    <penaltyPerSection>-1</penaltyPerSection>
+                    <sectionsPerMeme>1</sectionsPerMeme>
                     <certaintyPerSeason>-0.06</certaintyPerSeason>
+                    <startingItems>
+                        <Apparel_DeadlifePack>3</Apparel_DeadlifePack>
+                    </startingItems>
+                    <startingResearchProjects>
+                        <li>BasicPsychicRituals</li>
+                        <li>BioferriteShaping</li>
+                        <li>DeadlifeDust</li>
+                    </startingResearchProjects>
                 </li>
             </modExtensions>
         </value>

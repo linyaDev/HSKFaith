@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!-- Replace Ritualist research requirement: force Research_Normal instead of slow options -->
+	<Operation Class="PatchOperationReplace">
+		<xpath>/Defs/MemeDef[defName="Ritualist"]/requireOne/li[li="Research_ExtremelySlow"]</xpath>
+		<value>
+			<li>
+				<li MayRequire="Ludeon.RimWorld.Ideology">Research_Normal</li>
+			</li>
+		</value>
+	</Operation>
+
+</Patch>

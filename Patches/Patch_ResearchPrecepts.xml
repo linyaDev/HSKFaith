@@ -17,4 +17,9 @@
 		</value>
 	</Operation>
 
+	<!-- Remove Electricity prerequisite from BioferriteShaping (for Ritualist start) -->
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/ResearchProjectDef[defName="BioferriteShaping"]/prerequisites/li[.="Electricity"]</xpath>
+	</Operation>
+
 </Patch>
