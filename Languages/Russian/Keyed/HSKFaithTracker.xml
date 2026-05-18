@@ -145,7 +145,7 @@
 	<FT_MemeGameplay_Ritualist>Тёмные ритуалы — не проблема, а расписание. Понедельник — призыв. Среда — подношение. Пятница — попытка закрыть портал, который открыли в понедельник. Выходные — молитва о том, чтобы оно не вернулось.</FT_MemeGameplay_Ritualist>
 	<FT_MemeGameplay_Individualist>Свобода — высшая ценность. Свобода от собраний, от коллективных решений и от людей, которые лезут с советами. Каждый сам себе начальник, психолог и мотиватор.</FT_MemeGameplay_Individualist>
 	<FT_MemeGameplay_Loyalist>Предательство — худший грех. Верность колонии превыше всего. Дезертиры и перебежчики? Таких здесь не держат.</FT_MemeGameplay_Loyalist>
-	<FT_MemeGameplay_Inhuman>Люди — слабое звено. Машины, мутанты, кто угодно — лишь бы не обычный человек. Пост-гуманизм во всей красе.</FT_MemeGameplay_Inhuman>
+	<FT_MemeGameplay_Inhuman>Бывший фермер не жалуется на урожай. Бывший охотник не жалуется на погоду. Бывший человек вообще не жалуется.</FT_MemeGameplay_Inhuman>
 	<FT_MemeGameplay_HAR_Xenophilia>Четыре руки? Добро пожаловать! Хвост? Отлично! Щупальца? Ну... ладно, тоже заходи. Главное — разнообразие.</FT_MemeGameplay_HAR_Xenophilia>
 	<FT_MemeGameplay_HAR_Xenophobia>Свои — это свои. Чужие — это чужие. Простая философия для простых времён. Несогласных провожаем до границы карты. Бесплатно.</FT_MemeGameplay_HAR_Xenophobia>
 	<FT_RancherPassive>Сниженный голод у животных колонии</FT_RancherPassive>
@@ -171,6 +171,7 @@
 	<FT_MemeGoodwill>Ежегодное изменение репутации: {0}</FT_MemeGoodwill>
 	<FT_RaiderFulfilled>Добыча войны</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Праздные воины</FT_RaiderPenalty>
+	<FT_InhumanTooltip>Обесчеловеченные: {0} / Обычные: {1}\nСоотношение 1:1 заполняет шкалу</FT_InhumanTooltip>
 	<FT_RitualistTooltip>Очки ритуалов: {0} (нужно {1} за сезон)\nПолучение очков:\n+2 за проведённый ритуал</FT_RitualistTooltip>
 	<FT_RaiderTooltip>Очки рейдов: {0} (нужно {1} за сезон)\nВ запасе на след. сезон: {2}\nПо��учение очков:\n+3 за набег на поселения</FT_RaiderTooltip>
 	<FT_ArmoryDiscovered>Поблизости обнаружена оружейная. Продвинутое снаряжение ждёт тех, кто достаточно смел, чтобы его забрать.</FT_ArmoryDiscovered>

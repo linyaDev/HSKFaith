@@ -1214,6 +1214,7 @@ Text.Anchor = TextAnchor.MiddleRight;
             else if (def == "HAR_Xenophilia") y = DrawXenophiliaBar(inRect, y, meme, comp);
             else if (def == "HAR_Xenophobia") y = DrawXenophobiaBar(inRect, y, meme, comp);
             else if (def == "Ritualist") y = DrawRitualistBar(inRect, y, meme, comp);
+            else if (def == "Inhuman") y = DrawInhumanBar(inRect, y, meme, comp);
             else if (def == "Raider") y = DrawRaiderBar(inRect, y, meme, comp);
             else if (def == "Tunneler") y = DrawTunnelerBar(inRect, y, meme, comp);
             else if (def == "Darkness") y = DrawDarknessBar(inRect, y, meme, comp);
@@ -1358,6 +1359,86 @@ Text.Anchor = TextAnchor.MiddleRight;
         Widgets.Label(new Rect(inRect.width - forecastW - 2f, y, forecastW, blockH), str);
         GUI.color = Color.white;
         Text.Font = GameFont.Small;
+    }
+
+    // === Inhuman bar ===
+    private static readonly Color InhumanColor = new Color(0.4f, 0.15f, 0.5f);
+    private static readonly Color InhumanEmptyColor = new Color(0.2f, 0.08f, 0.25f);
+
+    private float DrawInhumanBar(Rect inRect, float y, MemeDef meme, GameComponent_FaithTracker comp)
+    {
+        float barH = 18f;
+        float iconSize = 24f;
+        float iconPad = 4f;
+        float forecastW = 55f;
+        float barX = 20f + iconSize + iconPad;
+        float barW = inRect.width - barX - 10f - forecastW;
+
+        GUI.color = new Color(1f, 1f, 1f, 0.15f);
+        Widgets.DrawLineHorizontal(0f, y, inRect.width);
+        GUI.color = Color.white;
+        y += 4f;
+
+        float blockH = 22f + barH;
+        int sections = comp.MemeCount;
+        int total = comp.inhumanPoints + comp.humanPoints;
+        int filled = (total > 0) ? (int)((float)comp.inhumanPoints / total * sections) : 0;
+        int unfilled = sections - filled;
+        var ext = meme.GetModExtension<MemeEffectExtension>();
+        int forecast = ComputeForecast(ext, filled, sections);
+
+        DrawForecastLabel(inRect, y, forecastW, blockH, forecast);
+
+        Texture2D memeIcon = meme.Icon;
+        if (memeIcon != null)
+        {
+            Rect iconRect = new Rect(10f, y + (blockH - iconSize) / 2f, iconSize, iconSize);
+            Rect clickRect = iconRect.ExpandedBy(10f);
+            if (Mouse.IsOver(clickRect))
+            {
+                GUI.color = new Color(1f, 1f, 0.6f);
+                Widgets.DrawHighlight(clickRect);
+                TooltipHandler.TipRegion(clickRect, meme.LabelCap + "\n" + "FT_ClickForDetails".Translate());
+            }
+            GUI.DrawTexture(iconRect, memeIcon, ScaleMode.ScaleToFit);
+            GUI.color = Color.white;
+            if (Widgets.ButtonInvisible(clickRect))
+                Find.WindowStack.Add(new Dialog_MemeInfo(meme));
+        }
+
+        Text.Anchor = TextAnchor.MiddleCenter;
+        GUI.color = InhumanColor;
+        Widgets.Label(new Rect(barX, y, barW, 20f), meme.LabelCap);
+        GUI.color = Color.white;
+        Text.Anchor = TextAnchor.UpperLeft;
+        y += 22f;
+
+        Widgets.DrawBoxSolid(new Rect(barX, y, barW, barH), new Color(0.1f, 0.1f, 0.1f, 0.8f));
+        float sectionW = sections > 0 ? barW / sections : barW;
+
+        if (filled > 0)
+            Widgets.DrawBoxSolid(new Rect(barX, y, filled * sectionW, barH), InhumanColor);
+        if (unfilled > 0)
+            Widgets.DrawBoxSolid(new Rect(barX + filled * sectionW, y, unfilled * sectionW, barH), InhumanEmptyColor);
+
+        for (int s = 1; s < sections; s++)
+        {
+            float divX = barX + sectionW * s;
+            Widgets.DrawBoxSolid(new Rect(divX - 1f, y, 2f, barH), new Color(1f, 1f, 1f, 0.4f));
+        }
+
+        Widgets.DrawBox(new Rect(barX, y, barW, barH), 1);
+
+        Rect barRect = new Rect(barX, y, barW, barH);
+        if (Mouse.IsOver(barRect))
+        {
+            Widgets.DrawHighlight(barRect);
+            TooltipHandler.TipRegion(barRect,
+                "FT_InhumanTooltip".Translate(comp.inhumanPoints, comp.humanPoints));
+        }
+
+        y += barH + 8f;
+        return y;
     }
 
     // === Ritualist bar ===

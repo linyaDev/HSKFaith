@@ -132,6 +132,10 @@ public class GameComponent_FaithTracker : GameComponent
         rancherPtsPerAnimal[animalLabel] = pts;
     }
 
+    // Inhuman mechanic
+    public int inhumanPoints;
+    public int humanPoints;
+
     // Ritualist mechanic
     public int ritualistPoints;
 
@@ -463,6 +467,7 @@ public class GameComponent_FaithTracker : GameComponent
         UpdateNudismHediffs();
         UpdateSupremacistHediffs();
         UpdateGenderHediffs();
+        DailyInhuman();
         DailyTreeConnection();
         DailyNaturePrimacySpawn();
         DailyRaiderWorkSite(today);
@@ -485,6 +490,27 @@ public class GameComponent_FaithTracker : GameComponent
         slaveryPoints += slaves;
         if (slaveryPoints > SlaveryMax)
             slaveryPoints = SlaveryMax;
+    }
+
+    private void DailyInhuman()
+    {
+        if (!HasMeme("Inhuman")) return;
+
+        var inhumanizedDef = DefDatabase<HediffDef>.GetNamedSilentFail("Inhumanized");
+        if (inhumanizedDef == null) return;
+
+        int inhuman = 0, human = 0;
+        foreach (var p in PawnsFinder.AllMaps_FreeColonists)
+        {
+            if (p.IsSlave) continue;
+            if (p.health.hediffSet.HasHediff(inhumanizedDef))
+                inhuman++;
+            else
+                human++;
+        }
+
+        inhumanPoints += inhuman;
+        humanPoints += human;
     }
 
     private void DailyGender()
@@ -1124,6 +1150,7 @@ public class GameComponent_FaithTracker : GameComponent
         SeasonDarkness();
         SeasonRaider();
         SeasonRitualist();
+        SeasonInhuman();
         SeasonNudism();
         SeasonNaturePrimacy();
         SeasonPassiveMemes();
@@ -1391,6 +1418,23 @@ public class GameComponent_FaithTracker : GameComponent
         ritualistPoints = 0;
     }
 
+    private void SeasonInhuman()
+    {
+        if (!HasMeme("Inhuman")) return;
+        int sections = MemeCount;
+        if (sections <= 0) return;
+
+        int total = inhumanPoints + humanPoints;
+        if (total <= 0) { inhumanPoints = 0; humanPoints = 0; return; }
+
+        int filled = (int)((float)inhumanPoints / total * sections);
+        int unfilled = sections - filled;
+
+        RecordSections("Inhuman", filled, unfilled);
+        inhumanPoints = 0;
+        humanPoints = 0;
+    }
+
     private void SeasonTunneler()
     {
         if (!HasMeme("Tunneler")) return;
@@ -1568,7 +1612,7 @@ public class GameComponent_FaithTracker : GameComponent
     }
 
     // Memes with only seasonalFaithChange and no mechanic
-    private static readonly string[] passiveMemeNames = { "Individualist", "Loyalist", "HumanPrimacy", "Inhuman" };
+    private static readonly string[] passiveMemeNames = { "Individualist", "Loyalist", "HumanPrimacy" };
 
     private void SeasonPassiveMemes()
     {
@@ -1770,6 +1814,8 @@ public class GameComponent_FaithTracker : GameComponent
         Scribe_Collections.Look(ref rancherPtsPerAnimal, "rancherPtsPerAnimal", LookMode.Value, LookMode.Value);
         if (rancherPtsPerAnimal == null) rancherPtsPerAnimal = new Dictionary<string, int>();
         Scribe_Values.Look(ref ritualistPoints, "ritualistPoints");
+        Scribe_Values.Look(ref inhumanPoints, "inhumanPoints");
+        Scribe_Values.Look(ref humanPoints, "humanPoints");
         Scribe_Values.Look(ref proselytizePoints, "proselytizePoints");
         Scribe_Values.Look(ref purePoints, "purePoints");
         Scribe_Values.Look(ref implantedPoints, "implantedPoints");
