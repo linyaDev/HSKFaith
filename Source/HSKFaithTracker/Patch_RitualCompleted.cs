@@ -52,12 +52,6 @@ public static class Patch_RitualCompleted
             Log.Message($"[FaithTracker] RITUAL '{ritualName}': RECORDED weight={weight}");
             comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.Fulfilled, customWeight: weight);
 
-            // Ritualist meme: +2 points per completed ritual
-            if (comp.HasMeme("Ritualist"))
-            {
-                comp.ritualistPoints += 2;
-                Log.Message($"[HSKFaith] Ritualist: +2 points (total {comp.ritualistPoints})");
-            }
 
             // Certainty shift: holidays with date +3%/-3%, others +1%/-1%
             bool hasDate = ritual.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;
