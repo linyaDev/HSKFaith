@@ -116,6 +116,7 @@
 	<FT_FaithPerSectionTooltip>{0} faith per meme ({1} memes = {2} total each season)</FT_FaithPerSectionTooltip>
 	<FT_BiomeBonus>Biome bonus:</FT_BiomeBonus>
 	<FT_BiomeBonusList>Biomes: {0}</FT_BiomeBonusList>
+	<FT_MemeRecommend>Recommendations:</FT_MemeRecommend>
 	<FT_MemeConflicts>Conflicts with:</FT_MemeConflicts>
 	<FT_MemeSynergy>Synergy with:</FT_MemeSynergy>
 	<FT_ConflictBullet>✗ {0}</FT_ConflictBullet>
@@ -146,6 +147,35 @@
 	<FT_MemeGameplay_Inhuman>Humans are the weak link. Machines, mutants, whatever — as long as it's not a regular human. Post-humanism at its finest.</FT_MemeGameplay_Inhuman>
 	<FT_MemeGameplay_HAR_Xenophilia>Four arms? Welcome! Tail? Great! Tentacles? Well... okay, come in too. Diversity is key.</FT_MemeGameplay_HAR_Xenophilia>
 	<FT_MemeGameplay_HAR_Xenophobia>Ours is ours. Theirs is theirs. Simple philosophy for simple times. Dissenters get escorted to the map edge. Free of charge.</FT_MemeGameplay_HAR_Xenophobia>
+	<FT_MemeRecommend_Supremacist>Late game</FT_MemeRecommend_Supremacist>
+	<FT_MemeRecommend_MaleSupremacy>Late game</FT_MemeRecommend_MaleSupremacy>
+	<FT_MemeRecommend_FemaleSupremacy>Late game</FT_MemeRecommend_FemaleSupremacy>
+	<FT_MemeRecommend_Nudism>Interesting start</FT_MemeRecommend_Nudism>
+	<FT_MemeRecommend_PainIsVirtue>Late game</FT_MemeRecommend_PainIsVirtue>
+	<FT_MemeRecommend_HighLife>Interesting start</FT_MemeRecommend_HighLife>
+	<FT_MemeRecommend_Cannibal>Food shortage</FT_MemeRecommend_Cannibal>
+	<FT_MemeRecommend_AnimalPersonhood>Solo rancher start</FT_MemeRecommend_AnimalPersonhood>
+	<FT_MemeRecommend_NaturePrimacy>Low wood or food at start</FT_MemeRecommend_NaturePrimacy>
+	<FT_MemeRecommend_Darkness>Interesting start</FT_MemeRecommend_Darkness>
+	<FT_MemeRecommend_Blindsight>Late game</FT_MemeRecommend_Blindsight>
+	<FT_MemeRecommend_Collectivist>Late game</FT_MemeRecommend_Collectivist>
+	<FT_MemeRecommend_FleshPurity>Late game</FT_MemeRecommend_FleshPurity>
+	<FT_MemeRecommend_Rancher>Late game</FT_MemeRecommend_Rancher>
+	<FT_MemeRecommend_Tunneler>Mountain start</FT_MemeRecommend_Tunneler>
+	<FT_MemeRecommend_TreeConnection>Start with dryads</FT_MemeRecommend_TreeConnection>
+	<FT_MemeRecommend_Proselytizer>Late game</FT_MemeRecommend_Proselytizer>
+	<FT_MemeRecommend_Individualist>Late game</FT_MemeRecommend_Individualist>
+	<FT_MemeRecommend_HumanPrimacy>Late game</FT_MemeRecommend_HumanPrimacy>
+	<FT_MemeRecommend_Transhumanist>Late game</FT_MemeRecommend_Transhumanist>
+	<FT_MemeRecommend_Guilty>Mood or comfort issues</FT_MemeRecommend_Guilty>
+	<FT_MemeRecommend_Loyalist>Late game</FT_MemeRecommend_Loyalist>
+	<FT_MemeRecommend_Raider>Interesting start, low-resource biomes</FT_MemeRecommend_Raider>
+	<FT_MemeRecommend_Ritualist>Anomaly start</FT_MemeRecommend_Ritualist>
+	<FT_MemeRecommend_Inhuman>Late game</FT_MemeRecommend_Inhuman>
+	<FT_MemeRecommend_Bloodfeeding>Interesting start</FT_MemeRecommend_Bloodfeeding>
+	<FT_MemeRecommend_HAR_Xenophilia>Late game</FT_MemeRecommend_HAR_Xenophilia>
+	<FT_MemeRecommend_HAR_Xenophobia>Late game</FT_MemeRecommend_HAR_Xenophobia>
+
 	<FT_RancherPassive>Reduced hunger for colony animals</FT_RancherPassive>
 	<FT_AnimalCompanionPassive>Mood bonus for tamed wild animals in colony</FT_AnimalCompanionPassive>
 	<FT_StartingItems>Starting items:</FT_StartingItems>

@@ -26,49 +26,49 @@ public static class Patch_MemeTip
         if (gameplayKey.CanTranslate())
         {
             __result = meme.LabelCap.Colorize(ColoredText.TipSectionTitleColor)
-                + "\n\n" + gameplayKey.Translate();
+                + "\n\n" + gameplayKey.Translate().Resolve();
         }
 
         string block = "";
 
         // Effects
-        block += "\n\n" + "FT_MemeEffects".Translate().Colorize(ColoredText.TipSectionTitleColor);
+        block += "\n\n" + "FT_MemeEffects".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor);
 
         if (ext.statOffsets != null)
             foreach (var mod in ext.statOffsets)
-                block += "\n  " + mod.stat.LabelCap + ": " + mod.stat.ValueToString(mod.value, ToStringNumberSense.Offset);
+                block += "\n  " + mod.stat.LabelCap.Resolve() + ": " + mod.stat.ValueToString(mod.value, ToStringNumberSense.Offset);
 
         if (ext.statFactors != null)
             foreach (var mod in ext.statFactors)
             {
                 int pct = Mathf.RoundToInt((mod.value - 1f) * 100f);
-                block += "\n  " + mod.stat.LabelCap + ": " + (pct >= 0 ? "+" : "") + pct + "%";
+                block += "\n  " + mod.stat.LabelCap.Resolve() + ": " + (pct >= 0 ? "+" : "") + pct + "%";
             }
 
         if (ext.moodBonus != 0)
-            block += "\n  " + "FT_MemeMood".Translate(ext.moodBonus.ToStringWithSign());
+            block += "\n  " + "FT_MemeMood".Translate(ext.moodBonus.ToStringWithSign()).Resolve();
 
         if (!ext.passiveEffect.NullOrEmpty() && ext.passiveEffect.CanTranslate())
-            block += "\n  " + ext.passiveEffect.Translate();
+            block += "\n  " + ext.passiveEffect.Translate().Resolve();
 
         if (ext.startingItems != null && ext.startingItems.Count > 0)
         {
-            block += "\n  " + "FT_StartingItems".Translate();
+            block += "\n  " + "FT_StartingItems".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor);
             foreach (var item in ext.startingItems)
                 if (item.thingDef != null)
-                    block += "\n    " + item.thingDef.LabelCap + " x" + item.count;
+                    block += "\n    " + item.thingDef.LabelCap.Resolve() + " x" + item.count;
         }
 
         if (ext.startingResearchProjects != null && ext.startingResearchProjects.Count > 0)
         {
-            block += "\n  " + "FT_StartingResearch".Translate();
+            block += "\n  " + "FT_StartingResearch".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor);
             foreach (var proj in ext.startingResearchProjects)
                 if (proj != null)
-                    block += "\n    " + proj.LabelCap;
+                    block += "\n    " + proj.LabelCap.Resolve();
         }
 
         if (ext.yearlyGoodwillChange != 0)
-            block += "\n  " + "FT_MemeGoodwill".Translate(ext.yearlyGoodwillChange.ToStringWithSign());
+            block += "\n  " + "FT_MemeGoodwill".Translate(ext.yearlyGoodwillChange.ToStringWithSign()).Resolve();
 
         // Biome stat bonuses
         if (ext.biomeStatBonuses != null && ext.biomeStatBonuses.Count > 0)
@@ -77,7 +77,7 @@ public static class Patch_MemeTip
             {
                 if (bsb.statOffsets == null || bsb.biomes == null) continue;
                 foreach (var mod in bsb.statOffsets)
-                    block += "\n  " + mod.stat.LabelCap + ": " + mod.stat.ValueToString(mod.value, ToStringNumberSense.Offset) + " (" + string.Join(", ", bsb.biomes) + ")";
+                    block += "\n  " + mod.stat.LabelCap.Resolve() + ": " + mod.stat.ValueToString(mod.value, ToStringNumberSense.Offset) + " (" + string.Join(", ", bsb.biomes) + ")";
             }
         }
 
@@ -97,14 +97,14 @@ public static class Patch_MemeTip
             string minStr = (minFaith >= 0 ? "+" : "") + minFaith;
             string maxStr = (maxFaith >= 0 ? "+" : "") + maxFaith;
             string faithStr = minFaith == maxFaith ? minStr : minStr + " .. " + maxStr;
-            block += "\n  " + "FT_FaithGeneration".Translate(faithStr);
+            block += "\n  " + "FT_FaithGeneration".Translate(faithStr).Resolve();
         }
 
         // Certainty per season
         if (ext.certaintyPerSeason != 0f)
         {
             string certStr = (ext.certaintyPerSeason > 0 ? "+" : "") + (ext.certaintyPerSeason * 100f).ToString("F0") + "%";
-            block += "\n  " + "FT_CertaintyPerSeason".Translate(certStr);
+            block += "\n  " + "FT_CertaintyPerSeason".Translate(certStr).Resolve();
         }
 
 
@@ -112,9 +112,21 @@ public static class Patch_MemeTip
         var roles = meme.UnlockedRoles(null);
         if (roles != null && roles.Count > 0)
         {
-            block += "\n\n" + "FT_MemeRoles".Translate().Colorize(ColoredText.TipSectionTitleColor);
+            block += "\n\n" + "FT_MemeRoles".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor);
             foreach (var role in roles)
                 block += "\n  " + role;
+        }
+
+        // Recommendations
+        string recKey = "FT_MemeRecommend_" + meme.defName;
+        if (recKey.CanTranslate())
+        {
+            string recText = recKey.Translate().Resolve();
+            if (!recText.NullOrEmpty())
+            {
+                block += "\n\n" + "FT_MemeRecommend".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor);
+                block += "\n" + recText;
+            }
         }
 
         if (block.Length > 0)

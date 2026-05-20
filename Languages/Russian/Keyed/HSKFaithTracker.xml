@@ -118,6 +118,7 @@
 	<FT_FaithPerSectionTooltip>{0} веры за убеждение ({1} убеждений = {2} за сезон)</FT_FaithPerSectionTooltip>
 	<FT_BiomeBonus>Бонус биома:</FT_BiomeBonus>
 	<FT_BiomeBonusList>Биомы: {0}</FT_BiomeBonusList>
+	<FT_MemeRecommend>Рекомендации:</FT_MemeRecommend>
 	<FT_MemeConflicts>Конфликтует с:</FT_MemeConflicts>
 	<FT_MemeSynergy>Синергия с:</FT_MemeSynergy>
 	<FT_ConflictBullet>✗ {0}</FT_ConflictBullet>
@@ -148,6 +149,35 @@
 	<FT_MemeGameplay_Inhuman>Бывший фермер не жалуется на урожай. Бывший охотник не жалуется на погоду. Бывший человек вообще не жалуется.</FT_MemeGameplay_Inhuman>
 	<FT_MemeGameplay_HAR_Xenophilia>Четыре руки? Добро пожаловать! Хвост? Отлично! Щупальца? Ну... ладно, тоже заходи. Главное — разнообразие.</FT_MemeGameplay_HAR_Xenophilia>
 	<FT_MemeGameplay_HAR_Xenophobia>Свои — это свои. Чужие — это чужие. Простая философия для простых времён. Несогласных провожаем до границы карты. Бесплатно.</FT_MemeGameplay_HAR_Xenophobia>
+	<FT_MemeRecommend_Supremacist>Поздняя игра</FT_MemeRecommend_Supremacist>
+	<FT_MemeRecommend_MaleSupremacy>Поздняя игра</FT_MemeRecommend_MaleSupremacy>
+	<FT_MemeRecommend_FemaleSupremacy>Поздняя игра</FT_MemeRecommend_FemaleSupremacy>
+	<FT_MemeRecommend_Nudism>Интересный старт</FT_MemeRecommend_Nudism>
+	<FT_MemeRecommend_PainIsVirtue>Поздняя игра</FT_MemeRecommend_PainIsVirtue>
+	<FT_MemeRecommend_HighLife>Интересный старт</FT_MemeRecommend_HighLife>
+	<FT_MemeRecommend_Cannibal>Проблемы с едой</FT_MemeRecommend_Cannibal>
+	<FT_MemeRecommend_AnimalPersonhood>Соло старт животноводом</FT_MemeRecommend_AnimalPersonhood>
+	<FT_MemeRecommend_NaturePrimacy>Мало дерева на старте, еды</FT_MemeRecommend_NaturePrimacy>
+	<FT_MemeRecommend_Darkness>Интересный старт</FT_MemeRecommend_Darkness>
+	<FT_MemeRecommend_Blindsight>Поздняя игра</FT_MemeRecommend_Blindsight>
+	<FT_MemeRecommend_Collectivist>Поздняя игра</FT_MemeRecommend_Collectivist>
+	<FT_MemeRecommend_FleshPurity>Поздняя игра</FT_MemeRecommend_FleshPurity>
+	<FT_MemeRecommend_Rancher>Поздняя игра</FT_MemeRecommend_Rancher>
+	<FT_MemeRecommend_Tunneler>Старт в горе</FT_MemeRecommend_Tunneler>
+	<FT_MemeRecommend_TreeConnection>Старт с дриадами</FT_MemeRecommend_TreeConnection>
+	<FT_MemeRecommend_Proselytizer>Поздняя игра</FT_MemeRecommend_Proselytizer>
+	<FT_MemeRecommend_Individualist>Поздняя игра</FT_MemeRecommend_Individualist>
+	<FT_MemeRecommend_HumanPrimacy>Поздняя игра</FT_MemeRecommend_HumanPrimacy>
+	<FT_MemeRecommend_Transhumanist>Поздняя игра</FT_MemeRecommend_Transhumanist>
+	<FT_MemeRecommend_Guilty>Проблемы с настроением, комфортом</FT_MemeRecommend_Guilty>
+	<FT_MemeRecommend_Loyalist>Поздняя игра</FT_MemeRecommend_Loyalist>
+	<FT_MemeRecommend_Raider>Интересный старт, биомы с малым количеством ресурсов</FT_MemeRecommend_Raider>
+	<FT_MemeRecommend_Ritualist>Старт для аномалии</FT_MemeRecommend_Ritualist>
+	<FT_MemeRecommend_Inhuman>Поздняя игра</FT_MemeRecommend_Inhuman>
+	<FT_MemeRecommend_Bloodfeeding>Интересный старт</FT_MemeRecommend_Bloodfeeding>
+	<FT_MemeRecommend_HAR_Xenophilia>Поздняя игра</FT_MemeRecommend_HAR_Xenophilia>
+	<FT_MemeRecommend_HAR_Xenophobia>Поздняя игра</FT_MemeRecommend_HAR_Xenophobia>
+
 	<FT_RancherPassive>Сниженный голод у животных колонии</FT_RancherPassive>
 	<FT_AnimalCompanionPassive>Бонус настроения за приручённых диких животных в колонии</FT_AnimalCompanionPassive>
 	<FT_StartingItems>Предметы на старте:</FT_StartingItems>
@@ -172,7 +202,7 @@
 	<FT_RaiderFulfilled>Добыча войны</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Праздные воины</FT_RaiderPenalty>
 	<FT_InhumanTooltip>Обесчеловеченные: {0} / Обычные: {1}\nСоотношение 1:1 заполняет шкалу</FT_InhumanTooltip>
-	<FT_RitualistTooltip>Очки ритуалов: {0} (нужно {1} за сезон)\nПолучение очков:\n+2 за проведённый ритуал</FT_RitualistTooltip>
+	<FT_RitualistTooltip>Очки ритуалов: {0} (нужно {1} за сезон)\nПолучение очков:\n+2 за проведённый тёмный ритуал</FT_RitualistTooltip>
 	<FT_RaiderTooltip>Очки рейдов: {0} (нужно {1} за сезон)\nВ запасе на след. сезон: {2}\nПо��учение очков:\n+3 за набег на поселения</FT_RaiderTooltip>
 	<FT_ArmoryDiscovered>Поблизости обнаружена оружейная. Продвинутое снаряжение ждёт тех, кто достаточно смел, чтобы его забрать.</FT_ArmoryDiscovered>
 	<FT_RaiderReady>Безопасно для рейда</FT_RaiderReady>
