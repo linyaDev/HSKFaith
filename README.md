@@ -1,4 +1,4 @@
-# HSK Faith
+# HMC Beliefs
 
 Reworked faith system. Requires Ideology DLC.
 
