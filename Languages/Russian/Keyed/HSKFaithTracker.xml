@@ -96,7 +96,7 @@
 	<FT_GenderTooltip>Получение очков:\n+1 оч./день за каждого мужчину/женщину своего пола\n+3 оч./день за раба противоположного пола</FT_GenderTooltip>
 	<FT_GenderSlaveBonus></FT_GenderSlaveBonus>
 	<FT_NudismPts>дней наготы</FT_NudismPts>
-	<FT_NudismTooltip>Очков за сезон: без одежды {0} ({1})  одетых {2}\nПолучение очков:\n+1 оч./час за каждого раздетого колониста</FT_NudismTooltip>
+	<FT_NudismTooltip>Очков за сезон:\nбез одежды {0} ({1})\nодетых {2}\n\nПолучение очков:\n+1 оч./час за каждого раздетого колониста\n+3 оч./час за нудиста (трейт)</FT_NudismTooltip>
 	<FT_XenophiliaFulfilled>Расовая гармония</FT_XenophiliaFulfilled>
 	<FT_XenophiliaPenalty>Расовая изоляция</FT_XenophiliaPenalty>
 	<FT_Races>рас</FT_Races>
@@ -201,7 +201,7 @@
 	<FT_MemeGoodwill>Ежегодное изменение репутации: {0}</FT_MemeGoodwill>
 	<FT_RaiderFulfilled>Добыча войны</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Праздные воины</FT_RaiderPenalty>
-	<FT_InhumanTooltip>Обесчеловеченные: {0} / Обычные: {1}\nСоотношение 1:1 заполняет шкалу</FT_InhumanTooltip>
+	<FT_InhumanTooltip>Обесчеловеченные: {0} ({1})\nОбычные: {2}\n\nПолучение очков:\n+1 оч./день за обесчеловеченного колониста</FT_InhumanTooltip>
 	<FT_RitualistTooltip>Очки ритуалов: {0} (нужно {1} за сезон)\nПолучение очков:\n+2 за проведённый тёмный ритуал</FT_RitualistTooltip>
 	<FT_RaiderTooltip>Очки рейдов: {0} (нужно {1} за сезон)\nВ запасе на след. сезон: {2}\nПо��учение очков:\n+3 за набег на поселения</FT_RaiderTooltip>
 	<FT_ArmoryDiscovered>Поблизости обнаружена оружейная. Продвинутое снаряжение ждёт тех, кто достаточно смел, чтобы его забрать.</FT_ArmoryDiscovered>

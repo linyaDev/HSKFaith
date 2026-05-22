@@ -435,6 +435,7 @@ public class GameComponent_FaithTracker : GameComponent
         {
             lastMemeCheckTick = ticks;
             HourlyNudism();
+            UpdateNudismHediffs();
             UpdateHereticCount();
             int memeHash = ComputeMemeHash();
             bool changed = memeHash != lastMemeHash;
@@ -464,7 +465,6 @@ public class GameComponent_FaithTracker : GameComponent
         DailyTranshumanist();
         UpdateRancherHediffs();
         UpdateDarknessHediffs();
-        UpdateNudismHediffs();
         UpdateSupremacistHediffs();
         UpdateGenderHediffs();
         DailyInhuman();

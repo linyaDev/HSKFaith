@@ -1357,7 +1357,7 @@ Text.Anchor = TextAnchor.MiddleRight;
     }
 
     // === Inhuman bar ===
-    private static readonly Color InhumanColor = new Color(0.4f, 0.15f, 0.5f);
+    private static readonly Color InhumanColor = new Color(0.6f, 0.25f, 0.7f);
     private static readonly Color InhumanEmptyColor = new Color(0.2f, 0.08f, 0.25f);
 
     private float DrawInhumanBar(Rect inRect, float y, MemeDef meme, GameComponent_FaithTracker comp)
@@ -1428,8 +1428,10 @@ Text.Anchor = TextAnchor.MiddleRight;
         if (Mouse.IsOver(barRect))
         {
             Widgets.DrawHighlight(barRect);
+            int ihTotal = comp.inhumanPoints + comp.humanPoints;
+            string ihPct = ihTotal > 0 ? ((float)comp.inhumanPoints / ihTotal * 100f).ToString("F0") + "%" : "0%";
             TooltipHandler.TipRegion(barRect,
-                "FT_InhumanTooltip".Translate(comp.inhumanPoints, comp.humanPoints));
+                "FT_InhumanTooltip".Translate(comp.inhumanPoints, ihPct, comp.humanPoints));
         }
 
         y += barH + 8f;

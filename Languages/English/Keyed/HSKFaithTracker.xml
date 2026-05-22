@@ -94,7 +94,7 @@
 	<FT_GenderTooltip>Earning points:\n+1 pt/day per male/female of their gender\n+3 pt/day per slave of opposite gender</FT_GenderTooltip>
 	<FT_GenderSlaveBonus></FT_GenderSlaveBonus>
 	<FT_NudismPts>nude days</FT_NudismPts>
-	<FT_NudismTooltip>Season points: unclothed {0} ({1})  clothed {2}\nEarning points:\n+1 pt/hour per unclothed colonist</FT_NudismTooltip>
+	<FT_NudismTooltip>Season points:\nunclothed {0} ({1})\nclothed {2}\n\nEarning points:\n+1 pt/hour per unclothed colonist\n+3 pt/hour for nudist (trait)</FT_NudismTooltip>
 	<FT_XenophiliaFulfilled>Racial harmony</FT_XenophiliaFulfilled>
 	<FT_XenophiliaPenalty>Racial isolation</FT_XenophiliaPenalty>
 	<FT_Races>races</FT_Races>
@@ -199,7 +199,7 @@
 	<FT_MemeGoodwill>Yearly goodwill change: {0}</FT_MemeGoodwill>
 	<FT_RaiderFulfilled>Spoils of war</FT_RaiderFulfilled>
 	<FT_RaiderPenalty>Idle warriors</FT_RaiderPenalty>
-	<FT_InhumanTooltip>Inhumanized: {0} / Normal: {1}\n1:1 ratio fills the bar</FT_InhumanTooltip>
+	<FT_InhumanTooltip>Inhumanized: {0} ({1})\nNormal: {2}\n\nEarning points:\n+1 pt/day per inhumanized colonist</FT_InhumanTooltip>
 	<FT_RitualistTooltip>Ritual points: {0} (need {1} per season)\nEarning points:\n+2 per completed ritual</FT_RitualistTooltip>
 	<FT_RaiderTooltip>Raid points: {0} (need {1} per season)\nCarry over to next season: {2}\nEarning points:\n+3 per raid on settlements</FT_RaiderTooltip>
 	<FT_ArmoryDiscovered>An armory has been discovered nearby. Advanced equipment awaits those brave enough to take it.</FT_ArmoryDiscovered>
