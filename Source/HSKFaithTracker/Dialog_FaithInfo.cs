@@ -634,10 +634,8 @@ Text.Anchor = TextAnchor.MiddleRight;
         {
             float pointsPerSection = max / memes;
             int filledSec = (int)(comp.slaveryPoints / pointsPerSection);
-            int unfilledSec = memes - filledSec;
             var slavExt = supremacistMeme?.GetModExtension<MemeEffectExtension>();
-            int slavePenalty = slavExt != null && slavExt.penaltyPerSection != 0 ? slavExt.penaltyPerSection : GameComponent_FaithTracker.MissedWeight;
-            slaveryForecast = unfilledSec > 0 ? unfilledSec * slavePenalty : 1;
+            slaveryForecast = ComputeForecast(slavExt, filledSec, memes);
         }
         Text.Font = GameFont.Medium;
         Text.Anchor = TextAnchor.MiddleCenter;
