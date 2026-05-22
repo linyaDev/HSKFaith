@@ -861,7 +861,7 @@ Text.Anchor = TextAnchor.MiddleRight;
                 int dominantPts = isMaleF ? comp.malePoints : comp.femalePoints;
                 float ratio = (float)dominantPts / gtotal;
                 int sectionsF = comp.MemeCount;
-                int filledSec = System.Math.Min((int)(ratio * sectionsF * 2), sectionsF);
+                int filledSec = GameComponent_FaithTracker.FilledFromRatio(ratio, sectionsF);
                 genderForecast = ComputeForecast(ext, filledSec, sectionsF);
             }
             else
