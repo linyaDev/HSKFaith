@@ -1302,7 +1302,7 @@ public class GameComponent_FaithTracker : GameComponent
 
     private void SeasonCollectivist()
     {
-        if (!HasHumanPrimacy) return;
+        if (!HasMeme("Collectivist")) return;
         int sections = MemeCount;
         if (sections <= 0) return;
 

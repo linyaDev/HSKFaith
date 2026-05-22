@@ -745,11 +745,8 @@ Text.Anchor = TextAnchor.MiddleRight;
         {
             int cSections = compC.MemeCount;
             int cFilled = System.Math.Min(compC.collectivistPoints / 2, cSections);
-            int unfilled = cSections - cFilled;
             var ext = meme.GetModExtension<MemeEffectExtension>();
-            int collectPenalty = ext != null && ext.penaltyPerSection != 0 ? ext.penaltyPerSection : GameComponent_FaithTracker.MissedWeight;
-            collectForecast = unfilled > 0 ? unfilled * collectPenalty : 1;
-            if (ext != null) collectForecast += ext.seasonalFaithChange;
+            collectForecast = ComputeForecast(ext, cFilled, cSections);
         }
 
         // Forecast right side
@@ -3192,7 +3189,9 @@ Text.Anchor = TextAnchor.MiddleRight;
 
         // Generic bar is always full — forecast = all filled
         var ext = meme.GetModExtension<MemeEffectExtension>();
-        int forecast = ext != null ? ext.seasonalFaithChange : 0;
+        var compG = Current.Game?.GetComponent<GameComponent_FaithTracker>();
+        int sections = compG?.MemeCount ?? 0;
+        int forecast = ComputeForecast(ext, sections, sections);
 
         // Separator
         GUI.color = new Color(1f, 1f, 1f, 0.15f);
