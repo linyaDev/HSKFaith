@@ -9,7 +9,7 @@ public static class Patch_CorpseDisposed
 {
     public static void Prefix(Corpse __instance)
     {
-        if (!__instance.InnerPawn.RaceProps.Humanlike)
+        if (__instance.InnerPawn?.RaceProps?.Humanlike != true)
             return;
 
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();

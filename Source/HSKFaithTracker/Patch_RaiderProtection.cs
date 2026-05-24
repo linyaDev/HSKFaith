@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using RimWorld;
@@ -42,11 +43,44 @@ public static class RaiderProtectionCheck
     }
 }
 
+// Debug: trace storyteller ThreatBig generation
+[HarmonyPatch(typeof(StorytellerComp_OnOffCycle), nameof(StorytellerComp_OnOffCycle.MakeIntervalIncidents))]
+public static class Patch_StorytellerDebug
+{
+    public static void Postfix(StorytellerComp_OnOffCycle __instance, IIncidentTarget target, ref IEnumerable<FiringIncident> __result)
+    {
+        var props = __instance.props as StorytellerCompProperties_OnOffCycle;
+        if (props?.category == null) return;
+        string cat = props.category.defName;
+        if (cat != "ThreatBig") return;
+
+        int count = 0;
+        var list = new List<FiringIncident>();
+        foreach (var fi in __result)
+        {
+            count++;
+            list.Add(fi);
+            // Log.Message($"[HSKFaith] Storyteller ThreatBig FIRE: {fi.def.defName} | target={target} | points={fi.parms.points:F0}");
+        }
+        if (count == 0)
+        {
+            float daysPassed = GenDate.DaysPassedSinceSettleFloat;
+            int compIdx = Find.Storyteller.storytellerComps.IndexOf(__instance);
+            int incCount = IncidentCycleUtility.IncidentCountThisInterval(target, compIdx,
+                props.minDaysPassed, props.onDays, props.offDays, props.minSpacingDays,
+                props.numIncidentsRange.min, props.numIncidentsRange.max, 1f);
+            // Log.Message($"[HSKFaith] Storyteller ThreatBig: no incidents | daysPassed={daysPassed:F1} | incCount={incCount} | minDays={props.minDaysPassed} | onDays={props.onDays} | offDays={props.offDays} | target={target}");
+        }
+        __result = list;
+    }
+}
+
 [HarmonyPatch(typeof(IncidentWorker), nameof(IncidentWorker.CanFireNow))]
 public static class Patch_RaiderThreatBlock
 {
     public static void Postfix(IncidentWorker __instance, IncidentParms parms, ref bool __result)
     {
+        // Log.Message($"[HSKFaith] CanFireNow: {__instance.def.defName} | category={__instance.def.category} | result={__result} | forced={parms.forced} | points={parms.points:F0} | faction={parms.faction?.Name ?? "none"} | strategy={parms.raidStrategy?.defName ?? "none"} | quest={parms.questScriptDef?.defName ?? "none"}");
         if (!__result) return;
         if (parms.forced) return; // don't block quest/forced incidents
         if (__instance.def.category != IncidentCategoryDefOf.ThreatBig) return;

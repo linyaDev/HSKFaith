@@ -21,6 +21,15 @@ public static class Patch_IdeoConversion
 {
     public static bool Prefix(Pawn_IdeoTracker __instance, float certaintyReduction, Ideo initiatorIdeo, ref bool __result)
     {
+        var pawn = __instance.pawn;
+        // string method = Patch_AbilityConvertFlag.abilityConversion ? "Ability"
+        //     : pawn != null && pawn.IsPrisonerOfColony ? "Warden"
+        //     : pawn != null && pawn.InMentalState ? "MentalBreak"
+        //     : "Social";
+        // string pawnName = pawn?.LabelShort ?? "?";
+        // string ideoName = initiatorIdeo?.name ?? "?";
+        // Log.Message($"[HSKFaith] CONVERSION: {method} | pawn={pawnName} | ideo={ideoName} | certainty={certaintyReduction:F2}");
+
         // Ability conversion (e.g. Moralist role) always allowed
         if (Patch_AbilityConvertFlag.abilityConversion)
             return true;
@@ -29,7 +38,6 @@ public static class Patch_IdeoConversion
         if (initiatorIdeo?.memes == null || !initiatorIdeo.memes.Any(m => m.defName == "Proselytizer"))
         {
             // Allow conversion of prisoners if fewer than 2 believers
-            var pawn = __instance.pawn;
             if (pawn != null && pawn.IsPrisonerOfColony)
             {
                 int believers = PawnsFinder.AllMaps_FreeColonists.Count(p => !p.IsSlave && p.Ideo == initiatorIdeo);

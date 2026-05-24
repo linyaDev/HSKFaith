@@ -312,7 +312,7 @@ public class GameComponent_FaithTracker : GameComponent
         cachedHereticCount = count;
     }
 
-    private static void DebugLog(string message)
+    public static void DebugLog(string message)
     {
         try { File.AppendAllText(@"D:\Mods\faith_debug.txt", message + "\n"); } catch { }
     }
