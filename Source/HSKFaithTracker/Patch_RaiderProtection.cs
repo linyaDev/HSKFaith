@@ -60,7 +60,7 @@ public static class Patch_StorytellerDebug
         {
             count++;
             list.Add(fi);
-            // Log.Message($"[HSKFaith] Storyteller ThreatBig FIRE: {fi.def.defName} | target={target} | points={fi.parms.points:F0}");
+            Log.Message($"[HSKFaith] Storyteller ThreatBig FIRE: {fi.def.defName} | target={target} | points={fi.parms.points:F0}");
         }
         if (count == 0)
         {
@@ -69,9 +69,29 @@ public static class Patch_StorytellerDebug
             int incCount = IncidentCycleUtility.IncidentCountThisInterval(target, compIdx,
                 props.minDaysPassed, props.onDays, props.offDays, props.minSpacingDays,
                 props.numIncidentsRange.min, props.numIncidentsRange.max, 1f);
-            // Log.Message($"[HSKFaith] Storyteller ThreatBig: no incidents | daysPassed={daysPassed:F1} | incCount={incCount} | minDays={props.minDaysPassed} | onDays={props.onDays} | offDays={props.offDays} | target={target}");
+            float daysSinceLastThreat = -1f;
+            if (target is Map map)
+                daysSinceLastThreat = (Find.TickManager.TicksGame - map.storyState.LastThreatBigTick) / 60000f;
+            Log.Message($"[HSKFaith] Storyteller ThreatBig: no incidents | daysPassed={daysPassed:F1} | incCount={incCount} | sinceLastThreat={daysSinceLastThreat:F1} | minDays={props.minDaysPassed} | onDays={props.onDays} | offDays={props.offDays} | target={target}");
         }
         __result = list;
+    }
+}
+
+// Debug: trace TryGenerateRaidInfo — the method that calls TryResolveRaidFaction, strategy, arrival, pawn gen
+[HarmonyPatch]
+public static class Patch_TryGenerateRaidInfoDebug
+{
+    static System.Reflection.MethodBase TargetMethod()
+    {
+        return AccessTools.Method(typeof(IncidentWorker_Raid), "TryGenerateRaidInfo",
+            new[] { typeof(IncidentParms), typeof(List<Pawn>).MakeByRefType(), typeof(bool) });
+    }
+
+    public static void Postfix(IncidentParms parms, List<Pawn> pawns, bool __result)
+    {
+        int pawnCount = pawns?.Count ?? 0;
+        Log.Message($"[HSKFaith] TryGenerateRaidInfo: result={__result} | faction={parms.faction?.Name ?? "none"} | strategy={parms.raidStrategy?.defName ?? "none"} | arrival={parms.raidArrivalMode?.defName ?? "none"} | points={parms.points:F0} | pawns={pawnCount} | daysPassed={GenDate.DaysPassedSinceSettleFloat:F1}");
     }
 }
 
@@ -80,7 +100,7 @@ public static class Patch_RaiderThreatBlock
 {
     public static void Postfix(IncidentWorker __instance, IncidentParms parms, ref bool __result)
     {
-        // Log.Message($"[HSKFaith] CanFireNow: {__instance.def.defName} | category={__instance.def.category} | result={__result} | forced={parms.forced} | points={parms.points:F0} | faction={parms.faction?.Name ?? "none"} | strategy={parms.raidStrategy?.defName ?? "none"} | quest={parms.questScriptDef?.defName ?? "none"}");
+        Log.Message($"[HSKFaith] CanFireNow: {__instance.def.defName} | category={__instance.def.category} | result={__result} | forced={parms.forced} | points={parms.points:F0} | faction={parms.faction?.Name ?? "none"} | strategy={parms.raidStrategy?.defName ?? "none"} | quest={parms.questScriptDef?.defName ?? "none"}");
         if (!__result) return;
         if (parms.forced) return; // don't block quest/forced incidents
         if (__instance.def.category != IncidentCategoryDefOf.ThreatBig) return;
