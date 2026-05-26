@@ -41,3 +41,18 @@ public static class Patch_TunnelerQuarry
             comp.tunnelerPoints++;
     }
 }
+
+// Deep drill (manual only) also counts for Tunneler
+[HarmonyPatch(typeof(CompDeepDrill), "TryProducePortion")]
+public static class Patch_TunnelerDeepDrill
+{
+    public static void Postfix(CompDeepDrill __instance, Pawn driller)
+    {
+        if (driller == null) return; // auto drill passes null — skip
+        if (driller.Faction != Faction.OfPlayer) return;
+
+        var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
+        if (comp != null)
+            comp.tunnelerPoints += 5;
+    }
+}
