@@ -37,17 +37,15 @@ public static class Patch_RitualObligation
                 return;
             }
             int positivity = Patch_RitualOutcomeCapture.lastPositivityIndex;
-            string ritualId = __instance.sourcePattern?.defName ?? __instance.def.defName ?? __instance.Label;
-            bool isRepeat = comp.ritualDevPointsThisYear.Contains(ritualId);
 
             if (positivity < 0)
             {
                 Log.Message($"[FaithTracker] OBLIGATION '{name}': no faith (poor quality, positivityIndex={positivity})");
                 comp.RecordRitual(name, RitualRecordType.FulfilledNoFaith);
             }
-            else if (isRepeat)
+            else if (Patch_RitualCompleted.wasRepeatBeforeApply)
             {
-                Log.Message($"[FaithTracker] OBLIGATION '{name}': no faith (repeat this year, id={ritualId})");
+                Log.Message($"[FaithTracker] OBLIGATION '{name}': no faith (repeat this year)");
                 comp.RecordRitual(name, RitualRecordType.FulfilledNoFaith);
             }
             else

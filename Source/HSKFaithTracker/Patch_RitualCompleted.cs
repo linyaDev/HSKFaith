@@ -6,31 +6,39 @@ using Verse;
 
 namespace HSKFaithTracker;
 
-// Capture ritual outcome quality before ApplyOutcome processes it
-[HarmonyPatch(typeof(RitualOutcomeEffectWorker_FromQuality), nameof(RitualOutcomeEffectWorker_FromQuality.Apply))]
+// Capture ritual outcome quality from GetOutcome — works for all subclasses
+[HarmonyPatch(typeof(RitualOutcomeEffectWorker_FromQuality), nameof(RitualOutcomeEffectWorker_FromQuality.GetOutcome))]
 public static class Patch_RitualOutcomeCapture
 {
     public static int lastPositivityIndex = 0;
 
-    public static void Prefix(RitualOutcomeEffectWorker_FromQuality __instance, float progress, LordJob_Ritual jobRitual)
+    public static void Postfix(RitualOutcomePossibility __result)
     {
-        var quality = AccessTools.Method(typeof(RitualOutcomeEffectWorker_FromQuality), "GetQuality");
-        if (quality == null) return;
-        float q = (float)quality.Invoke(__instance, new object[] { jobRitual, progress });
-        var getOutcome = AccessTools.Method(typeof(RitualOutcomeEffectWorker_FromQuality), "GetOutcome");
-        if (getOutcome == null) return;
-        var outcome = (RitualOutcomePossibility)getOutcome.Invoke(__instance, new object[] { q, jobRitual });
-        lastPositivityIndex = outcome?.positivityIndex ?? 0;
+        lastPositivityIndex = __result?.positivityIndex ?? 0;
     }
 }
 
 [HarmonyPatch(typeof(LordJob_Ritual), nameof(LordJob_Ritual.ApplyOutcome))]
 public static class Patch_RitualCompleted
 {
+    public static bool wasRepeatBeforeApply;
+
     public static void Prefix(LordJob_Ritual __instance, out int __state)
     {
         __state = __instance.Ritual?.lastFinishedTick ?? -1;
         Patch_RitualObligation.justRecorded = false;
+
+        var ritual = __instance.Ritual;
+        var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
+        if (comp != null && ritual != null)
+        {
+            string ritualId = ritual.sourcePattern?.defName ?? ritual.def.defName ?? ritual.Label;
+            wasRepeatBeforeApply = comp.ritualDevPointsThisYear.Contains(ritualId);
+        }
+        else
+        {
+            wasRepeatBeforeApply = false;
+        }
     }
 
     public static void Postfix(LordJob_Ritual __instance, int __state)
@@ -67,17 +75,14 @@ public static class Patch_RitualCompleted
             if (comp == null) return;
 
             int positivity = Patch_RitualOutcomeCapture.lastPositivityIndex;
-            string ritualId = ritual.sourcePattern?.defName ?? ritual.def.defName ?? ritual.Label;
-            bool isRepeat = comp.ritualDevPointsThisYear.Contains(ritualId);
-
             if (positivity < 0)
             {
                 Log.Message($"[FaithTracker] RITUAL '{ritualName}': no faith (poor quality, positivityIndex={positivity})");
                 comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.FulfilledNoFaith);
             }
-            else if (isRepeat)
+            else if (wasRepeatBeforeApply)
             {
-                Log.Message($"[FaithTracker] RITUAL '{ritualName}': no faith (repeat this year, id={ritualId})");
+                Log.Message($"[FaithTracker] RITUAL '{ritualName}': no faith (repeat this year)");
                 comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.FulfilledNoFaith);
             }
             else

@@ -66,6 +66,9 @@ public static class Patch_RitualDevPointsOncePerYear
 
         string ritualId = ritual.sourcePattern?.defName ?? ritual.def.defName ?? ritual.Label;
         if (!comp.ritualDevPointsThisYear.Contains(ritualId))
+        {
             comp.ritualDevPointsThisYear.Add(ritualId);
+            Log.Message($"[FaithTracker] DEV POINTS: added '{ritualId}' to ritualDevPointsThisYear (devPoints={developmentPoints})");
+        }
     }
 }
