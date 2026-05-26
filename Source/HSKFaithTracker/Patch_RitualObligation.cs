@@ -92,6 +92,14 @@ public static class Patch_RitualObligation
                 Log.Message($"[FaithTracker] OBLIGATION '{name}': skipped MISSED (ritual is active)");
                 return;
             }
+
+            // Don't penalize for funeral — it depends on colonist dying, not player choice
+            if (__instance.def == PreceptDefOf.Funeral)
+            {
+                Log.Message($"[FaithTracker] OBLIGATION '{name}': skipped MISSED (funeral)");
+                return;
+            }
+
             Log.Message($"[FaithTracker] OBLIGATION '{name}': MISSED");
             comp.RecordRitual(name, RitualRecordType.Missed);
         }
