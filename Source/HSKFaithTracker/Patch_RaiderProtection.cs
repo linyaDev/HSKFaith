@@ -3,6 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
+using UnityEngine;
 using Verse;
 
 namespace HSKFaithTracker;
@@ -78,6 +79,24 @@ public static class Patch_StorytellerDebug
     }
 }
 
+// Debug: trace DefaultThreatPointsNow
+[HarmonyPatch(typeof(StorytellerUtility), nameof(StorytellerUtility.DefaultThreatPointsNow))]
+public static class Patch_DefaultThreatPointsDebug
+{
+    public static void Postfix(IIncidentTarget target, float __result)
+    {
+        if (__result < 100f)
+        {
+            float wealth = target.PlayerWealthForStoryteller;
+            int pawns = target.PlayerPawnsForStoryteller.Count();
+            float threatScale = Find.Storyteller.difficulty.threatScale;
+            float adaptFactor = Find.StoryWatcher.watcherAdaptation.TotalThreatPointsFactor;
+            float daysFactor = Find.Storyteller.def.pointsFactorFromDaysPassed.Evaluate(GenDate.DaysPassedSinceSettle);
+            Log.Message($"[HSKFaith] DefaultThreatPointsNow LOW: result={__result:F0} | wealth={wealth:F0} | pawns={pawns} | threatScale={threatScale:F2} | adaptFactor={adaptFactor:F2} | daysFactor={daysFactor:F2} | target={target}");
+        }
+    }
+}
+
 // Debug: trace TryGenerateRaidInfo — the method that calls TryResolveRaidFaction, strategy, arrival, pawn gen
 [HarmonyPatch]
 public static class Patch_TryGenerateRaidInfoDebug
@@ -101,6 +120,8 @@ public static class Patch_RaiderThreatBlock
     public static void Postfix(IncidentWorker __instance, IncidentParms parms, ref bool __result)
     {
         Log.Message($"[HSKFaith] CanFireNow: {__instance.def.defName} | category={__instance.def.category} | result={__result} | forced={parms.forced} | points={parms.points:F0} | faction={parms.faction?.Name ?? "none"} | strategy={parms.raidStrategy?.defName ?? "none"} | quest={parms.questScriptDef?.defName ?? "none"}");
+        if (__instance.def.category == IncidentCategoryDefOf.ThreatBig && parms.points < 100f)
+            Log.Message($"[HSKFaith] LOW POINTS STACKTRACE:\n{System.Environment.StackTrace}");
         if (!__result) return;
         if (parms.forced) return; // don't block quest/forced incidents
         if (__instance.def.category != IncidentCategoryDefOf.ThreatBig) return;

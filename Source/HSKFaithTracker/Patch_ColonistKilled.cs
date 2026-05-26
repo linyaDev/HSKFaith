@@ -20,6 +20,6 @@ public static class Patch_ColonistKilled
             return;
 
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
-        comp?.RecordRitual("FT_ColonistKilled".Translate(), RitualRecordType.Missed, customWeight: 10);
+        comp?.RecordRitual("FT_ColonistKilled".Translate(), RitualRecordType.FaithDecay, customWeight: -5);
     }
 }
