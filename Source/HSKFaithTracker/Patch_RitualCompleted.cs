@@ -6,6 +6,24 @@ using Verse;
 
 namespace HSKFaithTracker;
 
+// Capture ritual outcome quality before ApplyOutcome processes it
+[HarmonyPatch(typeof(RitualOutcomeEffectWorker_FromQuality), nameof(RitualOutcomeEffectWorker_FromQuality.Apply))]
+public static class Patch_RitualOutcomeCapture
+{
+    public static int lastPositivityIndex = 0;
+
+    public static void Prefix(RitualOutcomeEffectWorker_FromQuality __instance, float progress, LordJob_Ritual jobRitual)
+    {
+        var quality = AccessTools.Method(typeof(RitualOutcomeEffectWorker_FromQuality), "GetQuality");
+        if (quality == null) return;
+        float q = (float)quality.Invoke(__instance, new object[] { jobRitual, progress });
+        var getOutcome = AccessTools.Method(typeof(RitualOutcomeEffectWorker_FromQuality), "GetOutcome");
+        if (getOutcome == null) return;
+        var outcome = (RitualOutcomePossibility)getOutcome.Invoke(__instance, new object[] { q, jobRitual });
+        lastPositivityIndex = outcome?.positivityIndex ?? 0;
+    }
+}
+
 [HarmonyPatch(typeof(LordJob_Ritual), nameof(LordJob_Ritual.ApplyOutcome))]
 public static class Patch_RitualCompleted
 {
@@ -48,9 +66,17 @@ public static class Patch_RitualCompleted
             var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
             if (comp == null) return;
 
-            int weight = GetRitualWeight(ritual);
-            Log.Message($"[FaithTracker] RITUAL '{ritualName}': RECORDED weight={weight}");
-            comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.Fulfilled, customWeight: weight);
+            int positivity = Patch_RitualOutcomeCapture.lastPositivityIndex;
+            if (positivity < 0)
+            {
+                Log.Message($"[FaithTracker] RITUAL '{ritualName}': skipped faith (poor quality, positivityIndex={positivity})");
+            }
+            else
+            {
+                int weight = GetRitualWeight(ritual);
+                Log.Message($"[FaithTracker] RITUAL '{ritualName}': RECORDED weight={weight} (positivityIndex={positivity})");
+                comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.Fulfilled, customWeight: weight);
+            }
 
 
             // Certainty shift: holidays with date +3%/-3%, others +1%/-1%

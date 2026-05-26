@@ -36,8 +36,15 @@ public static class Patch_RitualObligation
                 justRecorded = true;
                 return;
             }
+            int positivity = Patch_RitualOutcomeCapture.lastPositivityIndex;
+            if (positivity < 0)
+            {
+                Log.Message($"[FaithTracker] OBLIGATION '{name}': skipped faith (poor quality, positivityIndex={positivity})");
+                justRecorded = true;
+                return;
+            }
             int weight = Patch_RitualCompleted.GetRitualWeight(__instance);
-            Log.Message($"[FaithTracker] OBLIGATION '{name}': RECORDED weight={weight}");
+            Log.Message($"[FaithTracker] OBLIGATION '{name}': RECORDED weight={weight} (positivityIndex={positivity})");
             comp.RecordRitual(name, RitualRecordType.Fulfilled, customWeight: weight);
 
             // Certainty shift
