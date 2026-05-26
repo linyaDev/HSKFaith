@@ -67,9 +67,17 @@ public static class Patch_RitualCompleted
             if (comp == null) return;
 
             int positivity = Patch_RitualOutcomeCapture.lastPositivityIndex;
+            string ritualId = ritual.sourcePattern?.defName ?? ritual.def.defName ?? ritual.Label;
+            bool isRepeat = comp.ritualDevPointsThisYear.Contains(ritualId);
+
             if (positivity < 0)
             {
                 Log.Message($"[FaithTracker] RITUAL '{ritualName}': no faith (poor quality, positivityIndex={positivity})");
+                comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.FulfilledNoFaith);
+            }
+            else if (isRepeat)
+            {
+                Log.Message($"[FaithTracker] RITUAL '{ritualName}': no faith (repeat this year, id={ritualId})");
                 comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.FulfilledNoFaith);
             }
             else
