@@ -75,6 +75,8 @@ public static class Patch_RitualCompleted
             if (comp == null) return;
 
             int positivity = Patch_RitualOutcomeCapture.lastPositivityIndex;
+            bool skipReward = positivity < 0 || wasRepeatBeforeApply;
+
             if (positivity < 0)
             {
                 Log.Message($"[FaithTracker] RITUAL '{ritualName}': no faith (poor quality, positivityIndex={positivity})");
@@ -92,12 +94,14 @@ public static class Patch_RitualCompleted
                 comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.Fulfilled, customWeight: weight);
             }
 
-
-            // Certainty shift: holidays with date +3%/-3%, others +1%/-1%
-            bool hasDate = ritual.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;
-            bool hasCooldown = ritual.def.useRepeatPenalty;
-            float shift = (hasDate && !hasCooldown) ? 0.03f : 0.01f;
-            ApplyCertaintyShift(shift);
+            // Certainty shift only for first successful ritual
+            if (!skipReward)
+            {
+                bool hasDate = ritual.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;
+                bool hasCooldown = ritual.def.useRepeatPenalty;
+                float shift = (hasDate && !hasCooldown) ? 0.03f : 0.01f;
+                ApplyCertaintyShift(shift);
+            }
 
             // Blindsight ritual bonus: enough blindPoints to fill 2 sections
             if (ritual.def.requiredMemes != null && ritual.def.requiredMemes.Any(m => m.defName == "Blindsight"))

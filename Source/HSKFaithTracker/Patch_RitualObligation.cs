@@ -37,6 +37,7 @@ public static class Patch_RitualObligation
                 return;
             }
             int positivity = Patch_RitualOutcomeCapture.lastPositivityIndex;
+            bool skipReward = positivity < 0 || Patch_RitualCompleted.wasRepeatBeforeApply;
 
             if (positivity < 0)
             {
@@ -55,11 +56,14 @@ public static class Patch_RitualObligation
                 comp.RecordRitual(name, RitualRecordType.Fulfilled, customWeight: weight);
             }
 
-            // Certainty shift
-            bool hasDate = __instance.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;
-            bool hasCooldown = __instance.def.useRepeatPenalty;
-            float shift = (hasDate && !hasCooldown) ? 0.03f : 0.01f;
-            Patch_RitualCompleted.ApplyCertaintyShift(shift);
+            // Certainty shift only for first successful ritual
+            if (!skipReward)
+            {
+                bool hasDate = __instance.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;
+                bool hasCooldown = __instance.def.useRepeatPenalty;
+                float shift = (hasDate && !hasCooldown) ? 0.03f : 0.01f;
+                Patch_RitualCompleted.ApplyCertaintyShift(shift);
+            }
 
             // Blindsight ritual bonus
             if (__instance.def.requiredMemes != null && __instance.def.requiredMemes.Any(m => m.defName == "Blindsight"))
