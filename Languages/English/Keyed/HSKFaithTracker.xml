@@ -260,6 +260,8 @@
 	<FT_ShowCertainty>Certainty</FT_ShowCertainty>
 	<FT_ConversionBlocked>We cannot force our religion upon others</FT_ConversionBlocked>
 	<FT_MemeDisabled>Unavailable</FT_MemeDisabled>
+	<FT_RaidFailed>Raid failed</FT_RaidFailed>
+	<FT_RaidFailedDesc>Faction "{0}" planned an attack (strategy: {1}, points: {2}), but couldn't muster enough warriors. Raid cancelled.</FT_RaidFailedDesc>
 	<FT_CertaintyCurrent>Certainty</FT_CertaintyCurrent>
 	<FT_CertaintyTotal>Total</FT_CertaintyTotal>
 	<FT_CertaintyDay>day</FT_CertaintyDay>

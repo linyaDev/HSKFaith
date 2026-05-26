@@ -262,6 +262,8 @@
 	<FT_ShowCertainty>Уверенность</FT_ShowCertainty>
 	<FT_ConversionBlocked>Мы не можем навязать свою религию силой</FT_ConversionBlocked>
 	<FT_MemeDisabled>Недоступно</FT_MemeDisabled>
+	<FT_RaidFailed>Рейд не состоялся</FT_RaidFailed>
+	<FT_RaidFailedDesc>Фракция «{0}» планировала атаку (стратегия: {1}, очки: {2}), но не смогла собрать достаточно воинов. Рейд отменён.</FT_RaidFailedDesc>
 	<FT_CertaintyCurrent>Уверенность</FT_CertaintyCurrent>
 	<FT_CertaintyTotal>Всего</FT_CertaintyTotal>
 	<FT_CertaintyDay>день</FT_CertaintyDay>

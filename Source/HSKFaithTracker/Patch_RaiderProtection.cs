@@ -85,14 +85,14 @@ public static class Patch_DefaultThreatPointsDebug
 {
     public static void Postfix(IIncidentTarget target, float __result)
     {
-        if (__result < 100f)
+        if (__result < 400f)
         {
             float wealth = target.PlayerWealthForStoryteller;
             int pawns = target.PlayerPawnsForStoryteller.Count();
             float threatScale = Find.Storyteller.difficulty.threatScale;
             float adaptFactor = Find.StoryWatcher.watcherAdaptation.TotalThreatPointsFactor;
             float daysFactor = Find.Storyteller.def.pointsFactorFromDaysPassed.Evaluate(GenDate.DaysPassedSinceSettle);
-            Log.Message($"[HSKFaith] DefaultThreatPointsNow LOW: result={__result:F0} | wealth={wealth:F0} | pawns={pawns} | threatScale={threatScale:F2} | adaptFactor={adaptFactor:F2} | daysFactor={daysFactor:F2} | target={target}");
+            Log.Warning($"[HSKFaith] DefaultThreatPointsNow LOW: result={__result:F0} | wealth={wealth:F0} | pawns={pawns} | threatScale={threatScale:F2} | adaptFactor={adaptFactor:F2} | daysFactor={daysFactor:F2} | target={target}");
         }
     }
 }
@@ -111,6 +111,15 @@ public static class Patch_TryGenerateRaidInfoDebug
     {
         int pawnCount = pawns?.Count ?? 0;
         Log.Message($"[HSKFaith] TryGenerateRaidInfo: result={__result} | faction={parms.faction?.Name ?? "none"} | strategy={parms.raidStrategy?.defName ?? "none"} | arrival={parms.raidArrivalMode?.defName ?? "none"} | points={parms.points:F0} | pawns={pawnCount} | daysPassed={GenDate.DaysPassedSinceSettleFloat:F1}");
+
+        if (!__result && parms.target is Map map)
+        {
+            string faction = parms.faction?.Name ?? "???";
+            string strategy = parms.raidStrategy?.defName ?? "???";
+            string label = "FT_RaidFailed".Translate();
+            string text = "FT_RaidFailedDesc".Translate(faction, strategy, parms.points.ToString("F0"));
+            Find.LetterStack.ReceiveLetter(label, text, LetterDefOf.NeutralEvent, new LookTargets(map.Center, map));
+        }
     }
 }
 
@@ -119,7 +128,10 @@ public static class Patch_RaiderThreatBlock
 {
     public static void Postfix(IncidentWorker __instance, IncidentParms parms, ref bool __result)
     {
-        Log.Message($"[HSKFaith] CanFireNow: {__instance.def.defName} | category={__instance.def.category} | result={__result} | forced={parms.forced} | points={parms.points:F0} | faction={parms.faction?.Name ?? "none"} | strategy={parms.raidStrategy?.defName ?? "none"} | quest={parms.questScriptDef?.defName ?? "none"}");
+        if (__instance.def.category == IncidentCategoryDefOf.ThreatBig)
+            Log.Warning($"[HSKFaith] CanFireNow: {__instance.def.defName} | category={__instance.def.category} | result={__result} | forced={parms.forced} | points={parms.points:F0} | faction={parms.faction?.Name ?? "none"} | strategy={parms.raidStrategy?.defName ?? "none"} | quest={parms.questScriptDef?.defName ?? "none"}");
+        else
+            Log.Message($"[HSKFaith] CanFireNow: {__instance.def.defName} | category={__instance.def.category} | result={__result} | forced={parms.forced} | points={parms.points:F0}");
         if (__instance.def.category == IncidentCategoryDefOf.ThreatBig && parms.points < 100f)
             Log.Message($"[HSKFaith] LOW POINTS STACKTRACE:\n{System.Environment.StackTrace}");
         if (!__result) return;
