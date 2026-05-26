@@ -13,7 +13,8 @@ public enum RitualRecordType : byte
     Fulfilled,
     Missed,
     CorpsePenalty,
-    FaithDecay
+    FaithDecay,
+    FulfilledNoFaith
 }
 
 public struct RitualRecord : IExposable
@@ -31,6 +32,7 @@ public struct RitualRecord : IExposable
             switch (type)
             {
                 case RitualRecordType.Fulfilled: return customWeight != 0 ? customWeight : 1;
+                case RitualRecordType.FulfilledNoFaith: return 0;
                 case RitualRecordType.FaithDecay: return customWeight;
                 case RitualRecordType.CorpsePenalty: return GameComponent_FaithTracker.CorpsePenaltyWeight;
                 default: return GameComponent_FaithTracker.MissedWeight;

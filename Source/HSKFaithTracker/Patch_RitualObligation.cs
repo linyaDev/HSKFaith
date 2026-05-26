@@ -39,13 +39,15 @@ public static class Patch_RitualObligation
             int positivity = Patch_RitualOutcomeCapture.lastPositivityIndex;
             if (positivity < 0)
             {
-                Log.Message($"[FaithTracker] OBLIGATION '{name}': skipped faith (poor quality, positivityIndex={positivity})");
-                justRecorded = true;
-                return;
+                Log.Message($"[FaithTracker] OBLIGATION '{name}': no faith (poor quality, positivityIndex={positivity})");
+                comp.RecordRitual(name, RitualRecordType.FulfilledNoFaith);
             }
-            int weight = Patch_RitualCompleted.GetRitualWeight(__instance);
-            Log.Message($"[FaithTracker] OBLIGATION '{name}': RECORDED weight={weight} (positivityIndex={positivity})");
-            comp.RecordRitual(name, RitualRecordType.Fulfilled, customWeight: weight);
+            else
+            {
+                int weight = Patch_RitualCompleted.GetRitualWeight(__instance);
+                Log.Message($"[FaithTracker] OBLIGATION '{name}': RECORDED weight={weight} (positivityIndex={positivity})");
+                comp.RecordRitual(name, RitualRecordType.Fulfilled, customWeight: weight);
+            }
 
             // Certainty shift
             bool hasDate = __instance.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;

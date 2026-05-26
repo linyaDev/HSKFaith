@@ -69,7 +69,8 @@ public static class Patch_RitualCompleted
             int positivity = Patch_RitualOutcomeCapture.lastPositivityIndex;
             if (positivity < 0)
             {
-                Log.Message($"[FaithTracker] RITUAL '{ritualName}': skipped faith (poor quality, positivityIndex={positivity})");
+                Log.Message($"[FaithTracker] RITUAL '{ritualName}': no faith (poor quality, positivityIndex={positivity})");
+                comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.FulfilledNoFaith);
             }
             else
             {

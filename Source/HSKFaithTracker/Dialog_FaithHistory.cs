@@ -50,20 +50,23 @@ public class Dialog_FaithHistory : Window
             Rect rowRect = new Rect(0f, rowY, viewRect.width, 28f);
 
             bool isFulfilled = r.type == RitualRecordType.Fulfilled;
+            bool isNoFaith = r.type == RitualRecordType.FulfilledNoFaith;
             int points = r.Points;
             string pointsStr = points > 0 ? "+" + points : points.ToString();
 
-            Widgets.DrawBoxSolid(rowRect, isFulfilled ? GreenBg : RedBg);
+            Color bgColor = isNoFaith ? new Color(0.2f, 0.2f, 0.2f, 0.4f) : (isFulfilled ? GreenBg : RedBg);
+            Color textColor = isNoFaith ? DimText : (isFulfilled ? GreenText : RedText);
+            Widgets.DrawBoxSolid(rowRect, bgColor);
             if (i % 2 == 0)
                 Widgets.DrawLightHighlight(rowRect);
 
-            GUI.color = isFulfilled ? GreenText : RedText;
-            Widgets.Label(new Rect(5f, rowY, 20f, 28f), isFulfilled ? "▲" : "▼");
+            GUI.color = textColor;
+            Widgets.Label(new Rect(5f, rowY, 20f, 28f), isNoFaith ? "—" : (isFulfilled ? "▲" : "▼"));
 
             GUI.color = Color.white;
             Widgets.Label(new Rect(25f, rowY, viewRect.width - 170f, 28f), r.ritualName);
 
-            GUI.color = isFulfilled ? GreenText : RedText;
+            GUI.color = textColor;
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(new Rect(viewRect.width - 140f, rowY, 50f, 28f), pointsStr);
 
