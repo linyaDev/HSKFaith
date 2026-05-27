@@ -44,6 +44,7 @@ public static class RaiderProtectionCheck
     }
 }
 
+/*
 // Debug: trace storyteller ThreatBig generation
 [HarmonyPatch(typeof(StorytellerComp_OnOffCycle), nameof(StorytellerComp_OnOffCycle.MakeIntervalIncidents))]
 public static class Patch_StorytellerDebug
@@ -132,7 +133,7 @@ public static class Patch_TryGenerateRaidInfoDebug
 }
 
 [HarmonyPatch(typeof(IncidentWorker), nameof(IncidentWorker.CanFireNow))]
-public static class Patch_RaiderThreatBlock
+public static class Patch_RaiderThreatBlock_CanFireNowDebug
 {
     public static void Postfix(IncidentWorker __instance, IncidentParms parms, ref bool __result)
     {
@@ -142,6 +143,15 @@ public static class Patch_RaiderThreatBlock
             Log.Message($"[HSKFaith] CanFireNow: {__instance.def.defName} | category={__instance.def.category} | result={__result} | forced={parms.forced} | points={parms.points:F0}");
         if (__instance.def.category == IncidentCategoryDefOf.ThreatBig && parms.points < 100f)
             Log.Message($"[HSKFaith] LOW POINTS STACKTRACE:\n{System.Environment.StackTrace}");
+    }
+}
+*/
+
+[HarmonyPatch(typeof(IncidentWorker), nameof(IncidentWorker.CanFireNow))]
+public static class Patch_RaiderThreatBlock
+{
+    public static void Postfix(IncidentWorker __instance, IncidentParms parms, ref bool __result)
+    {
         if (!__result) return;
         if (parms.forced) return; // don't block quest/forced incidents
         if (__instance.def.category != IncidentCategoryDefOf.ThreatBig) return;
