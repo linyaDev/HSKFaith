@@ -203,7 +203,7 @@
 	<FT_RaiderPenalty>Праздные воины</FT_RaiderPenalty>
 	<FT_InhumanTooltip>Обесчеловеченные: {0} ({1})\nОбычные: {2}\n\nПолучение очков:\n+1 оч./день за обесчеловеченного колониста</FT_InhumanTooltip>
 	<FT_RitualistTooltip>Очки ритуалов: {0} (нужно {1} за сезон)\nПолучение очков:\n+2 за проведённый тёмный ритуал</FT_RitualistTooltip>
-	<FT_RaiderTooltip>Очки рейдов: {0} (нужно {1} за сезон)\nВ запасе на след. сезон: {2}\nПо��учение очков:\n+3 за набег на поселения</FT_RaiderTooltip>
+	<FT_RaiderTooltip>Очки рейдов: {0} (нужно {1} за сезон)\nВ запасе на след. сезон: {2}\n\nПолучение очков:\n+3 за набег на поселения</FT_RaiderTooltip>
 	<FT_ArmoryDiscovered>Поблизости обнаружена оружейная. Продвинутое снаряжение ждёт тех, кто достаточно смел, чтобы его забрать.</FT_ArmoryDiscovered>
 	<FT_RaiderReady>Безопасно для рейда</FT_RaiderReady>
 	<FT_RaiderReadyDesc>Духи благоволят смелым. Сейчас хорошее время для набега.</FT_RaiderReadyDesc>
