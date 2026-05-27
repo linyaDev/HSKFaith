@@ -66,14 +66,22 @@ public static class Patch_StorytellerDebug
         if (count == 0)
         {
             float daysPassed = GenDate.DaysPassedSinceSettleFloat;
-            int compIdx = Find.Storyteller.storytellerComps.IndexOf(__instance);
-            int incCount = IncidentCycleUtility.IncidentCountThisInterval(target, compIdx,
-                props.minDaysPassed, props.onDays, props.offDays, props.minSpacingDays,
-                props.numIncidentsRange.min, props.numIncidentsRange.max, 1f);
+            int ticksSinceSettle = Find.TickManager.TicksSinceSettle;
+            int minIntervals = Mathf.RoundToInt(props.minDaysPassed * 60f);
+            int elapsed = ticksSinceSettle / 1000 - minIntervals;
+            int onIntervals = Mathf.RoundToInt(props.onDays * 60f);
+            int offIntervals = Mathf.RoundToInt(props.offDays * 60f);
+            int cycleLen = onIntervals + offIntervals;
+            string phase = "BEFORE_MIN";
+            if (elapsed >= 0 && cycleLen > 0)
+            {
+                int posInCycle = elapsed % cycleLen;
+                phase = posInCycle < onIntervals ? "ON" : "OFF";
+            }
             float daysSinceLastThreat = -1f;
             if (target is Map map)
                 daysSinceLastThreat = (Find.TickManager.TicksGame - map.storyState.LastThreatBigTick) / 60000f;
-            Log.Message($"[HSKFaith] Storyteller ThreatBig: no incidents | daysPassed={daysPassed:F1} | incCount={incCount} | sinceLastThreat={daysSinceLastThreat:F1} | minDays={props.minDaysPassed} | onDays={props.onDays} | offDays={props.offDays} | target={target}");
+            Log.Message($"[HSKFaith] Storyteller ThreatBig: {phase} | daysPassed={daysPassed:F1} | sinceLastThreat={daysSinceLastThreat:F1} | target={target}");
         }
         __result = list;
     }

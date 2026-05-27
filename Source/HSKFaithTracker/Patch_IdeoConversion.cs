@@ -28,11 +28,20 @@ public static class Patch_IdeoConversion
             : "Social";
         string pawnName = pawn?.LabelShort ?? "?";
         string ideoName = initiatorIdeo?.name ?? "?";
-        Log.Message($"[HSKFaith] CONVERSION: {method} | pawn={pawnName} | ideo={ideoName} | certainty={certaintyReduction:F2}");
-
         // Ability conversion (e.g. Moralist role) always allowed
         if (Patch_AbilityConvertFlag.abilityConversion)
+        {
+            Log.Message($"[HSKFaith] CONVERSION: {method} ALLOWED | pawn={pawnName} | ideo={ideoName} | certainty={certaintyReduction:F2}");
             return true;
+        }
+
+        // Social conversion (random chat) always allowed
+        bool isSocial = pawn != null && !pawn.IsPrisonerOfColony && !pawn.InMentalState;
+        if (isSocial)
+        {
+            Log.Message($"[HSKFaith] CONVERSION: {method} ALLOWED | pawn={pawnName} | ideo={ideoName} | certainty={certaintyReduction:F2}");
+            return true;
+        }
 
         // If initiator's ideology doesn't have Proselytizer meme — block conversion
         if (initiatorIdeo?.memes == null || !initiatorIdeo.memes.Any(m => m.defName == "Proselytizer"))
@@ -42,17 +51,22 @@ public static class Patch_IdeoConversion
             {
                 int believers = PawnsFinder.AllMaps_FreeColonists.Count(p => !p.IsSlave && p.Ideo == initiatorIdeo);
                 if (believers < 2)
-                    return true; // allow vanilla conversion
+                {
+                    Log.Message($"[HSKFaith] CONVERSION: {method} ALLOWED (few believers) | pawn={pawnName} | ideo={ideoName} | certainty={certaintyReduction:F2}");
+                    return true;
+                }
             }
 
             // Show mote on the pawn being converted
             if (pawn != null && pawn.Spawned)
                 MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "FT_ConversionBlocked".Translate(), Color.white);
 
+            Log.Message($"[HSKFaith] CONVERSION: {method} BLOCKED | pawn={pawnName} | ideo={ideoName} | certainty={certaintyReduction:F2}");
             __result = false;
             return false; // skip vanilla
         }
 
-        return true; // allow vanilla conversion
+        Log.Message($"[HSKFaith] CONVERSION: {method} ALLOWED (Proselytizer) | pawn={pawnName} | ideo={ideoName} | certainty={certaintyReduction:F2}");
+        return true;
     }
 }
