@@ -222,7 +222,7 @@ public class GameComponent_FaithTracker : GameComponent
                     holidays++;
             }
 
-            return -(holidays * 2);
+            return -(holidays * 1);
         }
     }
 
@@ -1650,7 +1650,7 @@ public class GameComponent_FaithTracker : GameComponent
             if (hasDate) holidays++;
         }
 
-        int penaltyWeight = -(holidays * 2);
+        int penaltyWeight = -(holidays * 1);
 
         DebugLog($"YEARLY PENALTY: ticks={ticksNow}, holidays={holidays}, weight={penaltyWeight}");
         RecordRitual("FT_FaithDecay".Translate(), RitualRecordType.FaithDecay, customWeight: penaltyWeight);
