@@ -467,7 +467,7 @@ public class GameComponent_FaithTracker : GameComponent
         DailyTranshumanist();
         UpdateRancherHediffs();
         UpdateDarknessHediffs();
-        UpdateSupremacistHediffs();
+        RemoveSupremacistHediffs();
         UpdateGenderHediffs();
         DailyInhuman();
         DailyTreeConnection();
@@ -962,24 +962,17 @@ public class GameComponent_FaithTracker : GameComponent
         }
     }
 
-    private void UpdateSupremacistHediffs()
+    private void RemoveSupremacistHediffs()
     {
         var hediffDef = DefDatabase<HediffDef>.GetNamedSilentFail("FT_SupremacistVigor");
         if (hediffDef == null) return;
 
-        bool hasSupremacist = HasSupremacist;
         foreach (var map in Find.Maps)
-        {
             foreach (var p in map.mapPawns.FreeColonistsSpawned)
             {
-                if (p.IsSlave) continue;
                 var existing = p.health.hediffSet.GetFirstHediffOfDef(hediffDef);
-                if (hasSupremacist && existing == null)
-                    p.health.AddHediff(hediffDef);
-                else if (!hasSupremacist && existing != null)
-                    p.health.RemoveHediff(existing);
+                if (existing != null) p.health.RemoveHediff(existing);
             }
-        }
     }
 
     private void UpdateNudismHediffs()
