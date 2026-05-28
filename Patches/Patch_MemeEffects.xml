@@ -152,9 +152,9 @@
             <modExtensions>
                 <li Class="HSKFaithTracker.MemeEffectExtension">
                     <memeGroup>mid</memeGroup>
-                    <seasonalFaithChange>-1</seasonalFaithChange>
-                    <faithPerSection>-1</faithPerSection>
-                    <penaltyPerSection>-2</penaltyPerSection>
+                    <seasonalFaithChange>3</seasonalFaithChange>
+                    <faithPerSection>-2</faithPerSection>
+                    <penaltyPerSection>-3</penaltyPerSection>
                     <certaintyPerSeason>-0.06</certaintyPerSeason>
                 </li>
             </modExtensions>
