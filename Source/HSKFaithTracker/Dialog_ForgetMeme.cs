@@ -84,9 +84,16 @@ public class Dialog_ForgetMeme : Window
         ideo.memes.Remove(meme);
         ideo.RecachePrecepts();
 
-        // Faith penalty
-        var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
-        comp?.RecordRitual("FT_MemeForgotten".Translate(meme.LabelCap), RitualRecordType.FaithDecay, customWeight: -15);
+        // Mood penalty for all colonists
+        var thoughtDef = DefDatabase<ThoughtDef>.GetNamedSilentFail("FT_MemeForgotten_Thought");
+        if (thoughtDef != null)
+        {
+            foreach (var p in PawnsFinder.AllMaps_FreeColonists)
+            {
+                if (p.IsSlave || p.needs?.mood == null) continue;
+                p.needs.mood.thoughts.memories.TryGainMemory(thoughtDef);
+            }
+        }
 
         Messages.Message("FT_MemeForgottenMsg".Translate(meme.LabelCap), MessageTypeDefOf.NeutralEvent);
 

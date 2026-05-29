@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<ThoughtDef>
+		<defName>FT_MemeForgotten_Thought</defName>
+		<durationDays>7</durationDays>
+		<stackLimit>5</stackLimit>
+		<stackedEffectMultiplier>1</stackedEffectMultiplier>
+		<stages>
+			<li>
+				<label>forgotten belief</label>
+				<description>We abandoned one of our beliefs. It feels like a part of us has died.</description>
+				<baseMoodEffect>-6</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+</Defs>
