@@ -44,7 +44,6 @@ Colony-wide faith system for Ideology DLC. Each meme has unique gameplay mechani
 - **Disabled**: Ritualist, Inhuman, Raider, TreeConnection
 
 ### Meme Hediffs (auto-managed)
-- `FT_SupremacistVigor` — +10% MoveSpeed (all colonists when Supremacist active)
 - `FT_NudismBonus` — +10% speed, -5% mental break, -15% damage, -10% food poison (when unclothed, respects "Nudist" tag)
 - `FT_GenderDominant` / `FT_GenderSubmissive` — +15% / -10% SocialImpact (by pawn gender)
 - `FT_DarknessBonus/DeepDarknessBonus/LightWeakness` — glow-dependent combat stats

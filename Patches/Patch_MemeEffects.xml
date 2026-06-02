@@ -6,12 +6,6 @@
         <value>
             <modExtensions>
                 <li Class="HSKFaithTracker.MemeEffectExtension">
-                    <statOffsets>
-                        <MeleeHitChance>0.25</MeleeHitChance>
-                        <ShootingAccuracyPawn>0.25</ShootingAccuracyPawn>
-                        <SuppressionPower>0.10</SuppressionPower>
-                        <SlaveSuppressionFallRate>-0.10</SlaveSuppressionFallRate>
-                    </statOffsets>
                     <seasonalFaithChange>-3</seasonalFaithChange>
                     <faithPerSection>0</faithPerSection>
                     <penaltyPerSection>-2</penaltyPerSection>
