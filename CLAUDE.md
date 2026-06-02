@@ -38,8 +38,8 @@ Colony-wide faith system for Ideology DLC. Each meme has unique gameplay mechani
 - `sectionsPerMeme`, `yearlyGoodwillChange`
 
 ### Meme Categories
-- **Early** (+3/season, +1/filled, -1/unfilled): MaleSupremacy(+9%), FemaleSupremacy(+9%), Nudism, PainIsVirtue, HighLife, Cannibal, AnimalPersonhood, NaturePrimacy(-6%), Darkness, Bloodfeeding, HAR_Xenophilia(+9%), HAR_Xenophobia(+9%)
-- **Mid** (-2/season, +1/filled, -2/unfilled): FleshPurity, Proselytizer(+30%), Rancher, Tunneler, TreeConnection, Blindsight, Collectivist, Individualist(+12%)
+- **Early** (+3/season, +1/filled, -1/unfilled): MaleSupremacy(+9%), FemaleSupremacy(+9%), Nudism, PainIsVirtue, HighLife, AnimalPersonhood, NaturePrimacy(-6%), Darkness, Bloodfeeding, HAR_Xenophilia(+9%), HAR_Xenophobia(+9%)
+- **Mid** (-2/season, +1/filled, -2/unfilled): FleshPurity, Proselytizer(+30%), Rancher, Tunneler, TreeConnection, Blindsight, Collectivist, Individualist(+12%), Cannibal(+3/season, -2/filled, -3/unfilled)
 - **Late** (-3/season, +1/filled, -2/unfilled): Supremacist, HumanPrimacy, Raider, Transhumanist, Guilty, Loyalist(+18%)
 - **Disabled**: Ritualist, Inhuman, Raider, TreeConnection
 

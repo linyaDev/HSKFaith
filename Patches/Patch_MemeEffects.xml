@@ -157,10 +157,10 @@
         <value>
             <modExtensions>
                 <li Class="HSKFaithTracker.MemeEffectExtension">
-                    <memeGroup>early</memeGroup>
+                    <memeGroup>mid</memeGroup>
                     <seasonalFaithChange>3</seasonalFaithChange>
-                    <faithPerSection>1</faithPerSection>
-                    <penaltyPerSection>-1</penaltyPerSection>
+                    <faithPerSection>-2</faithPerSection>
+                    <penaltyPerSection>-3</penaltyPerSection>
                     <certaintyPerSeason>-0.06</certaintyPerSeason>
                 </li>
             </modExtensions>
