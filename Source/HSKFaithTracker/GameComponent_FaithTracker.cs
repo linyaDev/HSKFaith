@@ -90,7 +90,6 @@ public class GameComponent_FaithTracker : GameComponent
     public int natureTreesCut;
     public int treesSown;
     public int treeConnectionPoints;
-    public int cachedHereticCount;
     public int animalKills;
     public int animalCompanionPoints;
     public int xenoPhiliaMainPoints;
@@ -300,21 +299,6 @@ public class GameComponent_FaithTracker : GameComponent
         RecordRitual(meme.LabelCap, type, customWeight: total);
     }
 
-    private void UpdateHereticCount()
-    {
-        var playerIdeo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
-        if (playerIdeo == null) { cachedHereticCount = 0; return; }
-
-        int count = 0;
-        foreach (var p in PawnsFinder.AllMaps_FreeColonists)
-        {
-            if (p.IsQuestLodger()) continue;
-            if (p.Ideo != null && p.Ideo != playerIdeo)
-                count++;
-        }
-        cachedHereticCount = count;
-    }
-
     public static void DebugLog(string message)
     {
         try { File.AppendAllText(@"D:\Mods\faith_debug.txt", message + "\n"); } catch { }
@@ -457,7 +441,6 @@ public class GameComponent_FaithTracker : GameComponent
             lastMemeCheckTick = ticks;
             HourlyNudism();
             UpdateNudismHediffs();
-            UpdateHereticCount();
             int memeHash = ComputeMemeHash();
             bool changed = memeHash != lastMemeHash;
             DebugLog($"HASH tick={ticks}: new={memeHash}, old={lastMemeHash}, changed={changed}, today={today}, lastDaily={lastDailyCheck}");

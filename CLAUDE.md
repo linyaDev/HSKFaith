@@ -10,7 +10,7 @@ Colony-wide faith system for Ideology DLC. Each meme has unique gameplay mechani
 3. **Per-Meme Counters** — daily accumulation, reset each season (~15 days / 900k ticks), converted to faith at season end
 
 ### Timing
-- **Every 2500 ticks** (1 hour): meme change detection, daily counter updates, nudism hourly count, certainty updates, heretic count
+- **Every 2500 ticks** (1 hour): meme change detection, daily counter updates, nudism hourly count, certainty updates
 - **Every 180 ticks**: darkness hediff updates (glow-dependent)
 - **Every season** (900k ticks): counters -> filled sections -> faith records, counters reset, +1 dev point
 - **Every year** (3.6M ticks): faith decay penalty, goodwill changes, record compression, ritual dev points reset
@@ -51,8 +51,7 @@ Colony-wide faith system for Ideology DLC. Each meme has unique gameplay mechani
 - All hediffs removed when meme deactivated
 
 ### Heretic System
-- `ThoughtWorker_Heretics` — -3 per heretic colonist (5 stages, max -15), uses `cachedHereticCount`
-- `ThoughtWorker_HereticSelf` — heretic gets fixed -5 "among strangers"
+- No mood debuffs for heretics/other-faith pawns (removed: FT_HereticsInColony colony penalty and FT_HereticAmongFaithful self penalty)
 - `Need_Faith` hidden for pawns with non-primary ideology
 
 ### Certainty System
@@ -115,8 +114,6 @@ Source/HSKFaithTracker/
   ThoughtWorker_Loyalist.cs       # +15 mood (Loyalist meme)
   ThoughtWorker_FleshPurity.cs    # Mood if no implants
   ThoughtWorker_AnimalCompanion.cs # Mood from pet count (+2 to +10)
-  ThoughtWorker_Heretics.cs       # -3 per heretic (5 stages)
-  ThoughtWorker_HereticSelf.cs    # -5 for heretic pawn
   Patch_StartingItems.cs          # Spawn startingItems at game start
   Patch_NaturePrimacyTreeDestroyed.cs # -2 score per tree cut/destroyed
   Patch_NaturePrimacyWildHarvest.cs   # x6 wild berry yield
@@ -132,7 +129,7 @@ Source/HSKFaithTracker/
   Patch_*.cs                      # Other Harmony patches
 Defs/
   NeedDefs/Need_Faith.xml
-  ThoughtDefs/Thoughts_Faith.xml, _Loyalist, _FleshPurity, _AnimalCompanion, _Heretics
+  ThoughtDefs/Thoughts_Faith.xml, _Loyalist, _FleshPurity, _AnimalCompanion
   HediffDefs/Hediff_Darkness, _BlindsightAdapt, _BlindsightPsy, _Rancher, _Nudism, _Supremacist, _GenderSupremacy
   MainButtonDefs/MainButton_Needs.xml
 Patches/
