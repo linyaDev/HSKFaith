@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!-- "Diversity of thought" (IdeoDiversity): restrict precepts by meme.
+	     requiredMemes = the ideoligion must have at least one of these memes for the precept
+	     to be available (IdeoFoundation). -->
+
+	<!-- Positive precepts only for the Individualist meme.
+	     Vanilla already gates Respected and Exalted; Approved only had associatedMemes. -->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/PreceptDef[defName="IdeoDiversity_Approved"]</xpath>
+		<value>
+			<requiredMemes>
+				<li>Individualist</li>
+			</requiredMemes>
+		</value>
+	</Operation>
+
+	<!-- Neutral precept only for Nudism, High life and Xenophilia memes. -->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/PreceptDef[defName="IdeoDiversity_Standard"]</xpath>
+		<value>
+			<requiredMemes>
+				<li>Nudism</li>
+				<li>HighLife</li>
+				<li MayRequire="erdelf.HumanoidAlienRaces">HAR_Xenophilia</li>
+			</requiredMemes>
+		</value>
+	</Operation>
+
+	<!-- Mild bigotry only for the social-structure memes (patriarchy / matriarchy). -->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/PreceptDef[defName="IdeoDiversity_Disapproved"]</xpath>
+		<value>
+			<requiredMemes>
+				<li>MaleSupremacy</li>
+				<li>FemaleSupremacy</li>
+			</requiredMemes>
+		</value>
+	</Operation>
+
+</Patch>
