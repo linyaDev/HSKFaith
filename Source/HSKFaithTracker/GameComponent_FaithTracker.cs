@@ -76,6 +76,9 @@ public class GameComponent_FaithTracker : GameComponent
     // === Dev points tracking: once per year per ritual type ===
     public List<string> ritualDevPointsThisYear = new List<string>();
 
+    // === Ritual faith tracking: once per year per ritual type ===
+    public List<string> ritualFaithThisYear = new List<string>();
+
     // === Meme trackers ===
     public float slaveryPoints;
     public int collectivistPoints;
@@ -379,6 +382,24 @@ public class GameComponent_FaithTracker : GameComponent
             var last = records[records.Count - 1];
             ShowMoteOverLeader(last.Points, "FT_MoteFaith".Translate());
         }
+    }
+
+    /// <summary>
+    /// Records ritual faith only once per game year per ritual pattern. Repeated rituals
+    /// of the same pattern within the year grant no faith. Returns true if faith was recorded.
+    /// </summary>
+    public bool TryRecordRitualFaith(Precept_Ritual ritual, int weight)
+    {
+        string ritualId = ritual.sourcePattern?.defName ?? ritual.def.defName ?? ritual.LabelCap;
+        if (ritualFaithThisYear.Contains(ritualId))
+        {
+            DebugLog($"Ritual faith skipped (already earned this year): {ritualId}");
+            return false;
+        }
+
+        ritualFaithThisYear.Add(ritualId);
+        RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.Fulfilled, customWeight: weight);
+        return true;
     }
 
     private void ShowMoteOverLeader(int points, string label)
@@ -1644,6 +1665,7 @@ public class GameComponent_FaithTracker : GameComponent
 
         nextYearlyPenaltyTick = ticksNow + YearTicks;
         ritualDevPointsThisYear.Clear();
+        ritualFaithThisYear.Clear();
         var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
         if (ideo == null) return;
 
@@ -1839,6 +1861,9 @@ public class GameComponent_FaithTracker : GameComponent
         Scribe_Collections.Look(ref ritualDevPointsThisYear, "ritualDevPointsThisYear", LookMode.Value);
         if (ritualDevPointsThisYear == null)
             ritualDevPointsThisYear = new List<string>();
+        Scribe_Collections.Look(ref ritualFaithThisYear, "ritualFaithThisYear", LookMode.Value);
+        if (ritualFaithThisYear == null)
+            ritualFaithThisYear = new List<string>();
         if (records == null)
             records = new List<RitualRecord>();
     }

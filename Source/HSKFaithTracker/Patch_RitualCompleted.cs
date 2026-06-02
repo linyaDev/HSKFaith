@@ -49,8 +49,8 @@ public static class Patch_RitualCompleted
             if (comp == null) return;
 
             int weight = GetRitualWeight(ritual);
-            Log.Message($"[FaithTracker] RITUAL '{ritualName}': RECORDED weight={weight}");
-            comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.Fulfilled, customWeight: weight);
+            bool faithRecorded = comp.TryRecordRitualFaith(ritual, weight);
+            Log.Message($"[FaithTracker] RITUAL '{ritualName}': {(faithRecorded ? $"RECORDED weight={weight}" : "faith skipped (repeat this year)")}");
 
 
             // Certainty shift: holidays with date +3%/-3%, others +1%/-1%
