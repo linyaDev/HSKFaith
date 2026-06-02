@@ -62,10 +62,17 @@ Colony-wide faith system for Ideology DLC. Each meme has unique gameplay mechani
 - `Patch_CertaintyTick.PastorCertaintyPerDay` constant
 
 ### Dev Points Control
-- Proselytizer blocks conversion dev points (both paths)
-- Ritual dev points: keyed by `sourcePattern.defName` (not def.defName), once per year per ritual pattern
+- Proselytizer blocks conversion dev points (both paths) — `Patch_ProselytizerDevPoints.cs`
+- Ritual dev points: keyed by `sourcePattern.defName` (not def.defName), once per year per ritual pattern — `Patch_RitualDevPoints.cs`
 - +1 seasonal dev point to fluid ideology
 - First season tracking via `firstSeasonStarted` flag
+
+### Ritual Faith (Fulfilled records)
+- Recorded by two patches: `Patch_RitualCompleted` (ApplyOutcome) and `Patch_RitualObligation` (RemoveObligation); `justRecorded` flag prevents double-recording
+- Faith granted **once per year per ritual pattern** via `TryRecordRitualFaith` (keyed by `sourcePattern.defName`); tracker `ritualFaithThisYear`, cleared yearly alongside `ritualDevPointsThisYear`, scribed
+- **Bad outcome → no faith**: `Patch_RitualOutcomeQuality` captures the rolled `RitualOutcomePossibility.Positive` during `GetOutcome` (patches FromQuality + ChildBirth + Trial overrides); a negative outcome (`positivityIndex < 0`) skips the faith record without consuming the yearly slot
+- Both gates affect **faith only** — certainty shift (±1%/±3%) and Blindsight bonus still fire every ritual
+- Weight: 3 for dated holiday w/o cooldown, else 1; RoleChange ceremonies skipped (weight 0)
 
 ### NaturePrimacy Special
 - Point-based bar: +1 per plant sown (`Patch_PlantSown`), -2 per tree cut (`Patch_NaturePrimacyTreeDestroyed`)
@@ -118,6 +125,11 @@ Source/HSKFaithTracker/
   Patch_ColonistKilled.cs         # -10 faith for colonist killed by own
   Patch_CorpseObserved.cs         # Corpse penalty with 30-tile distance check
   Patch_CorpseDisposed.cs         # Remove corpse penalty on destroy
+  Patch_RitualCompleted.cs        # Ritual faith on ApplyOutcome (gated: once/year + bad-outcome)
+  Patch_RitualObligation.cs       # Ritual faith on RemoveObligation (same gates); Missed records
+  Patch_RitualOutcomeQuality.cs   # Capture rolled outcome positivity (bad outcome -> no faith)
+  Patch_RitualDevPoints.cs        # Ritual dev points once/year per pattern
+  Patch_ProselytizerDevPoints.cs  # Block conversion dev points (Proselytizer)
   Patch_*.cs                      # Other Harmony patches
 Defs/
   NeedDefs/Need_Faith.xml

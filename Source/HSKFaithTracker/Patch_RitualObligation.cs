@@ -37,8 +37,12 @@ public static class Patch_RitualObligation
                 return;
             }
             int weight = Patch_RitualCompleted.GetRitualWeight(__instance);
-            bool faithRecorded = comp.TryRecordRitualFaith(__instance, weight);
-            Log.Message($"[FaithTracker] OBLIGATION '{name}': {(faithRecorded ? $"RECORDED weight={weight}" : "faith skipped (repeat this year)")}");
+            string faithStatus;
+            if (Patch_RitualOutcomeQuality.outcomeKnown && Patch_RitualOutcomeQuality.lastOutcomeNegative)
+                faithStatus = "faith skipped (negative outcome)";
+            else
+                faithStatus = comp.TryRecordRitualFaith(__instance, weight) ? $"RECORDED weight={weight}" : "faith skipped (repeat this year)";
+            Log.Message($"[FaithTracker] OBLIGATION '{name}': {faithStatus}");
 
             // Certainty shift
             bool hasDate = __instance.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;
