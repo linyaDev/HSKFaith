@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
-	<!-- "Diversity of thought" (IdeoDiversity): restrict precepts by meme.
-	     requiredMemes = the ideoligion must have at least one of these memes for the precept
-	     to be available (IdeoFoundation). -->
+	<!-- "Diversity of thought" (IdeoDiversity) rework: the issue is always present and
+	     intolerant by default; neutrality/tolerance is a meme-specific privilege.
 
-	<!-- Positive precepts only for the Individualist meme.
-	     Vanilla already gates Respected and Exalted; Approved only had associatedMemes. -->
+	     Generation (IdeoFoundation): for each issue the game first picks a precept whose
+	     associatedMemes the ideo has (weighted by defaultSelectionWeight), else falls back
+	     to any eligible precept weighted by defaultSelectionWeight. requiredMemes hides a
+	     precept from ideos lacking the meme; a precept with defaultSelectionWeight 0 is
+	     never auto-generated (vanilla: only Standard had weight 1). -->
+
+	<!-- Disapproved = universal intolerant default. Ungated + default weight so any ideo
+	     without a neutral/tolerant meme falls back to mild bigotry (issue never empty).
+	     associatedMemes keeps the supremacy memes explicitly tied to it. -->
 	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/PreceptDef[defName="IdeoDiversity_Approved"]</xpath>
+		<xpath>Defs/PreceptDef[defName="IdeoDiversity_Disapproved"]</xpath>
 		<value>
-			<requiredMemes>
-				<li>Individualist</li>
-			</requiredMemes>
+			<defaultSelectionWeight>1</defaultSelectionWeight>
+			<associatedMemes>
+				<li>MaleSupremacy</li>
+				<li>FemaleSupremacy</li>
+			</associatedMemes>
 		</value>
 	</Operation>
 
-	<!-- Neutral precept only for Nudism, High life and Xenophilia memes. -->
+	<!-- Neutral (Standard): only for Nudism / High life / Xenophilia. associatedMemes makes
+	     those ideos pick it on the meme-association step, ahead of the intolerant fallback. -->
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/PreceptDef[defName="IdeoDiversity_Standard"]</xpath>
 		<value>
@@ -25,16 +34,22 @@
 				<li>HighLife</li>
 				<li MayRequire="erdelf.HumanoidAlienRaces">HAR_Xenophilia</li>
 			</requiredMemes>
+			<associatedMemes>
+				<li>Nudism</li>
+				<li>HighLife</li>
+				<li MayRequire="erdelf.HumanoidAlienRaces">HAR_Xenophilia</li>
+			</associatedMemes>
 		</value>
 	</Operation>
 
-	<!-- Mild bigotry only for the social-structure memes (patriarchy / matriarchy). -->
+	<!-- Positive precepts only for Individualist (vanilla already gates Respected/Exalted).
+	     Left without default weight: even an Individualist ideo generates intolerant by
+	     default but can opt into tolerance in the editor. -->
 	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/PreceptDef[defName="IdeoDiversity_Disapproved"]</xpath>
+		<xpath>Defs/PreceptDef[defName="IdeoDiversity_Approved"]</xpath>
 		<value>
 			<requiredMemes>
-				<li>MaleSupremacy</li>
-				<li>FemaleSupremacy</li>
+				<li>Individualist</li>
 			</requiredMemes>
 		</value>
 	</Operation>
