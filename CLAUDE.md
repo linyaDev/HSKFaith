@@ -10,7 +10,7 @@ Colony-wide faith system for Ideology DLC. Each meme has unique gameplay mechani
 3. **Per-Meme Counters** — daily accumulation, reset each season (~15 days / 900k ticks), converted to faith at season end
 
 ### Timing
-- **Every 2500 ticks** (1 hour): meme change detection, daily counter updates, nudism hourly count, certainty updates, heretic count
+- **Every 2500 ticks** (1 hour): meme change detection, daily counter updates, nudism hourly count, certainty updates
 - **Every 180 ticks**: darkness hediff updates (glow-dependent)
 - **Every season** (900k ticks): counters -> filled sections -> faith records, counters reset, +1 dev point
 - **Every year** (3.6M ticks): faith decay penalty, goodwill changes, record compression, ritual dev points reset
@@ -38,13 +38,12 @@ Colony-wide faith system for Ideology DLC. Each meme has unique gameplay mechani
 - `sectionsPerMeme`, `yearlyGoodwillChange`
 
 ### Meme Categories
-- **Early** (+3/season, +1/filled, -1/unfilled): MaleSupremacy(+9%), FemaleSupremacy(+9%), Nudism, PainIsVirtue, HighLife, Cannibal, AnimalPersonhood, NaturePrimacy(-6%), Darkness, Bloodfeeding, HAR_Xenophilia(+9%), HAR_Xenophobia(+9%)
-- **Mid** (-2/season, +1/filled, -2/unfilled): FleshPurity, Proselytizer(+30%), Rancher, Tunneler, TreeConnection, Blindsight, Collectivist, Individualist(+12%)
+- **Early** (+3/season, +1/filled, -1/unfilled): MaleSupremacy(+9%), FemaleSupremacy(+9%), Nudism, PainIsVirtue, HighLife, AnimalPersonhood, NaturePrimacy(-6%), Darkness, Bloodfeeding, HAR_Xenophilia(+9%), HAR_Xenophobia(+9%)
+- **Mid** (-2/season, +1/filled, -2/unfilled): FleshPurity, Proselytizer(+30%), Rancher, Tunneler, TreeConnection, Blindsight, Collectivist, Individualist(+12%), Cannibal(+3/season, -2/filled, -3/unfilled)
 - **Late** (-3/season, +1/filled, -2/unfilled): Supremacist, HumanPrimacy, Raider, Transhumanist, Guilty, Loyalist(+18%)
 - **Disabled**: Ritualist, Inhuman, Raider, TreeConnection
 
 ### Meme Hediffs (auto-managed)
-- `FT_SupremacistVigor` — +10% MoveSpeed (all colonists when Supremacist active)
 - `FT_NudismBonus` — +10% speed, -5% mental break, -15% damage, -10% food poison (when unclothed, respects "Nudist" tag)
 - `FT_GenderDominant` / `FT_GenderSubmissive` — +15% / -10% SocialImpact (by pawn gender)
 - `FT_DarknessBonus/DeepDarknessBonus/LightWeakness` — glow-dependent combat stats
@@ -52,8 +51,7 @@ Colony-wide faith system for Ideology DLC. Each meme has unique gameplay mechani
 - All hediffs removed when meme deactivated
 
 ### Heretic System
-- `ThoughtWorker_Heretics` — -3 per heretic colonist (5 stages, max -15), uses `cachedHereticCount`
-- `ThoughtWorker_HereticSelf` — heretic gets fixed -5 "among strangers"
+- No mood debuffs for heretics/other-faith pawns (removed: FT_HereticsInColony colony penalty and FT_HereticAmongFaithful self penalty)
 - `Need_Faith` hidden for pawns with non-primary ideology
 
 ### Certainty System
@@ -62,10 +60,17 @@ Colony-wide faith system for Ideology DLC. Each meme has unique gameplay mechani
 - `Patch_CertaintyTick.PastorCertaintyPerDay` constant
 
 ### Dev Points Control
-- Proselytizer blocks conversion dev points (both paths)
-- Ritual dev points: keyed by `sourcePattern.defName` (not def.defName), once per year per ritual pattern
+- Proselytizer blocks conversion dev points (both paths) — `Patch_ProselytizerDevPoints.cs`
+- Ritual dev points: keyed by `sourcePattern.defName` (not def.defName), once per year per ritual pattern — `Patch_RitualDevPoints.cs`
 - +1 seasonal dev point to fluid ideology
 - First season tracking via `firstSeasonStarted` flag
+
+### Ritual Faith (Fulfilled records)
+- Recorded by two patches: `Patch_RitualCompleted` (ApplyOutcome) and `Patch_RitualObligation` (RemoveObligation); `justRecorded` flag prevents double-recording
+- Faith granted **once per year per ritual pattern** via `TryRecordRitualFaith` (keyed by `sourcePattern.defName`); tracker `ritualFaithThisYear`, cleared yearly alongside `ritualDevPointsThisYear`, scribed
+- **Bad outcome → no faith**: `Patch_RitualOutcomeQuality` captures the rolled `RitualOutcomePossibility.Positive` during `GetOutcome` (patches FromQuality + ChildBirth + Trial overrides); a negative outcome (`positivityIndex < 0`) skips the faith record without consuming the yearly slot
+- Both gates affect **faith only** — certainty shift (±1%/±3%) and Blindsight bonus still fire every ritual
+- Weight: 3 for dated holiday w/o cooldown, else 1; RoleChange ceremonies skipped (weight 0)
 
 ### NaturePrimacy Special
 - Point-based bar: +1 per plant sown (`Patch_PlantSown`), -2 per tree cut (`Patch_NaturePrimacyTreeDestroyed`)
@@ -109,8 +114,6 @@ Source/HSKFaithTracker/
   ThoughtWorker_Loyalist.cs       # +15 mood (Loyalist meme)
   ThoughtWorker_FleshPurity.cs    # Mood if no implants
   ThoughtWorker_AnimalCompanion.cs # Mood from pet count (+2 to +10)
-  ThoughtWorker_Heretics.cs       # -3 per heretic (5 stages)
-  ThoughtWorker_HereticSelf.cs    # -5 for heretic pawn
   Patch_StartingItems.cs          # Spawn startingItems at game start
   Patch_NaturePrimacyTreeDestroyed.cs # -2 score per tree cut/destroyed
   Patch_NaturePrimacyWildHarvest.cs   # x6 wild berry yield
@@ -118,10 +121,15 @@ Source/HSKFaithTracker/
   Patch_ColonistKilled.cs         # -10 faith for colonist killed by own
   Patch_CorpseObserved.cs         # Corpse penalty with 30-tile distance check
   Patch_CorpseDisposed.cs         # Remove corpse penalty on destroy
+  Patch_RitualCompleted.cs        # Ritual faith on ApplyOutcome (gated: once/year + bad-outcome)
+  Patch_RitualObligation.cs       # Ritual faith on RemoveObligation (same gates); Missed records
+  Patch_RitualOutcomeQuality.cs   # Capture rolled outcome positivity (bad outcome -> no faith)
+  Patch_RitualDevPoints.cs        # Ritual dev points once/year per pattern
+  Patch_ProselytizerDevPoints.cs  # Block conversion dev points (Proselytizer)
   Patch_*.cs                      # Other Harmony patches
 Defs/
   NeedDefs/Need_Faith.xml
-  ThoughtDefs/Thoughts_Faith.xml, _Loyalist, _FleshPurity, _AnimalCompanion, _Heretics
+  ThoughtDefs/Thoughts_Faith.xml, _Loyalist, _FleshPurity, _AnimalCompanion
   HediffDefs/Hediff_Darkness, _BlindsightAdapt, _BlindsightPsy, _Rancher, _Nudism, _Supremacist, _GenderSupremacy
   MainButtonDefs/MainButton_Needs.xml
 Patches/

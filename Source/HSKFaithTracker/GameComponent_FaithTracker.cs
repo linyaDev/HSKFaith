@@ -76,6 +76,9 @@ public class GameComponent_FaithTracker : GameComponent
     // === Dev points tracking: once per year per ritual type ===
     public List<string> ritualDevPointsThisYear = new List<string>();
 
+    // === Ritual faith tracking: once per year per ritual type ===
+    public List<string> ritualFaithThisYear = new List<string>();
+
     // === Meme trackers ===
     public float slaveryPoints;
     public int collectivistPoints;
@@ -87,7 +90,6 @@ public class GameComponent_FaithTracker : GameComponent
     public int natureTreesCut;
     public int treesSown;
     public int treeConnectionPoints;
-    public int cachedHereticCount;
     public int animalKills;
     public int animalCompanionPoints;
     public int xenoPhiliaMainPoints;
@@ -297,21 +299,6 @@ public class GameComponent_FaithTracker : GameComponent
         RecordRitual(meme.LabelCap, type, customWeight: total);
     }
 
-    private void UpdateHereticCount()
-    {
-        var playerIdeo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
-        if (playerIdeo == null) { cachedHereticCount = 0; return; }
-
-        int count = 0;
-        foreach (var p in PawnsFinder.AllMaps_FreeColonists)
-        {
-            if (p.IsQuestLodger()) continue;
-            if (p.Ideo != null && p.Ideo != playerIdeo)
-                count++;
-        }
-        cachedHereticCount = count;
-    }
-
     public static void DebugLog(string message)
     {
         try { File.AppendAllText(@"D:\Mods\faith_debug.txt", message + "\n"); } catch { }
@@ -381,6 +368,24 @@ public class GameComponent_FaithTracker : GameComponent
         }
     }
 
+    /// <summary>
+    /// Records ritual faith only once per game year per ritual pattern. Repeated rituals
+    /// of the same pattern within the year grant no faith. Returns true if faith was recorded.
+    /// </summary>
+    public bool TryRecordRitualFaith(Precept_Ritual ritual, int weight)
+    {
+        string ritualId = ritual.sourcePattern?.defName ?? ritual.def.defName ?? ritual.LabelCap;
+        if (ritualFaithThisYear.Contains(ritualId))
+        {
+            DebugLog($"Ritual faith skipped (already earned this year): {ritualId}");
+            return false;
+        }
+
+        ritualFaithThisYear.Add(ritualId);
+        RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.Fulfilled, customWeight: weight);
+        return true;
+    }
+
     private void ShowMoteOverLeader(int points, string label)
     {
         var leader = FindLeaderOrMoral();
@@ -436,7 +441,6 @@ public class GameComponent_FaithTracker : GameComponent
             lastMemeCheckTick = ticks;
             HourlyNudism();
             UpdateNudismHediffs();
-            UpdateHereticCount();
             int memeHash = ComputeMemeHash();
             bool changed = memeHash != lastMemeHash;
             DebugLog($"HASH tick={ticks}: new={memeHash}, old={lastMemeHash}, changed={changed}, today={today}, lastDaily={lastDailyCheck}");
@@ -465,7 +469,6 @@ public class GameComponent_FaithTracker : GameComponent
         DailyTranshumanist();
         UpdateRancherHediffs();
         UpdateDarknessHediffs();
-        UpdateSupremacistHediffs();
         UpdateGenderHediffs();
         DailyInhuman();
         DailyTreeConnection();
@@ -956,26 +959,6 @@ public class GameComponent_FaithTracker : GameComponent
                     if (existSub == null) p.health.AddHediff(subDef);
                     if (existDom != null) p.health.RemoveHediff(existDom);
                 }
-            }
-        }
-    }
-
-    private void UpdateSupremacistHediffs()
-    {
-        var hediffDef = DefDatabase<HediffDef>.GetNamedSilentFail("FT_SupremacistVigor");
-        if (hediffDef == null) return;
-
-        bool hasSupremacist = HasSupremacist;
-        foreach (var map in Find.Maps)
-        {
-            foreach (var p in map.mapPawns.FreeColonistsSpawned)
-            {
-                if (p.IsSlave) continue;
-                var existing = p.health.hediffSet.GetFirstHediffOfDef(hediffDef);
-                if (hasSupremacist && existing == null)
-                    p.health.AddHediff(hediffDef);
-                else if (!hasSupremacist && existing != null)
-                    p.health.RemoveHediff(existing);
             }
         }
     }
@@ -1644,6 +1627,7 @@ public class GameComponent_FaithTracker : GameComponent
 
         nextYearlyPenaltyTick = ticksNow + YearTicks;
         ritualDevPointsThisYear.Clear();
+        ritualFaithThisYear.Clear();
         var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
         if (ideo == null) return;
 
@@ -1839,6 +1823,9 @@ public class GameComponent_FaithTracker : GameComponent
         Scribe_Collections.Look(ref ritualDevPointsThisYear, "ritualDevPointsThisYear", LookMode.Value);
         if (ritualDevPointsThisYear == null)
             ritualDevPointsThisYear = new List<string>();
+        Scribe_Collections.Look(ref ritualFaithThisYear, "ritualFaithThisYear", LookMode.Value);
+        if (ritualFaithThisYear == null)
+            ritualFaithThisYear = new List<string>();
         if (records == null)
             records = new List<RitualRecord>();
     }

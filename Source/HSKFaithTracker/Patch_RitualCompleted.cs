@@ -13,6 +13,7 @@ public static class Patch_RitualCompleted
     {
         __state = __instance.Ritual?.lastFinishedTick ?? -1;
         Patch_RitualObligation.justRecorded = false;
+        Patch_RitualOutcomeQuality.Reset();
     }
 
     public static void Postfix(LordJob_Ritual __instance, int __state)
@@ -49,8 +50,12 @@ public static class Patch_RitualCompleted
             if (comp == null) return;
 
             int weight = GetRitualWeight(ritual);
-            Log.Message($"[FaithTracker] RITUAL '{ritualName}': RECORDED weight={weight}");
-            comp.RecordRitual(ritual.LabelCap ?? "Unknown ritual", RitualRecordType.Fulfilled, customWeight: weight);
+            string faithStatus;
+            if (Patch_RitualOutcomeQuality.outcomeKnown && Patch_RitualOutcomeQuality.lastOutcomeNegative)
+                faithStatus = "faith skipped (negative outcome)";
+            else
+                faithStatus = comp.TryRecordRitualFaith(ritual, weight) ? $"RECORDED weight={weight}" : "faith skipped (repeat this year)";
+            Log.Message($"[FaithTracker] RITUAL '{ritualName}': {faithStatus}");
 
 
             // Certainty shift: holidays with date +3%/-3%, others +1%/-1%
