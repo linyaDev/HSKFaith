@@ -10,32 +10,29 @@ namespace HSKFaithTracker;
 [HarmonyPatch(typeof(Building), nameof(Building.GetGizmos))]
 public static class Patch_ForgetMeme
 {
-    public static IEnumerable<Gizmo> Postfix(IEnumerable<Gizmo> gizmos, Building __instance)
+    public static void Postfix(Building __instance, ref IEnumerable<Gizmo> __result)
     {
-        foreach (var g in gizmos)
-            yield return g;
-
         if (!IsRitualFocus(__instance))
-            yield break;
+            return;
 
         if (__instance.Faction != Faction.OfPlayer)
-            yield break;
+            return;
 
         var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
         if (ideo == null)
-            yield break;
+            return;
 
         int normalMemes = ideo.memes.Count(m => m.category != MemeCategory.Structure);
         if (normalMemes < 2)
-            yield break;
+            return;
 
-        yield return new Command_Action
+        __result = __result.Append(new Command_Action
         {
             defaultLabel = "FT_ForgetMeme".Translate(),
             defaultDesc = "FT_ForgetMemeDesc".Translate(),
             icon = ContentFinder<Texture2D>.Get("UI/Icons/ForgetMeme", true),
             action = () => Find.WindowStack.Add(new Dialog_ForgetMeme(ideo))
-        };
+        });
     }
 
     private static readonly HashSet<string> ForgetBuildings = new HashSet<string>
