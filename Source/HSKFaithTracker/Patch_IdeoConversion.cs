@@ -41,7 +41,7 @@ public static class Patch_IdeoConversion
             if (pawn != null && pawn.IsPrisonerOfColony)
             {
                 int believers = PawnsFinder.AllMaps_FreeColonists.Count(p => !p.IsSlave && p.Ideo == initiatorIdeo);
-                if (believers < 2)
+                if (believers < 3)
                     return true; // allow vanilla conversion
             }
 

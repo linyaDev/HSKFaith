@@ -4,7 +4,7 @@
     <Operation Class="PatchOperationReplace">
         <xpath>/Defs/PreceptDef[activationBelieverCount=3]/activationBelieverCount</xpath>
         <value>
-            <activationBelieverCount>2</activationBelieverCount>
+            <activationBelieverCount>3</activationBelieverCount>
         </value>
     </Operation>
 </Patch>

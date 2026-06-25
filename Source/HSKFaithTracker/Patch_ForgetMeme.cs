@@ -1,3 +1,4 @@
+/*
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
@@ -26,13 +27,15 @@ public static class Patch_ForgetMeme
         if (normalMemes < 2)
             return;
 
-        __result = __result.Append(new Command_Action
+        var list = new List<Gizmo>(__result);
+        list.Add(new Command_Action
         {
             defaultLabel = "FT_ForgetMeme".Translate(),
             defaultDesc = "FT_ForgetMemeDesc".Translate(),
             icon = ContentFinder<Texture2D>.Get("UI/Icons/ForgetMeme", true),
             action = () => Find.WindowStack.Add(new Dialog_ForgetMeme(ideo))
         });
+        __result = list;
     }
 
     private static readonly HashSet<string> ForgetBuildings = new HashSet<string>
@@ -47,3 +50,4 @@ public static class Patch_ForgetMeme
         return ForgetBuildings.Contains(b.def.defName);
     }
 }
+*/

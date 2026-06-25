@@ -38,6 +38,8 @@ public static class Patch_CorpseObserved
 
     public static void Postfix(Corpse __instance, Pawn observer, HistoryEventDef __result)
     {
+        return; // disabled: corpse penalty temporarily removed
+
         if (__result == null)
             return;
 
