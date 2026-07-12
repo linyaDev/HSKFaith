@@ -1118,7 +1118,7 @@ public class GameComponent_FaithTracker : GameComponent
         SeasonAnimalPersonhood();
         SeasonXenophilia();
         SeasonXenophobia();
-        SeasonCollectivist();
+        SeasonHumanPrimacy();
         SeasonBloodfeeding();
         SeasonHighLife();
         SeasonGuilty();
@@ -1283,16 +1283,16 @@ public class GameComponent_FaithTracker : GameComponent
         RecordSections("HAR_Xenophobia", filled, unfilled);
     }
 
-    private void SeasonCollectivist()
+    private void SeasonHumanPrimacy()
     {
-        if (!HasMeme("Collectivist")) return;
+        if (!HasHumanPrimacy) return;
         int sections = MemeCount;
         if (sections <= 0) return;
 
         int filled = System.Math.Min(collectivistPoints / 2, sections);
         int unfilled = sections - filled;
 
-        RecordSections("Collectivist", filled, unfilled);
+        RecordSections("HumanPrimacy", filled, unfilled);
 
         collectivistPoints = 0;
     }
@@ -1595,7 +1595,7 @@ public class GameComponent_FaithTracker : GameComponent
     }
 
     // Memes with only seasonalFaithChange and no mechanic
-    private static readonly string[] passiveMemeNames = { "Individualist", "Loyalist", "HumanPrimacy" };
+    private static readonly string[] passiveMemeNames = { "Individualist", "Loyalist", "Collectivist" };
 
     private void SeasonPassiveMemes()
     {

@@ -28,6 +28,7 @@ public static class Patch_LegendaryCraft
 
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
         if (comp == null) return;
+        if (!comp.HasHumanPrimacy) return;
 
         comp.collectivistPoints++;
     }
