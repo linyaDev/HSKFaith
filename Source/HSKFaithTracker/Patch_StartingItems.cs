@@ -14,6 +14,18 @@ public static class Patch_StartingItems
         var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
         if (ideo == null) return;
 
+        // Remove all relics from ideology
+        var relics = ideo.PreceptsListForReading.OfType<Precept_Relic>().ToList();
+        if (relics.Count > 0)
+        {
+            foreach (var relic in relics)
+                ideo.RemovePrecept(relic);
+            Find.LetterStack.ReceiveLetter(
+                "FT_RelicsRemovedTitle".Translate(),
+                "FT_RelicsRemoved".Translate(relics.Count),
+                LetterDefOf.NeutralEvent);
+        }
+
         var map = Find.CurrentMap;
         if (map == null) return;
 

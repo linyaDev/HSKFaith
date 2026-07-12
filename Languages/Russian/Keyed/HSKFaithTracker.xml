@@ -262,6 +262,8 @@
 	<FT_ShowCertainty>Уверенность</FT_ShowCertainty>
 	<FT_ConversionBlocked>Мы не можем навязать свою религию силой</FT_ConversionBlocked>
 	<FT_MemeDisabled>Недоступно</FT_MemeDisabled>
+	<FT_RelicsRemovedTitle>Реликвии удалены</FT_RelicsRemovedTitle>
+	<FT_RelicsRemoved>Реликвии ({0}) были удалены из идеологии. Вы сможете получить их позже через веру.</FT_RelicsRemoved>
 	<FT_CertaintyCurrent>Уверенность</FT_CertaintyCurrent>
 	<FT_CertaintyTotal>Всего</FT_CertaintyTotal>
 	<FT_CertaintyDay>день</FT_CertaintyDay>

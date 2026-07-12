@@ -260,6 +260,8 @@
 	<FT_ShowCertainty>Certainty</FT_ShowCertainty>
 	<FT_ConversionBlocked>We cannot force our religion upon others</FT_ConversionBlocked>
 	<FT_MemeDisabled>Unavailable</FT_MemeDisabled>
+	<FT_RelicsRemovedTitle>Relics removed</FT_RelicsRemovedTitle>
+	<FT_RelicsRemoved>Relics ({0}) were removed from your ideology. You can earn them later through faith.</FT_RelicsRemoved>
 	<FT_CertaintyCurrent>Certainty</FT_CertaintyCurrent>
 	<FT_CertaintyTotal>Total</FT_CertaintyTotal>
 	<FT_CertaintyDay>day</FT_CertaintyDay>
