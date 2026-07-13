@@ -42,13 +42,15 @@ public static class Patch_Skarnite
         Log.Message("[HSKFaith] Patched ReviaRace.Utils.PostSacrifide for Skarnite meme");
     }
 
-    public static void PostSacrifide_Postfix()
+    public static void PostSacrifide_Postfix(bool corpse)
     {
+        if (!corpse) return; // only corpse sacrifice counts
+
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
         if (comp == null) return;
         if (!comp.HasMeme("ReviaRaceSkarniteMeme")) return;
 
-        comp.skarnitePoints += 5;
+        comp.skarnitePoints++;
     }
 
     /// <summary>
@@ -100,7 +102,7 @@ public static class Patch_Skarnite
         }
     }
 
-    private static int GetSoulreapTier(Pawn p)
+    public static int GetSoulreapTier(Pawn p)
     {
         for (int i = soulreapDefNames.Length - 1; i >= 0; i--)
         {
@@ -109,5 +111,18 @@ public static class Patch_Skarnite
                 return i + 1;
         }
         return 0;
+    }
+
+    /// <summary>Sum of all Soul Reap tiers (tails) across all free colonist Revias.</summary>
+    public static int GetTotalTails()
+    {
+        if (!reviaLoaded) return 0;
+        int total = 0;
+        foreach (var p in PawnsFinder.AllMaps_FreeColonists)
+        {
+            if (p.IsSlave) continue;
+            total += GetSoulreapTier(p);
+        }
+        return total;
     }
 }

@@ -2509,7 +2509,8 @@ Text.Anchor = TextAnchor.MiddleRight;
 
         float blockH = 22f + barH;
         int sections = comp.MemeCount;
-        int filled = sections > 0 ? System.Math.Min(comp.skarnitePoints / 10, sections) : 0;
+        int totalTails = System.Math.Max(1, Patch_Skarnite.GetTotalTails());
+        int filled = comp.skarnitePoints >= totalTails ? sections : 0;
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filled, sections);
 
@@ -2549,13 +2550,7 @@ Text.Anchor = TextAnchor.MiddleRight;
         if (filled > 0)
             Widgets.DrawBoxSolid(new Rect(barX, y, filled * sectionW, barH), SkarniteColor);
 
-        // Partial fill
-        int ptsInSection = comp.skarnitePoints % 10;
-        if (ptsInSection > 0 && filled < sections)
-        {
-            float partialW = sectionW * ((float)ptsInSection / 10f);
-            Widgets.DrawBoxSolid(new Rect(barX + filled * sectionW, y, partialW, barH), SkarnitePartialColor);
-        }
+        // No partial fill — 1 corpse = 1 full section
 
         // Section dividers
         for (int s = 1; s < sections; s++)

@@ -1606,8 +1606,9 @@ public class GameComponent_FaithTracker : GameComponent
         int sections = MemeCount;
         if (sections <= 0) return;
 
-        // 5 points per sacrifice, 10 per section
-        int filled = System.Math.Min(skarnitePoints / 10, sections);
+        // Total tails = total sacrifices needed for full bar
+        int totalTails = System.Math.Max(1, Patch_Skarnite.GetTotalTails());
+        int filled = skarnitePoints >= totalTails ? sections : 0;
         int unfilled = sections - filled;
         RecordSections("ReviaRaceSkarniteMeme", filled, unfilled);
     }

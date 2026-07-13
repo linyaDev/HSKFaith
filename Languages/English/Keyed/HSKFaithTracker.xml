@@ -264,7 +264,7 @@
 	<FT_CreateRelicDesc>Forge a relic through the colony's faith. Cost: {0} faith points.</FT_CreateRelicDesc>
 	<FT_RelicNeedMoreFaith>Not enough faith. Need at least {0} points.</FT_RelicNeedMoreFaith>
 	<FT_Colony>Colony</FT_Colony>
-	<FT_SkarniteTooltip>Sacrifice points: {0}/10 per section\n\nEarning points:\n+5 per prisoner sacrifice\n+5 per corpse sacrifice</FT_SkarniteTooltip>
+	<FT_SkarniteTooltip>Sacrifices: {0}\nTails (sections): 1 sacrifice per tail\n\nEarning points:\n+1 per corpse sacrifice</FT_SkarniteTooltip>
 	<FT_RelicFromWeapon>Sanctify weapon: {0}</FT_RelicFromWeapon>
 	<FT_RelicRandom>Create sacred artifact</FT_RelicRandom>
 	<FT_RelicCreated>Relic created: {0}</FT_RelicCreated>
