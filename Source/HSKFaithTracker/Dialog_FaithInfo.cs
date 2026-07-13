@@ -1232,6 +1232,7 @@ Text.Anchor = TextAnchor.MiddleRight;
                 if (ext != null && ext.faithPerSection != 0)
                     y = DrawFaithPerSectionBar(inRect, y, meme, comp, ext);
             }
+            else if (def == "ReviaRaceSkarniteMeme") y = DrawSkarniteBar(inRect, y, meme, comp);
             else
                 y = DrawGenericMemeBar(inRect, y, meme);
         }
@@ -1329,7 +1330,8 @@ Text.Anchor = TextAnchor.MiddleRight;
         "NaturePrimacy", "TreeConnection", "AnimalPersonhood",
         "HAR_Xenophilia", "HAR_Xenophobia",
         "Blindsight", "PainIsVirtue", "FleshPurity", "Transhumanist", "Proselytizer", "Rancher", "Tunneler", "Darkness", "Raider", "Cannibal", "Guilty", "HighLife", "Bloodfeeding",
-        "Nudism"
+        "Nudism",
+        "ReviaRaceSkarniteMeme"
     };
 
     private static bool HasCustomBar(string defName) => customBarMemes.Contains(defName);
@@ -2481,6 +2483,96 @@ Text.Anchor = TextAnchor.MiddleRight;
             Widgets.DrawHighlight(barRect);
             TooltipHandler.TipRegion(barRect,
                 "FT_CannibalTooltip".Translate(comp.cannibalPoints));
+        }
+
+        y += barH + 8f;
+        return y;
+    }
+
+    // === Skarnite bar ===
+    private static readonly Color SkarniteColor = new Color(0.8f, 0.2f, 0.2f);
+    private static readonly Color SkarnitePartialColor = new Color(0.5f, 0.1f, 0.1f);
+
+    private float DrawSkarniteBar(Rect inRect, float y, MemeDef meme, GameComponent_FaithTracker comp)
+    {
+        float barH = 18f;
+        float iconSize = 24f;
+        float iconPad = 4f;
+        float forecastW = 55f;
+        float barX = 20f + iconSize + iconPad;
+        float barW = inRect.width - barX - 10f - forecastW;
+
+        GUI.color = new Color(1f, 1f, 1f, 0.15f);
+        Widgets.DrawLineHorizontal(0f, y, inRect.width);
+        GUI.color = Color.white;
+        y += 4f;
+
+        float blockH = 22f + barH;
+        int sections = comp.MemeCount;
+        int filled = sections > 0 ? System.Math.Min(comp.skarnitePoints / 10, sections) : 0;
+        var ext = meme.GetModExtension<MemeEffectExtension>();
+        int forecast = ComputeForecast(ext, filled, sections);
+
+        DrawForecastLabel(inRect, y, forecastW, blockH, forecast);
+
+        // Icon
+        Texture2D memeIcon = meme.Icon;
+        if (memeIcon != null)
+        {
+            Rect iconRect = new Rect(10f, y + (blockH - iconSize) / 2f, iconSize, iconSize);
+            Rect clickRect = iconRect.ExpandedBy(10f);
+            if (Mouse.IsOver(clickRect))
+            {
+                GUI.color = new Color(1f, 1f, 0.6f);
+                Widgets.DrawHighlight(clickRect);
+                TooltipHandler.TipRegion(clickRect, meme.LabelCap + "\n" + "FT_ClickForDetails".Translate());
+            }
+            GUI.DrawTexture(iconRect, memeIcon, ScaleMode.ScaleToFit);
+            GUI.color = Color.white;
+            if (Widgets.ButtonInvisible(clickRect))
+                Find.WindowStack.Add(new Dialog_MemeInfo(meme));
+        }
+
+        // Label
+        Text.Anchor = TextAnchor.MiddleCenter;
+        GUI.color = SkarniteColor;
+        Widgets.Label(new Rect(barX, y, barW, 20f), meme.LabelCap);
+        GUI.color = Color.white;
+        Text.Anchor = TextAnchor.UpperLeft;
+        y += 22f;
+
+        // Bar
+        Widgets.DrawBoxSolid(new Rect(barX, y, barW, barH), new Color(0.1f, 0.1f, 0.1f, 0.8f));
+
+        float sectionW = sections > 0 ? barW / sections : barW;
+
+        if (filled > 0)
+            Widgets.DrawBoxSolid(new Rect(barX, y, filled * sectionW, barH), SkarniteColor);
+
+        // Partial fill
+        int ptsInSection = comp.skarnitePoints % 10;
+        if (ptsInSection > 0 && filled < sections)
+        {
+            float partialW = sectionW * ((float)ptsInSection / 10f);
+            Widgets.DrawBoxSolid(new Rect(barX + filled * sectionW, y, partialW, barH), SkarnitePartialColor);
+        }
+
+        // Section dividers
+        for (int s = 1; s < sections; s++)
+        {
+            float divX = barX + sectionW * s;
+            Widgets.DrawBoxSolid(new Rect(divX - 1f, y, 2f, barH), new Color(1f, 1f, 1f, 0.4f));
+        }
+
+        Widgets.DrawBox(new Rect(barX, y, barW, barH), 1);
+
+        // Tooltip
+        Rect barRect = new Rect(barX, y, barW, barH);
+        if (Mouse.IsOver(barRect))
+        {
+            Widgets.DrawHighlight(barRect);
+            TooltipHandler.TipRegion(barRect,
+                "FT_SkarniteTooltip".Translate(comp.skarnitePoints).Resolve());
         }
 
         y += barH + 8f;
