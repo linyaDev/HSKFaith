@@ -119,6 +119,9 @@ public class GameComponent_FaithTracker : GameComponent
     // Darkness mechanic
     public int darknessPoints;
 
+    // Skarnite (ReviaRace) mechanic
+    public int skarnitePoints;
+
     // Rancher mechanic
     public int rancherPoints;
     public Dictionary<string, int> rancherBirths = new Dictionary<string, int>();
@@ -470,6 +473,7 @@ public class GameComponent_FaithTracker : GameComponent
         UpdateRancherHediffs();
         UpdateDarknessHediffs();
         UpdateGenderHediffs();
+        Patch_Skarnite.UpdateSoulreapNerfs();
         DailyInhuman();
         DailyTreeConnection();
         DailyNaturePrimacySpawn();
@@ -1136,6 +1140,7 @@ public class GameComponent_FaithTracker : GameComponent
         SeasonInhuman();
         SeasonNudism();
         SeasonNaturePrimacy();
+        SeasonSkarnite();
         SeasonPassiveMemes();
         // Certainty now applied per-tick in Patch_CertaintyTick
         GrantSeasonalDevPoint();
@@ -1186,6 +1191,7 @@ public class GameComponent_FaithTracker : GameComponent
         // raiderPoints not reset — carries over between seasons
         tunnelerPoints = 0;
         darknessPoints = 0;
+        skarnitePoints = 0;
         scarredPoints = 0;
         unscarredPoints = 0;
     }
@@ -1594,6 +1600,18 @@ public class GameComponent_FaithTracker : GameComponent
         RecordSections("NaturePrimacy", filled, unfilled);
     }
 
+    private void SeasonSkarnite()
+    {
+        if (!HasMeme("ReviaRaceSkarniteMeme")) return;
+        int sections = MemeCount;
+        if (sections <= 0) return;
+
+        // 5 points per sacrifice, 10 per section
+        int filled = System.Math.Min(skarnitePoints / 10, sections);
+        int unfilled = sections - filled;
+        RecordSections("ReviaRaceSkarniteMeme", filled, unfilled);
+    }
+
     // Memes with only seasonalFaithChange and no mechanic
     private static readonly string[] passiveMemeNames = { "Individualist", "Loyalist", "Collectivist" };
 
@@ -1792,6 +1810,7 @@ public class GameComponent_FaithTracker : GameComponent
         Scribe_Values.Look(ref lastRaiderWorkSiteDay, "lastRaiderWorkSiteDay", -1);
         Scribe_Values.Look(ref tunnelerPoints, "tunnelerPoints");
         Scribe_Values.Look(ref darknessPoints, "darknessPoints");
+        Scribe_Values.Look(ref skarnitePoints, "skarnitePoints");
         Scribe_Values.Look(ref rancherPoints, "rancherPoints");
         Scribe_Collections.Look(ref rancherBirths, "rancherBirths", LookMode.Value, LookMode.Value);
         if (rancherBirths == null) rancherBirths = new Dictionary<string, int>();

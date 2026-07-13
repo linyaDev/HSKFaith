@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<HediffDef>
+		<defName>FT_SoulreapNerf</defName>
+		<hediffClass>HediffWithComps</hediffClass>
+		<label>weakened soul</label>
+		<description>Without the blessing of Skarne, the power of soul reaping is diminished.</description>
+		<isBad>false</isBad>
+		<defaultLabelColor>(0.5, 0.3, 0.3)</defaultLabelColor>
+		<maxSeverity>1.0</maxSeverity>
+		<stages>
+			<!-- Tier 1 (sev 0.0-0.1): no counter needed, already debuff -->
+			<li>
+				<label>tier 1</label>
+				<becomeVisible>false</becomeVisible>
+			</li>
+			<!-- Tier 2 (sev 0.11+): no counter needed -->
+			<li>
+				<minSeverity>0.11</minSeverity>
+				<label>tier 2</label>
+				<becomeVisible>false</becomeVisible>
+			</li>
+			<!-- Tier 3 (sev 0.21+): no counter needed -->
+			<li>
+				<minSeverity>0.21</minSeverity>
+				<label>tier 3</label>
+				<becomeVisible>false</becomeVisible>
+			</li>
+			<!-- Tier 4 (sev 0.31+): counter +8% move, x0.95 dmg -->
+			<li>
+				<minSeverity>0.31</minSeverity>
+				<label>weakened (4)</label>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.08</offset>
+					</li>
+				</capMods>
+				<statFactors>
+					<IncomingDamageFactor>1.05</IncomingDamageFactor>
+				</statFactors>
+			</li>
+			<!-- Tier 5 (sev 0.41+): counter +14% move, x0.90 dmg -->
+			<li>
+				<minSeverity>0.41</minSeverity>
+				<label>weakened (5)</label>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.14</offset>
+					</li>
+				</capMods>
+				<statFactors>
+					<IncomingDamageFactor>1.11</IncomingDamageFactor>
+				</statFactors>
+			</li>
+			<!-- Tier 6 (sev 0.51+): counter +20% move, x0.77 dmg, x0.95 hunger -->
+			<li>
+				<minSeverity>0.51</minSeverity>
+				<label>weakened (6)</label>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.20</offset>
+					</li>
+				</capMods>
+				<statFactors>
+					<IncomingDamageFactor>1.30</IncomingDamageFactor>
+				</statFactors>
+				<hungerRateFactor>1.05</hungerRateFactor>
+			</li>
+			<!-- Tier 7 (sev 0.61+): counter +25% move, x0.66 dmg, x0.90 hunger -->
+			<li>
+				<minSeverity>0.61</minSeverity>
+				<label>weakened (7)</label>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.25</offset>
+					</li>
+				</capMods>
+				<statFactors>
+					<IncomingDamageFactor>1.52</IncomingDamageFactor>
+				</statFactors>
+				<hungerRateFactor>1.11</hungerRateFactor>
+			</li>
+			<!-- Tier 8 (sev 0.71+): counter +30% move, x0.58 dmg, x0.85 hunger -->
+			<li>
+				<minSeverity>0.71</minSeverity>
+				<label>weakened (8)</label>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.30</offset>
+					</li>
+				</capMods>
+				<statFactors>
+					<IncomingDamageFactor>1.72</IncomingDamageFactor>
+				</statFactors>
+				<hungerRateFactor>1.18</hungerRateFactor>
+			</li>
+			<!-- Tier 9 (sev 0.81+): partial counter, leave small buffs (+10% move, x0.86 dmg) -->
+			<li>
+				<minSeverity>0.81</minSeverity>
+				<label>weakened (9)</label>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.30</offset>
+					</li>
+				</capMods>
+				<statFactors>
+					<IncomingDamageFactor>1.60</IncomingDamageFactor>
+				</statFactors>
+				<hungerRateFactor>1.11</hungerRateFactor>
+			</li>
+		</stages>
+	</HediffDef>
+</Defs>

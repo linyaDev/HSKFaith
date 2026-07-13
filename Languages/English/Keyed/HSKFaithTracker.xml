@@ -260,6 +260,15 @@
 	<FT_ShowCertainty>Certainty</FT_ShowCertainty>
 	<FT_ConversionBlocked>We cannot force our religion upon others</FT_ConversionBlocked>
 	<FT_MemeDisabled>Unavailable</FT_MemeDisabled>
+	<FT_CreateRelic>Create relic</FT_CreateRelic>
+	<FT_CreateRelicDesc>Forge a relic through the colony's faith. Cost: {0} faith points.</FT_CreateRelicDesc>
+	<FT_RelicNeedMoreFaith>Not enough faith. Need at least {0} points.</FT_RelicNeedMoreFaith>
+	<FT_Colony>Colony</FT_Colony>
+	<FT_RelicFromWeapon>Sanctify weapon: {0}</FT_RelicFromWeapon>
+	<FT_RelicRandom>Create sacred artifact</FT_RelicRandom>
+	<FT_RelicCreated>Relic created: {0}</FT_RelicCreated>
+	<FT_RelicCreatedTitle>Relic created</FT_RelicCreatedTitle>
+	<FT_RelicCreatedDesc>{0} has forged the relic "{1}" through the colony's faith.</FT_RelicCreatedDesc>
 	<FT_RelicsRemovedTitle>Relics removed</FT_RelicsRemovedTitle>
 	<FT_RelicsRemoved>Relics ({0}) were removed from your ideology. You can earn them later through faith.</FT_RelicsRemoved>
 	<FT_CertaintyCurrent>Certainty</FT_CertaintyCurrent>

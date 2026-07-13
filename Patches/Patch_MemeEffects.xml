@@ -536,4 +536,25 @@
             </value>
         </match>
     </Operation>
+
+    <!-- Skarnite (ReviaRace): early group, sacrifice-based, scales like cannibal -->
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Revia Race HSK</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/MemeDef[defName="ReviaRaceSkarniteMeme"]</xpath>
+            <value>
+                <modExtensions>
+                    <li Class="HSKFaithTracker.MemeEffectExtension">
+                        <memeGroup>early</memeGroup>
+                        <seasonalFaithChange>3</seasonalFaithChange>
+                        <faithPerSection>-2</faithPerSection>
+                        <penaltyPerSection>-3</penaltyPerSection>
+                        <certaintyPerSeason>-0.06</certaintyPerSeason>
+                    </li>
+                </modExtensions>
+            </value>
+        </match>
+    </Operation>
 </Patch>
