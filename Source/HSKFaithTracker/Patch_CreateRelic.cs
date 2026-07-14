@@ -10,8 +10,8 @@ namespace HSKFaithTracker;
 [HarmonyPatch(typeof(Building), nameof(Building.GetGizmos))]
 public static class Patch_CreateRelic
 {
-    private const float MinFaithScore = 20f;
-    private const int FaithCost = 15;
+    private const float MinFaithScore = 1f;
+    private const int FaithCost = 1;
 
     private static readonly HashSet<string> RelicBuildings = new HashSet<string>
     {
@@ -104,10 +104,11 @@ public static class Patch_CreateRelic
         if (relicDef == null) return;
 
         var relic = (Precept_Relic)PreceptMaker.MakePrecept(relicDef);
+        ideo.AddPrecept(relic);
         relic.ThingDef = weapon.def;
         if (weapon.Stuff != null)
             relic.stuff = weapon.Stuff;
-        ideo.AddPrecept(relic);
+        relic.RegenerateName();
 
         var compQuality = weapon.TryGetComp<CompQuality>();
         if (compQuality != null)
@@ -138,8 +139,9 @@ public static class Patch_CreateRelic
         if (candidates.Count == 0) return;
 
         var chosenDef = candidates.RandomElementByWeight(d => d.relicChance);
-        relic.ThingDef = chosenDef;
         ideo.AddPrecept(relic);
+        relic.ThingDef = chosenDef;
+        relic.RegenerateName();
 
         Thing relicThing = relic.GenerateRelic();
         GenPlace.TryPlaceThing(relicThing, building.Position, building.Map, ThingPlaceMode.Near);

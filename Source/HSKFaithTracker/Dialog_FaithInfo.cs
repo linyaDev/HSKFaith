@@ -2513,6 +2513,7 @@ Text.Anchor = TextAnchor.MiddleRight;
         int filled = comp.skarnitePoints >= totalTails ? sections : 0;
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filled, sections);
+        Log.Message($"[HSKFaith] SkarniteBar: sections={sections} tails={totalTails} pts={comp.skarnitePoints} filled={filled} forecast={forecast} ext={ext != null} seasonal={ext?.seasonalFaithChange} faith={ext?.faithPerSection} penalty={ext?.penaltyPerSection}");
 
         DrawForecastLabel(inRect, y, forecastW, blockH, forecast);
 
@@ -2567,7 +2568,7 @@ Text.Anchor = TextAnchor.MiddleRight;
         {
             Widgets.DrawHighlight(barRect);
             TooltipHandler.TipRegion(barRect,
-                "FT_SkarniteTooltip".Translate(comp.skarnitePoints).Resolve());
+                "FT_SkarniteTooltip".Translate(comp.skarnitePoints, totalTails).Resolve());
         }
 
         y += barH + 8f;

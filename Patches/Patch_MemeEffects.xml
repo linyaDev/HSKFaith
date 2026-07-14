@@ -540,7 +540,7 @@
     <!-- Skarnite (ReviaRace): early group, sacrifice-based, scales like cannibal -->
     <Operation Class="PatchOperationFindMod">
         <mods>
-            <li>Revia Race HSK</li>
+            <li>Revia Race</li>
         </mods>
         <match Class="PatchOperationAdd">
             <xpath>/Defs/MemeDef[defName="ReviaRaceSkarniteMeme"]</xpath>
