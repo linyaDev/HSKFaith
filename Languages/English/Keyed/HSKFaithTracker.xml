@@ -261,10 +261,10 @@
 	<FT_ConversionBlocked>We cannot force our religion upon others</FT_ConversionBlocked>
 	<FT_MemeDisabled>Unavailable</FT_MemeDisabled>
 	<FT_CreateRelic>Create relic</FT_CreateRelic>
-	<FT_CreateRelicDesc>Forge a relic through the colony's faith. Cost: {0} faith points.</FT_CreateRelicDesc>
+	<FT_CreateRelicDesc>Forge a relic through the colony's faith.\nWeapon: {0} faith, artifact: {1} faith.</FT_CreateRelicDesc>
 	<FT_RelicNeedMoreFaith>Not enough faith. Need at least {0} points.</FT_RelicNeedMoreFaith>
 	<FT_Colony>Colony</FT_Colony>
-	<FT_SkarniteTooltip>Sacrifices: {0}/{1}\nTails in colony: {1}\n\nEarning points:\n+1 per sacrifice</FT_SkarniteTooltip>
+	<FT_SkarniteTooltip>Sacrifices: {0}/{1}\nTails in colony: {1}\n\nEarning points:\n+2 per sacrifice</FT_SkarniteTooltip>
 	<FT_RelicFromWeapon>Sanctify weapon: {0}</FT_RelicFromWeapon>
 	<FT_RelicRandom>Create sacred artifact</FT_RelicRandom>
 	<FT_RelicCreated>Relic created: {0}</FT_RelicCreated>

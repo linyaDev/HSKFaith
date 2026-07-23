@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<JobDef>
+		<defName>FT_CreateRelic</defName>
+		<driverClass>HSKFaithTracker.JobDriver_CreateRelic</driverClass>
+		<reportString>consecrating a sacred relic.</reportString>
+		<casualInterruptible>false</casualInterruptible>
+	</JobDef>
+</Defs>

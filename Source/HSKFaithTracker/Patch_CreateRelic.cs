@@ -4,14 +4,16 @@ using HarmonyLib;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace HSKFaithTracker;
 
 [HarmonyPatch(typeof(Building), nameof(Building.GetGizmos))]
 public static class Patch_CreateRelic
 {
-    private const float MinFaithScore = 1f;
-    private const int FaithCost = 1;
+    public const float MinFaithScore = 15f;
+    public const int WeaponFaithCost = 25;
+    public const int RandomFaithCost = 15;
 
     private static readonly HashSet<string> RelicBuildings = new HashSet<string>
     {
@@ -37,49 +39,81 @@ public static class Patch_CreateRelic
             return;
 
         bool canCreate = comp.Score >= MinFaithScore;
-        string desc = canCreate
-            ? "FT_CreateRelicDesc".Translate(FaithCost)
-            : "FT_RelicNeedMoreFaith".Translate(MinFaithScore.ToString("F0"));
+        var moralist = FindMoralist(__instance.Map);
+        bool hasMoralist = moralist != null;
+
+        string disabledReason = null;
+        if (!canCreate)
+            disabledReason = "FT_RelicNeedMoreFaith".Translate(MinFaithScore.ToString("F0"));
+        else if (!hasMoralist)
+            disabledReason = "FT_RelicNeedMoralist".Translate();
 
         var list = new List<Gizmo>(__result);
         list.Add(new Command_Action
         {
             defaultLabel = "FT_CreateRelic".Translate(),
-            defaultDesc = desc,
-            icon = ContentFinder<Texture2D>.Get("UI/Icons/ForgetMeme", true),
-            disabled = !canCreate,
-            disabledReason = canCreate ? null : desc,
-            action = () => ShowRelicChoices(__instance, ideo, comp)
+            defaultDesc = "FT_CreateRelicDesc".Translate(WeaponFaithCost, RandomFaithCost),
+            icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateRelic", true),
+            disabled = disabledReason != null,
+            disabledReason = disabledReason,
+            action = () => ShowRelicChoices(__instance, moralist, comp)
         });
         __result = list;
     }
 
-    private static void ShowRelicChoices(Building building, Ideo ideo, GameComponent_FaithTracker comp)
+    private static void ShowRelicChoices(Building building, Pawn moralist, GameComponent_FaithTracker comp)
     {
         var choices = new List<FloatMenuOption>();
+        bool canWeapon = comp.Score >= WeaponFaithCost;
+        bool canRandom = comp.Score >= RandomFaithCost;
 
-        // Find moralist pawn nearby
-        var moralist = FindMoralistNear(building);
+        // Weapons from stockpile (grouped by def+stuff, pick best of each)
+        var map = building.Map;
+        var weapons = map.listerThings.ThingsInGroup(ThingRequestGroup.Weapon)
+            .Where(t => t.Spawned && !t.IsForbidden(Faction.OfPlayer) && t.def.IsWeapon
+                && t.IsInAnyStorage())
+            .GroupBy(t => (t.def, t.Stuff))
+            .Select(g => g.OrderByDescending(t => t.MarketValue).First())
+            .OrderByDescending(t => t.MarketValue)
+            .Take(10)
+            .ToList();
 
-        // Option 1: Weapon from moralist's equipment
-        if (moralist?.equipment?.Primary != null)
+        foreach (var weapon in weapons)
         {
-            var weapon = moralist.equipment.Primary;
-            choices.Add(new FloatMenuOption(
-                "FT_RelicFromWeapon".Translate(weapon.LabelCap),
-                () => CreateRelicFromWeapon(moralist, weapon, ideo, comp)));
+            var w = weapon;
+            string label = "FT_RelicFromWeapon".Translate(GenLabel.ThingLabel(w.def, w.Stuff).CapitalizeFirst()) + $" ({WeaponFaithCost})";
+            if (canWeapon)
+                choices.Add(new FloatMenuOption(label, () => StartRelicJob(moralist, building, w)));
+            else
+                choices.Add(new FloatMenuOption(label, null));
         }
 
-        // Option 2: Random relic item
-        choices.Add(new FloatMenuOption(
-            "FT_RelicRandom".Translate(),
-            () => CreateRandomRelic(building, ideo, comp)));
+        // Random relic
+        string randomLabel = "FT_RelicRandom".Translate() + $" ({RandomFaithCost})";
+        if (canRandom)
+            choices.Add(new FloatMenuOption(randomLabel, () => StartRelicJob(moralist, building, null)));
+        else
+            choices.Add(new FloatMenuOption(randomLabel, null));
 
         if (choices.Count > 0)
             Find.WindowStack.Add(new FloatMenu(choices));
     }
 
-    private static Pawn FindMoralistNear(Building building)
+    private static void StartRelicJob(Pawn moralist, Building altar, Thing weapon)
+    {
+        var jobDef = DefDatabase<JobDef>.GetNamedSilentFail("FT_CreateRelic");
+        if (jobDef == null)
+        {
+            Log.Error("[HSKFaith] JobDef FT_CreateRelic not found");
+            return;
+        }
+
+        var job = JobMaker.MakeJob(jobDef, altar, weapon);
+        job.count = weapon != null ? WeaponFaithCost : RandomFaithCost;
+        moralist.jobs.TryTakeOrderedJob(job);
+    }
+
+    private static Pawn FindMoralist(Map map)
     {
         var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
         if (ideo == null) return null;
@@ -89,68 +123,10 @@ public static class Patch_CreateRelic
             if (p is Precept_RoleSingle role && role.def.defName == "IdeoRole_Moralist")
             {
                 var pawn = role.ChosenPawnSingle();
-                if (pawn != null && pawn.Spawned && pawn.Map == building.Map)
+                if (pawn != null && pawn.Spawned && pawn.Map == map)
                     return pawn;
             }
         }
         return null;
-    }
-
-    private static void CreateRelicFromWeapon(Pawn moralist, Thing weapon, Ideo ideo, GameComponent_FaithTracker comp)
-    {
-        moralist.equipment.Remove((ThingWithComps)weapon);
-
-        var relicDef = DefDatabase<PreceptDef>.GetNamedSilentFail("IdeoRelic");
-        if (relicDef == null) return;
-
-        var relic = (Precept_Relic)PreceptMaker.MakePrecept(relicDef);
-        ideo.AddPrecept(relic);
-        relic.ThingDef = weapon.def;
-        if (weapon.Stuff != null)
-            relic.stuff = weapon.Stuff;
-        relic.RegenerateName();
-
-        var compQuality = weapon.TryGetComp<CompQuality>();
-        if (compQuality != null)
-            compQuality.SetQuality(QualityCategory.Legendary, ArtGenerationContext.Colony);
-
-        weapon.StyleSourcePrecept = relic;
-        GenPlace.TryPlaceThing(weapon, moralist.Position, moralist.Map, ThingPlaceMode.Near);
-
-        comp.RecordRitual("FT_RelicCreated".Translate(relic.LabelCap), RitualRecordType.FaithDecay, customWeight: -FaithCost);
-
-        Find.LetterStack.ReceiveLetter(
-            "FT_RelicCreatedTitle".Translate(),
-            "FT_RelicCreatedDesc".Translate(moralist.LabelShortCap, relic.LabelCap),
-            LetterDefOf.PositiveEvent, weapon);
-    }
-
-    private static void CreateRandomRelic(Building building, Ideo ideo, GameComponent_FaithTracker comp)
-    {
-        var relicDef = DefDatabase<PreceptDef>.GetNamedSilentFail("IdeoRelic");
-        if (relicDef == null) return;
-
-        var relic = (Precept_Relic)PreceptMaker.MakePrecept(relicDef);
-
-        var candidates = DefDatabase<ThingDef>.AllDefsListForReading
-            .Where(d => d.relicChance > 0f && !d.IsWeapon)
-            .ToList();
-
-        if (candidates.Count == 0) return;
-
-        var chosenDef = candidates.RandomElementByWeight(d => d.relicChance);
-        ideo.AddPrecept(relic);
-        relic.ThingDef = chosenDef;
-        relic.RegenerateName();
-
-        Thing relicThing = relic.GenerateRelic();
-        GenPlace.TryPlaceThing(relicThing, building.Position, building.Map, ThingPlaceMode.Near);
-
-        comp.RecordRitual("FT_RelicCreated".Translate(relic.LabelCap), RitualRecordType.FaithDecay, customWeight: -FaithCost);
-
-        Find.LetterStack.ReceiveLetter(
-            "FT_RelicCreatedTitle".Translate(),
-            "FT_RelicCreatedDesc".Translate("FT_Colony".Translate(), relic.LabelCap),
-            LetterDefOf.PositiveEvent, relicThing);
     }
 }
