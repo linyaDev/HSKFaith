@@ -50,7 +50,7 @@ public static class Patch_Skarnite
         if (comp == null) return;
         if (!comp.HasMeme("ReviaRaceSkarniteMeme")) return;
 
-        comp.skarnitePoints++;
+        comp.skarnitePoints += 2;
     }
 
     /// <summary>

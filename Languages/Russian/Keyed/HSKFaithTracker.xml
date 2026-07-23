@@ -263,10 +263,10 @@
 	<FT_ConversionBlocked>Мы не можем навязать свою религию силой</FT_ConversionBlocked>
 	<FT_MemeDisabled>Недоступно</FT_MemeDisabled>
 	<FT_CreateRelic>Создать реликвию</FT_CreateRelic>
-	<FT_CreateRelicDesc>Сотворить реликвию силой веры колонии. Стоимость: {0} очков веры.</FT_CreateRelicDesc>
+	<FT_CreateRelicDesc>Сотворить реликвию силой веры колонии.\nОружие: {0} веры, артефакт: {1} веры.</FT_CreateRelicDesc>
 	<FT_RelicNeedMoreFaith>Недостаточно веры. Нужно минимум {0} очков.</FT_RelicNeedMoreFaith>
 	<FT_Colony>Колония</FT_Colony>
-	<FT_SkarniteTooltip>Жертвоприношений: {0}/{1}\nХвостов в колонии: {1}\n\nПолучение очков:\n+1 за жертвоприношение</FT_SkarniteTooltip>
+	<FT_SkarniteTooltip>Жертвоприношений: {0}/{1}\nХвостов в колонии: {1}\n\nПолучение очков:\n+2 за жертвоприношение</FT_SkarniteTooltip>
 	<FT_RelicFromWeapon>Освятить оружие: {0}</FT_RelicFromWeapon>
 	<FT_RelicRandom>Создать священный артефакт</FT_RelicRandom>
 	<FT_RelicCreated>Создана реликвия: {0}</FT_RelicCreated>

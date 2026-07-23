@@ -2513,7 +2513,6 @@ Text.Anchor = TextAnchor.MiddleRight;
         int filled = comp.skarnitePoints >= totalTails ? sections : 0;
         var ext = meme.GetModExtension<MemeEffectExtension>();
         int forecast = ComputeForecast(ext, filled, sections);
-        Log.Message($"[HSKFaith] SkarniteBar: sections={sections} tails={totalTails} pts={comp.skarnitePoints} filled={filled} forecast={forecast} ext={ext != null} seasonal={ext?.seasonalFaithChange} faith={ext?.faithPerSection} penalty={ext?.penaltyPerSection}");
 
         DrawForecastLabel(inRect, y, forecastW, blockH, forecast);
 
@@ -2551,7 +2550,13 @@ Text.Anchor = TextAnchor.MiddleRight;
         if (filled > 0)
             Widgets.DrawBoxSolid(new Rect(barX, y, filled * sectionW, barH), SkarniteColor);
 
-        // No partial fill — 1 corpse = 1 full section
+        // Partial fill for current progress
+        float partialFill = totalTails > 0 ? (float)comp.skarnitePoints / totalTails : 0f;
+        if (partialFill > 0f && filled < sections)
+        {
+            float partialW = partialFill * sectionW;
+            Widgets.DrawBoxSolid(new Rect(barX + filled * sectionW, y, partialW, barH), SkarniteColor * 0.7f);
+        }
 
         // Section dividers
         for (int s = 1; s < sections; s++)
@@ -3121,16 +3126,11 @@ Text.Anchor = TextAnchor.MiddleRight;
         // Bar background
         Widgets.DrawBoxSolid(new Rect(barX, y, barW, barH), new Color(0.1f, 0.1f, 0.1f, 0.8f));
 
-        // Progress fill
+        // Progress fill (only positive)
         if (score > 0)
         {
             float fillPct = threshold > 0 ? System.Math.Min((float)score / threshold, 1f) : 0f;
             Widgets.DrawBoxSolid(new Rect(barX, y, barW * fillPct, barH), PlantedColor);
-        }
-        else if (score < 0)
-        {
-            float negPct = System.Math.Min((float)-score / threshold, 1f);
-            Widgets.DrawBoxSolid(new Rect(barX, y, barW * negPct, barH), new Color(0.85f, 0.3f, 0.3f));
         }
 
         // Section dividers
