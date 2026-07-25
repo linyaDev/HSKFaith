@@ -265,8 +265,9 @@
 	<FT_CreateRelic>Создать реликвию</FT_CreateRelic>
 	<FT_CreateRelicDesc>Сотворить реликвию силой веры колонии.\nОружие: {0} веры, артефакт: {1} веры.</FT_CreateRelicDesc>
 	<FT_RelicNeedMoreFaith>Недостаточно веры. Нужно минимум {0} очков.</FT_RelicNeedMoreFaith>
+	<FT_GenderColonists>В колонии: ♂ {0}  ♀ {1}</FT_GenderColonists>
 	<FT_Colony>Колония</FT_Colony>
-	<FT_SkarniteTooltip>Жертвоприношений: {0}/{1}\nХвостов в колонии: {1}\n\nПолучение очков:\n+2 за жертвоприношение</FT_SkarniteTooltip>
+	<FT_SkarniteTooltip>Жертвоприношений: {0}/{1}\nХвостов в колонии: {1}\n\nПолучение очков:\n+5 за жертвоприношение</FT_SkarniteTooltip>
 	<FT_RelicFromWeapon>Освятить оружие: {0}</FT_RelicFromWeapon>
 	<FT_RelicRandom>Создать священный артефакт</FT_RelicRandom>
 	<FT_RelicCreated>Создана реликвия: {0}</FT_RelicCreated>

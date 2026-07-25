@@ -11,9 +11,9 @@ namespace HSKFaithTracker;
 [HarmonyPatch(typeof(Building), nameof(Building.GetGizmos))]
 public static class Patch_CreateRelic
 {
-    public const float MinFaithScore = 15f;
-    public const int WeaponFaithCost = 25;
-    public const int RandomFaithCost = 15;
+    public const float MinFaithScore = 1f;
+    public const int WeaponFaithCost = 1;
+    public const int RandomFaithCost = 1;
 
     private static readonly HashSet<string> RelicBuildings = new HashSet<string>
     {

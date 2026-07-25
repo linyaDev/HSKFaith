@@ -82,6 +82,21 @@ public class Dialog_MemeInfo : Window
         GUI.color = Color.white;
         y += descH + 4f;
 
+        // Gender count for MaleSupremacy / FemaleSupremacy
+        if (meme.defName == "MaleSupremacy" || meme.defName == "FemaleSupremacy")
+        {
+            int males = 0, females = 0;
+            foreach (var p in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists)
+            {
+                if (p.gender == Gender.Male) males++;
+                else if (p.gender == Gender.Female) females++;
+            }
+            GUI.color = DimText;
+            Widgets.Label(new Rect(0f, y, inRect.width, 22f), "FT_GenderColonists".Translate(males, females));
+            GUI.color = Color.white;
+            y += 24f;
+        }
+
         // Separator
         GUI.color = new Color(1f, 1f, 1f, 0.15f);
         Widgets.DrawLineHorizontal(0f, y, inRect.width);

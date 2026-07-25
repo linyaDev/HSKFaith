@@ -1606,11 +1606,12 @@ public class GameComponent_FaithTracker : GameComponent
         int sections = MemeCount;
         if (sections <= 0) return;
 
-        // Total tails = total sacrifices needed for full bar
+        // totalTails = sacrifices needed per section
         int totalTails = System.Math.Max(1, Patch_Skarnite.GetTotalTails());
-        int filled = skarnitePoints >= totalTails ? sections : 0;
+        int filled = System.Math.Min(skarnitePoints / totalTails, sections);
         int unfilled = sections - filled;
         RecordSections("ReviaRaceSkarniteMeme", filled, unfilled);
+        skarnitePoints = System.Math.Max(0, skarnitePoints - filled * totalTails);
     }
 
     // Memes with only seasonalFaithChange and no mechanic
