@@ -48,8 +48,7 @@ public static class Patch_CreateRelic
         else if (!hasMoralist)
             disabledReason = "FT_RelicNeedMoralist".Translate();
 
-        var list = new List<Gizmo>(__result);
-        list.Add(new Command_Action
+        var gizmo = new Command_Action
         {
             defaultLabel = "FT_CreateRelic".Translate(),
             defaultDesc = "FT_CreateRelicDesc".Translate(WeaponFaithCost, RandomFaithCost),
@@ -57,8 +56,23 @@ public static class Patch_CreateRelic
             disabled = disabledReason != null,
             disabledReason = disabledReason,
             action = () => ShowRelicChoices(__instance, moralist, comp)
-        });
-        __result = list;
+        };
+
+        __result = AppendGizmo(__result, gizmo);
+    }
+
+    private static IEnumerable<Gizmo> AppendGizmo(IEnumerable<Gizmo> original, Gizmo extra)
+    {
+        int count = 0;
+        foreach (var g in original)
+        {
+            count++;
+            var cmd = g as Command;
+            Log.Message($"[HSKFaith] Gizmo #{count}: {cmd?.defaultLabel ?? g.GetType().Name}");
+            yield return g;
+        }
+        Log.Message($"[HSKFaith] Total gizmos: {count}, adding CreateRelic");
+        yield return extra;
     }
 
     private static void ShowRelicChoices(Building building, Pawn moralist, GameComponent_FaithTracker comp)
