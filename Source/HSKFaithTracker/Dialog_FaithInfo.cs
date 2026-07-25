@@ -394,7 +394,11 @@ public class Dialog_FaithInfo : Window
                 if (r.type == RitualRecordType.CorpsePenalty)
                     TooltipHandler.TipRegion(rowRect, "FT_CorpseTooltip".Translate());
                 else if (r.type == RitualRecordType.FaithDecay)
-                    TooltipHandler.TipRegion(rowRect, "FT_FaithDecayTooltip".Translate());
+                {
+                    GameComponent_FaithTracker.CountRitualsByType(out int d, out int a);
+                    int total = -GameComponent_FaithTracker.CalcYearlyPenalty(d, a);
+                    TooltipHandler.TipRegion(rowRect, "FT_FaithDecayTooltip".Translate() + "\n\n" + "FT_FaithDecayFormula".Translate(d, a, total));
+                }
                 else if (r.ritualName == "FT_SlaveryPenalty".Translate())
                     TooltipHandler.TipRegion(rowRect, "FT_SlaveryPenaltyTooltip".Translate());
                 else if (r.ritualName == "FT_EarlyPenalty".Translate())
@@ -1308,6 +1312,14 @@ Text.Anchor = TextAnchor.MiddleRight;
             Text.Anchor = TextAnchor.MiddleRight;
             GUI.color = new Color(0.95f, 0.4f, 0.4f);
             Widgets.Label(new Rect(inRect.width - forecastW - 2f, y, forecastW, lineH), decayStr + " в.");
+            Rect decayRow = new Rect(0f, y, inRect.width, lineH);
+            if (Mouse.IsOver(decayRow))
+            {
+                Widgets.DrawHighlight(decayRow);
+                GameComponent_FaithTracker.CountRitualsByType(out int d2, out int a2);
+                int total2 = -GameComponent_FaithTracker.CalcYearlyPenalty(d2, a2);
+                TooltipHandler.TipRegion(decayRow, "FT_FaithDecayTooltip".Translate() + "\n\n" + "FT_FaithDecayFormula".Translate(d2, a2, total2));
+            }
             y += lineH;
         }
 

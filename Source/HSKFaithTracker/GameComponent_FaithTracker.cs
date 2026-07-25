@@ -208,6 +208,30 @@ public class GameComponent_FaithTracker : GameComponent
         }
     }
 
+    public static void CountRitualsByType(out int dated, out int anytime)
+    {
+        dated = 0;
+        anytime = 0;
+        var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
+        if (ideo == null) return;
+
+        foreach (var p in ideo.PreceptsListForReading)
+        {
+            if (!(p is Precept_Ritual r)) continue;
+            if (r.obligationTriggers == null || !r.obligationTriggers.Any(t => t is RitualObligationTrigger_Date))
+                continue;
+            if (r.isAnytime)
+                anytime++;
+            else
+                dated++;
+        }
+    }
+
+    public static int CalcYearlyPenalty(int dated, int anytime)
+    {
+        return -(dated * 1 + anytime * 2);
+    }
+
     public int YearlyPenaltyForecast
     {
         get
@@ -215,17 +239,8 @@ public class GameComponent_FaithTracker : GameComponent
             int colonists = PawnsFinder.AllMaps_FreeColonists.Count;
             if (colonists <= 3) return 0;
 
-            var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
-            if (ideo == null) return 0;
-
-            int holidays = 0;
-            foreach (var p in ideo.PreceptsListForReading)
-            {
-                if (p is Precept_Ritual r && r.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true)
-                    holidays++;
-            }
-
-            return -(holidays * 2);
+            CountRitualsByType(out int dated, out int anytime);
+            return CalcYearlyPenalty(dated, anytime);
         }
     }
 
@@ -1651,17 +1666,10 @@ public class GameComponent_FaithTracker : GameComponent
         var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
         if (ideo == null) return;
 
-        int holidays = 0;
-        foreach (var p in ideo.PreceptsListForReading)
-        {
-            if (!(p is Precept_Ritual r)) continue;
-            bool hasDate = r.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;
-            if (hasDate) holidays++;
-        }
+        CountRitualsByType(out int dated, out int anytime);
+        int penaltyWeight = CalcYearlyPenalty(dated, anytime);
 
-        int penaltyWeight = -(holidays * 2);
-
-        DebugLog($"YEARLY PENALTY: ticks={ticksNow}, holidays={holidays}, weight={penaltyWeight}");
+        DebugLog($"YEARLY PENALTY: ticks={ticksNow}, dated={dated}, anytime={anytime}, weight={penaltyWeight}");
         RecordRitual("FT_FaithDecay".Translate(), RitualRecordType.FaithDecay, customWeight: penaltyWeight);
 
         ApplyYearlyGoodwillChanges();

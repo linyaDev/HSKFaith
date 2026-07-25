@@ -16,6 +16,9 @@ public static class Patch_RitualObligation
         if (!ModsConfig.IdeologyActive)
             return;
 
+        if (__instance == null || obligation == null)
+            return;
+
         // Skip if ritual is no longer part of player's ideology (meme was forgotten)
         var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
         if (ideo == null || !ideo.PreceptsListForReading.Contains(__instance))
@@ -46,12 +49,12 @@ public static class Patch_RitualObligation
 
             // Certainty shift
             bool hasDate = __instance.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;
-            bool hasCooldown = __instance.def.useRepeatPenalty;
+            bool hasCooldown = __instance.def?.useRepeatPenalty ?? false;
             float shift = (hasDate && !hasCooldown) ? 0.03f : 0.01f;
             Patch_RitualCompleted.ApplyCertaintyShift(shift);
 
             // Blindsight ritual bonus
-            if (__instance.def.requiredMemes != null && __instance.def.requiredMemes.Any(m => m.defName == "Blindsight"))
+            if (__instance.def?.requiredMemes != null && __instance.def.requiredMemes.Any(m => m.defName == "Blindsight"))
             {
                 int colonists = System.Math.Max(1, PawnsFinder.AllMaps_FreeColonists.Count(p => !p.IsSlave));
                 int sections = System.Math.Max(1, comp.MemeCount);

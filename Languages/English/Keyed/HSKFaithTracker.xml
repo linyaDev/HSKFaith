@@ -59,6 +59,7 @@
 	<FT_Faith24>faith</FT_Faith24>
 	<FT_Faith5>faith</FT_Faith5>
 	<FT_FaithDecayTooltip>Faith fades over time. Colonists need to perform more holidays and rituals to maintain their beliefs.</FT_FaithDecayTooltip>
+	<FT_FaithDecayFormula>Dated: {0} × 1\nAnytime: {1} × 2\nTotal: -{2} faith per year</FT_FaithDecayFormula>
 	<FT_ClickForDetails>Click for details</FT_ClickForDetails>
 	<FT_MemeEffects>Effects:</FT_MemeEffects>
 	<FT_MemeNoEffects>No active effects</FT_MemeNoEffects>
@@ -264,6 +265,7 @@
 	<FT_CreateRelicDesc>Forge a relic through the colony's faith.\nWeapon: {0} faith, artifact: {1} faith.</FT_CreateRelicDesc>
 	<FT_RelicNeedMoreFaith>Not enough faith. Need at least {0} points.</FT_RelicNeedMoreFaith>
 	<FT_GenderColonists>In colony: ♂ {0}  ♀ {1}</FT_GenderColonists>
+	<FT_GenderColonistsDetailed>In colony: {0}  {1}</FT_GenderColonistsDetailed>
 	<FT_Colony>Colony</FT_Colony>
 	<FT_SkarniteTooltip>Sacrifices: {0}/{1}\nTails in colony: {1}\n\nEarning points:\n+5 per sacrifice</FT_SkarniteTooltip>
 	<FT_RelicFromWeapon>Sanctify weapon: {0}</FT_RelicFromWeapon>

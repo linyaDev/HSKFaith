@@ -61,6 +61,7 @@
 	<FT_Faith24>веры</FT_Faith24>
 	<FT_Faith5>веры</FT_Faith5>
 	<FT_FaithDecayTooltip>Вера угасает со временем. Колонистам нужно проводить больше праздников и ритуалов, чтобы поддерживать свои убеждения.</FT_FaithDecayTooltip>
+	<FT_FaithDecayFormula>С датой: {0} × 1\nБез даты: {1} × 2\nИтого: -{2} веры в год</FT_FaithDecayFormula>
 	<FT_ClickForDetails>Нажмите для подробностей</FT_ClickForDetails>
 	<FT_MemeEffects>Эффекты:</FT_MemeEffects>
 	<FT_MemeNoEffects>Нет активных эффектов</FT_MemeNoEffects>
@@ -266,6 +267,7 @@
 	<FT_CreateRelicDesc>Сотворить реликвию силой веры колонии.\nОружие: {0} веры, артефакт: {1} веры.</FT_CreateRelicDesc>
 	<FT_RelicNeedMoreFaith>Недостаточно веры. Нужно минимум {0} очков.</FT_RelicNeedMoreFaith>
 	<FT_GenderColonists>В колонии: ♂ {0}  ♀ {1}</FT_GenderColonists>
+	<FT_GenderColonistsDetailed>В колонии: {0}  {1}</FT_GenderColonistsDetailed>
 	<FT_Colony>Колония</FT_Colony>
 	<FT_SkarniteTooltip>Жертвоприношений: {0}/{1}\nХвостов в колонии: {1}\n\nПолучение очков:\n+5 за жертвоприношение</FT_SkarniteTooltip>
 	<FT_RelicFromWeapon>Освятить оружие: {0}</FT_RelicFromWeapon>
