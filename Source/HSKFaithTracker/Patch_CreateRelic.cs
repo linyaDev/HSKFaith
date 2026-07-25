@@ -63,15 +63,8 @@ public static class Patch_CreateRelic
 
     private static IEnumerable<Gizmo> AppendGizmo(IEnumerable<Gizmo> original, Gizmo extra)
     {
-        int count = 0;
         foreach (var g in original)
-        {
-            count++;
-            var cmd = g as Command;
-            Log.Message($"[HSKFaith] Gizmo #{count}: {cmd?.defaultLabel ?? g.GetType().Name}");
             yield return g;
-        }
-        Log.Message($"[HSKFaith] Total gizmos: {count}, adding CreateRelic");
         yield return extra;
     }
 
