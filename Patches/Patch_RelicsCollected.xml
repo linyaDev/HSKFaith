@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationReplace">
+		<xpath>/Defs/ThoughtDef[defName="RelicsCollected"]/stages/li/baseMoodEffect</xpath>
+		<value>
+			<baseMoodEffect>5</baseMoodEffect>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>/Defs/ThoughtDef[defName="RelicsCollected"]/stages/li/label</xpath>
+		<value>
+			<label>sacred relic created</label>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>/Defs/ThoughtDef[defName="RelicsCollected"]/stages/li/description</xpath>
+		<value>
+			<description>A sacred relic has been created for our faith. Our beliefs are stronger than ever.</description>
+		</value>
+	</Operation>
+</Patch>
