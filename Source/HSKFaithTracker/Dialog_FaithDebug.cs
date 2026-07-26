@@ -237,6 +237,6 @@ public class Dialog_FaithDebug : Window
         GameComponent_FaithTracker.FixQuestLootDescription(quest);
 
         Messages.Message($"WorkSite quest spawned ({quest.name}), timeout {customTimeoutDays}d", MessageTypeDefOf.PositiveEvent);
-        Log.Message($"[HSKFaith] Debug: WorkSite quest generated, points {parms.points:F0}, timeout {customTimeoutDays}d");
+        // Log.Message($"[HSKFaith] Debug: WorkSite quest generated, points {parms.points:F0}, timeout {customTimeoutDays}d");
     }
 }

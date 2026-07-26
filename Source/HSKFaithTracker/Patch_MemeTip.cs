@@ -108,13 +108,16 @@ public static class Patch_MemeTip
         }
 
 
-        // Unlocked roles
-        var roles = meme.UnlockedRoles(null);
-        if (roles != null && roles.Count > 0)
+        // Unlocked roles (skip for xenophobia — specialists are not relevant)
+        if (meme.defName != "HAR_Xenophobia")
         {
-            block += "\n\n" + "FT_MemeRoles".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor);
-            foreach (var role in roles)
-                block += "\n  " + role;
+            var roles = meme.UnlockedRoles(null);
+            if (roles != null && roles.Count > 0)
+            {
+                block += "\n\n" + "FT_MemeRoles".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor);
+                foreach (var role in roles)
+                    block += "\n  " + role;
+            }
         }
 
         // Recommendations
@@ -129,7 +132,82 @@ public static class Patch_MemeTip
             }
         }
 
+        // Gender colonist count for supremacy memes
+        if (meme.defName == "MaleSupremacy" || meme.defName == "FemaleSupremacy")
+        {
+            int males = 0, females = 0;
+            foreach (var p in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists)
+            {
+                if (p.gender == Gender.Male) males++;
+                else if (p.gender == Gender.Female) females++;
+            }
+            bool isMale = meme.defName == "MaleSupremacy";
+            int dominant = isMale ? males : females;
+            int other = isMale ? females : males;
+            string dominantSymbol = isMale ? "♂" : "♀";
+            string otherSymbol = isMale ? "♀" : "♂";
+
+            block += "\n\n" + "FT_XenoColonists".Translate();
+            block += "\n  " + (dominantSymbol + " " + dominant).Colorize(new Color(0.4f, 0.9f, 0.4f));
+            block += "\n  " + otherSymbol + " " + other;
+
+            // Pastor gender check
+            var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
+            if (ideo != null)
+            {
+                foreach (var precept in ideo.PreceptsListForReading)
+                {
+                    if (precept is Precept_RoleSingle role && role.def.defName == "IdeoRole_Moralist")
+                    {
+                        var pastor = role.ChosenPawnSingle();
+                        if (pastor != null)
+                        {
+                            bool rightGender = isMale ? pastor.gender == Gender.Male : pastor.gender == Gender.Female;
+                            string genderStr = pastor.gender == Gender.Male ? "FT_GenderMale".Translate() : "FT_GenderFemale".Translate();
+                            string pastorStr = "FT_PastorGender".Translate(pastor.LabelShortCap, genderStr);
+                            block += "\n\n" + (rightGender ? pastorStr : pastorStr.Colorize(new Color(0.95f, 0.4f, 0.4f)));
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Race count for xenophilia/xenophobia memes
+        if (meme.defName == "HAR_Xenophilia" || meme.defName == "HAR_Xenophobia")
+        {
+            var raceCounts = new System.Collections.Generic.Dictionary<string, int>();
+            foreach (var p in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists)
+            {
+                string race = p.def.label ?? p.def.defName;
+                if (raceCounts.ContainsKey(race)) raceCounts[race]++;
+                else raceCounts[race] = 1;
+            }
+            if (raceCounts.Count > 0)
+            {
+                bool isPhilia = meme.defName == "HAR_Xenophilia";
+                block += "\n\n" + "FT_XenoColonists".Translate();
+                foreach (var kvp in raceCounts)
+                {
+                    string countStr = kvp.Value.ToString();
+                    // For xenophilia highlight minorities, for xenophobia highlight majority
+                    bool highlight = isPhilia ? !IsMajority(kvp.Value, raceCounts) : IsMajority(kvp.Value, raceCounts);
+                    string line = highlight
+                        ? (kvp.Key.CapitalizeFirst() + ": " + countStr).Colorize(new Color(0.4f, 0.9f, 0.4f))
+                        : kvp.Key.CapitalizeFirst() + ": " + countStr;
+                    block += "\n  " + line;
+                }
+            }
+        }
+
         if (block.Length > 0)
             __result += block;
+    }
+
+    private static bool IsMajority(int count, System.Collections.Generic.Dictionary<string, int> raceCounts)
+    {
+        foreach (var kvp in raceCounts)
+            if (kvp.Value > count) return false;
+        return true;
     }
 }

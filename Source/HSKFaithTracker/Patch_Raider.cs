@@ -17,6 +17,6 @@ public static class Patch_Raider
         if (comp == null || !comp.HasMeme("Raider")) return;
 
         comp.raiderPoints += 3;
-        Log.Message($"[HSKFaith] Raider: +3 points (total {comp.raiderPoints})");
+        // Log.Message($"[HSKFaith] Raider: +3 points (total {comp.raiderPoints})");
     }
 }

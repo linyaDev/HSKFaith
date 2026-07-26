@@ -145,19 +145,48 @@ public class Dialog_FaithInfo : Window
         var fluidIdeo = Faction.OfPlayer?.ideos?.FluidIdeo;
         if (fluidIdeo?.development != null)
         {
-            float btnW = 75f;
             float ideoBtnOffset = 28f + 20f; // ideo button + gap
-            Rect btnRect = new Rect(inRect.width - btnW - closeBtnSize - ideoBtnOffset, 4f, btnW, 28f);
-            bool canAfford = comp.Score >= 2;
-            GUI.color = canAfford ? Color.white : new Color(1f, 1f, 1f, 0.4f);
-            TooltipHandler.TipRegion(btnRect, "FT_ExchangeFaithTip".Translate(2, 1));
-            if (Widgets.ButtonText(btnRect, "FT_ExchangeFaith".Translate()) && canAfford)
-            {
-                comp.RecordRitual("FT_FaithExchange".Translate(), RitualRecordType.FaithDecay, customWeight: -2);
-                fluidIdeo.development.TryAddDevelopmentPoints(1);
-                Messages.Message("FT_FaithExchanged".Translate(), MessageTypeDefOf.PositiveEvent);
-            }
+            float rightX = inRect.width - closeBtnSize - ideoBtnOffset;
+
+            // Development points label
+            int curPts = fluidIdeo.development.Points;
+            int needPts = fluidIdeo.development.NextReformationDevelopmentPoints;
+            string ptsStr = curPts + "/" + needPts;
+            float ptsW = Text.CalcSize(ptsStr).x + 8f;
+            GUI.color = fluidIdeo.development.CanReformNow ? new Color(0.4f, 0.9f, 0.4f) : new Color(1f, 1f, 1f, 0.7f);
+            Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(new Rect(rightX - ptsW - 4f, 4f, ptsW, 28f), ptsStr);
+            Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;
+
+            // Reform button (if ready) or Exchange button
+            if (fluidIdeo.development.CanReformNow)
+            {
+                float reformW = 100f;
+                Rect reformRect = new Rect(rightX - ptsW - 4f - reformW - 4f, 4f, reformW, 28f);
+                if (Widgets.ButtonText(reformRect, "FT_Reform".Translate()))
+                {
+                    Find.WindowStack.Add(new Dialog_ChooseMemes(fluidIdeo, MemeCategory.Normal, done: () =>
+                    {
+                        fluidIdeo.development.Notify_Reformed();
+                    }, reformingIdeo: true));
+                }
+            }
+            else
+            {
+                float btnW = 75f;
+                Rect btnRect = new Rect(rightX - ptsW - 4f - btnW - 4f, 4f, btnW, 28f);
+                bool canAfford = comp.Score >= 2;
+                GUI.color = canAfford ? Color.white : new Color(1f, 1f, 1f, 0.4f);
+                TooltipHandler.TipRegion(btnRect, "FT_ExchangeFaithTip".Translate(2, 1));
+                if (Widgets.ButtonText(btnRect, "FT_ExchangeFaith".Translate()) && canAfford)
+                {
+                    comp.RecordRitual("FT_FaithExchange".Translate(), RitualRecordType.FaithDecay, customWeight: -2);
+                    fluidIdeo.development.TryAddDevelopmentPoints(1);
+                    Messages.Message("FT_FaithExchanged".Translate(), MessageTypeDefOf.PositiveEvent);
+                }
+                GUI.color = Color.white;
+            }
         }
 
         float y = 38f;

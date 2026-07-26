@@ -39,7 +39,7 @@ public static class Patch_Skarnite
 
         var postfix = new HarmonyMethod(typeof(Patch_Skarnite), nameof(PostSacrifide_Postfix));
         harmony.Patch(method, postfix: postfix);
-        Log.Message("[HSKFaith] Patched ReviaRace.Utils.PostSacrifide for Skarnite meme");
+        // Log.Message("[HSKFaith] Patched ReviaRace.Utils.PostSacrifide for Skarnite meme");
     }
 
     public static void PostSacrifide_Postfix(bool corpse)

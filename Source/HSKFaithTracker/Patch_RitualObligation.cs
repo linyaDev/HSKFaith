@@ -35,7 +35,7 @@ public static class Patch_RitualObligation
             // Skip role change ceremonies
             if (Patch_RitualCompleted.IsRoleChange(__instance))
             {
-                Log.Message($"[FaithTracker] OBLIGATION '{name}': skipped (role change)");
+                // Log.Message($"[FaithTracker] OBLIGATION '{name}': skipped (role change)");
                 justRecorded = true;
                 return;
             }
@@ -45,7 +45,7 @@ public static class Patch_RitualObligation
                 faithStatus = "faith skipped (negative outcome)";
             else
                 faithStatus = comp.TryRecordRitualFaith(__instance, weight) ? $"RECORDED weight={weight}" : "faith skipped (repeat this year)";
-            Log.Message($"[FaithTracker] OBLIGATION '{name}': {faithStatus}");
+            // Log.Message($"[FaithTracker] OBLIGATION '{name}': {faithStatus}");
 
             // Certainty shift
             bool hasDate = __instance.obligationTriggers?.Any(t => t is RitualObligationTrigger_Date) == true;
@@ -60,7 +60,7 @@ public static class Patch_RitualObligation
                 int sections = System.Math.Max(1, comp.MemeCount);
                 int bonus = 15 * colonists * 4 / sections;
                 comp.blindPoints += bonus;
-                Log.Message($"[FaithTracker] BLINDSIGHT BONUS (obligation): +{bonus} blindPoints (colonists={colonists}, sections={sections})");
+                // Log.Message($"[FaithTracker] BLINDSIGHT BONUS (obligation): +{bonus} blindPoints (colonists={colonists}, sections={sections})");
 
                 // Add psylink + adaptation hediffs to all blind colonists who don't have them
                 var psyHediffDef = DefDatabase<HediffDef>.GetNamed("FT_BlindsightPsylink", false);
@@ -74,7 +74,7 @@ public static class Patch_RitualObligation
                             var h = HediffMaker.MakeHediff(psyHediffDef, p);
                             h.Severity = 0.01f;
                             p.health.AddHediff(h);
-                            Log.Message($"[FaithTracker] BLINDSIGHT PSY HEDIFF added to {p.LabelShortCap}");
+                            // Log.Message($"[FaithTracker] BLINDSIGHT PSY HEDIFF added to {p.LabelShortCap}");
                         }
                         var trueSightDef = DefDatabase<HediffDef>.GetNamed("FT_BlindsightTrueSight", false);
                         if (trueSightDef != null && p.health.hediffSet.GetFirstHediffOfDef(trueSightDef) == null)
@@ -82,7 +82,7 @@ public static class Patch_RitualObligation
                             var h = HediffMaker.MakeHediff(trueSightDef, p);
                             h.Severity = 0.01f;
                             p.health.AddHediff(h);
-                            Log.Message($"[FaithTracker] BLINDSIGHT TRUE SIGHT added to {p.LabelShortCap}");
+                            // Log.Message($"[FaithTracker] BLINDSIGHT TRUE SIGHT added to {p.LabelShortCap}");
                         }
                     }
                 }
@@ -96,10 +96,10 @@ public static class Patch_RitualObligation
             bool ritualActive = RitualUtility.GetActiveRitualsForPrecept(__instance).Any();
             if (ritualActive)
             {
-                Log.Message($"[FaithTracker] OBLIGATION '{name}': skipped MISSED (ritual is active)");
+                // Log.Message($"[FaithTracker] OBLIGATION '{name}': skipped MISSED (ritual is active)");
                 return;
             }
-            Log.Message($"[FaithTracker] OBLIGATION '{name}': MISSED");
+            // Log.Message($"[FaithTracker] OBLIGATION '{name}': MISSED");
             comp.RecordRitual(name, RitualRecordType.Missed);
         }
     }

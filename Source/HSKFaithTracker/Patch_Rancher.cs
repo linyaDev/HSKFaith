@@ -29,7 +29,7 @@ public static class Patch_RancherTame
                 recruitee.playerSettings.followDrafted = true;
                 if (recruitee.playerSettings.Master == null && recruiter != null)
                     recruitee.playerSettings.Master = recruiter;
-                Log.Message($"[FaithTracker] AnimalPersonhood: {recruitee.LabelShortCap} followDrafted=true, master={recruitee.playerSettings.Master?.LabelShortCap ?? "none"}");
+                // Log.Message($"[FaithTracker] AnimalPersonhood: {recruitee.LabelShortCap} followDrafted=true, master={recruitee.playerSettings.Master?.LabelShortCap ?? "none"}");
             }
         }
     }

@@ -36,7 +36,7 @@ public static class RaiderProtectionCheck
             {
                 comp.raiderProtectionUntilTick = now + (ProtectionDays * 60000);
                 comp.raiderProtectionCooldownUntilTick = now + (CooldownDays * 60000);
-                Log.Message($"[HSKFaith] Raider protection: {colonists} colonists in caravan, {ProtectionDays} days protection");
+                // Log.Message($"[HSKFaith] Raider protection: {colonists} colonists in caravan, {ProtectionDays} days protection");
                 return;
             }
         }
@@ -91,7 +91,7 @@ public static class Patch_RaiderThreatBlock
         if (Find.TickManager.TicksGame < comp.raiderProtectionUntilTick)
         {
             __result = false;
-            Log.Message($"[HSKFaith] Threat blocked by raider protection: {__instance.def.defName}");
+            // Log.Message($"[HSKFaith] Threat blocked by raider protection: {__instance.def.defName}");
         }
     }
 }

@@ -91,7 +91,7 @@ public static class Patch_StartingItems
                 if (proj != null && !proj.IsFinished)
                 {
                     Find.ResearchManager.FinishProject(proj);
-                    Log.Message($"[HSKFaith] Starting research unlocked: {proj.LabelCap}");
+                    // Log.Message($"[HSKFaith] Starting research unlocked: {proj.LabelCap}");
                 }
             }
         }

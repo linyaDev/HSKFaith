@@ -39,7 +39,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
             if (better != null)
             {
                 site.SetFaction(better);
-                Log.Message($"[HSKFaith] {def.defName}: replaced faction {oldFaction.Name}({oldFaction.def.techLevel}) -> {better.Name}({better.def.techLevel})");
+                // Log.Message($"[HSKFaith] {def.defName}: replaced faction {oldFaction.Name}({oldFaction.def.techLevel}) -> {better.Name}({better.def.techLevel})");
             }
         }
 
@@ -47,7 +47,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
         float mult = def.defName.StartsWith("FaithArmory") ? ArmoryThreatMultiplier : StashThreatMultiplier;
         float before = sitePart.parms.threatPoints;
         sitePart.parms.threatPoints *= mult;
-        Log.Message($"[HSKFaith] {def.defName}: faction={site.Faction?.Name}({site.Faction?.def?.techLevel}), threat {before:F0} x{mult} = {sitePart.parms.threatPoints:F0}");
+        // Log.Message($"[HSKFaith] {def.defName}: faction={site.Faction?.Name}({site.Faction?.def?.techLevel}), threat {before:F0} x{mult} = {sitePart.parms.threatPoints:F0}");
 
         // Skip base.Init loot generation — we do our own
         sitePart.things = new ThingOwner<Thing>(sitePart);
@@ -89,7 +89,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
         }
         sitePart.lootThings = new List<ThingDefCount>();
 
-        Log.Message($"[HSKFaith] {def.defName} Init: faction={site.Faction?.Name}, threatPts={sitePart.parms.threatPoints:F0}, loot={sitePart.things?.Count ?? 0} items");
+        // Log.Message($"[HSKFaith] {def.defName} Init: faction={site.Faction?.Name}, threatPts={sitePart.parms.threatPoints:F0}, loot={sitePart.things?.Count ?? 0} items");
     }
 
     public override string GetPostProcessedThreatLabel(Site site, SitePart sitePart)
@@ -133,13 +133,13 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
 
         if (!candidates.Any()) return null;
 
-        Log.Message($"[HSKFaith] FaithStash weapon candidates ({techLevel}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
+        // Log.Message($"[HSKFaith] FaithStash weapon candidates ({techLevel}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
 
         ThingDef chosen = candidates.RandomElement();
         ThingDef stuff = GenStuff.DefaultStuffFor(chosen);
         Thing weapon = ThingMaker.MakeThing(chosen, stuff);
         weapon.TryGetComp<CompQuality>()?.SetQuality((QualityCategory)Rand.RangeInclusive((int)QualityCategory.Normal, (int)QualityCategory.Excellent), ArtGenerationContext.Outsider);
-        Log.Message($"[HSKFaith] FaithStash: generated weapon {chosen.defName}{(stuff != null ? $" ({stuff.defName})" : "")} ({techLevel})");
+        // Log.Message($"[HSKFaith] FaithStash: generated weapon {chosen.defName}{(stuff != null ? $" ({stuff.defName})" : "")} ({techLevel})");
         return weapon;
     }
 
@@ -208,13 +208,13 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
             return null;
         }
 
-        Log.Message($"[HSKFaith] FaithStash armor candidates ({techLevel}, {bodyPartGroup}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
+        // Log.Message($"[HSKFaith] FaithStash armor candidates ({techLevel}, {bodyPartGroup}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
 
         ThingDef chosen = candidates.RandomElement();
         ThingDef stuff = GenStuff.DefaultStuffFor(chosen);
         Thing armor = ThingMaker.MakeThing(chosen, stuff);
         armor.TryGetComp<CompQuality>()?.SetQuality((QualityCategory)Rand.RangeInclusive((int)QualityCategory.Normal, (int)QualityCategory.Excellent), ArtGenerationContext.Outsider);
-        Log.Message($"[HSKFaith] FaithStash: generated {chosen.defName} for {bodyPartGroup} ({techLevel})");
+        // Log.Message($"[HSKFaith] FaithStash: generated {chosen.defName} for {bodyPartGroup} ({techLevel})");
         return armor;
     }
 
@@ -244,7 +244,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
             return;
         }
 
-        Log.Message($"[HSKFaith] FaithStash leather/fabric candidates ({nextTech}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
+        // Log.Message($"[HSKFaith] FaithStash leather/fabric candidates ({nextTech}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
 
         candidates.Shuffle();
         foreach (var mat in candidates.Take(2))
@@ -252,7 +252,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
             Thing thing = ThingMaker.MakeThing(mat);
             thing.stackCount = Rand.RangeInclusive(80, 120);
             sitePart.things.TryAdd(thing);
-            Log.Message($"[HSKFaith] FaithStash: generated {mat.defName} x{thing.stackCount}");
+            // Log.Message($"[HSKFaith] FaithStash: generated {mat.defName} x{thing.stackCount}");
         }
     }
 
@@ -284,7 +284,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
             return;
         }
 
-        Log.Message($"[HSKFaith] FaithStash alloy candidates ({nextTech}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
+        // Log.Message($"[HSKFaith] FaithStash alloy candidates ({nextTech}, {candidates.Count}): {string.Join(", ", candidates.Select(d => d.defName))}");
 
         candidates.Shuffle();
         foreach (var alloy in candidates.Take(2))
@@ -292,7 +292,7 @@ public class SitePartWorker_FaithArmory : SitePartWorker_WorkSite
             Thing thing = ThingMaker.MakeThing(alloy);
             thing.stackCount = 250;
             sitePart.things.TryAdd(thing);
-            Log.Message($"[HSKFaith] FaithStash: generated {alloy.defName} x{thing.stackCount}");
+            // Log.Message($"[HSKFaith] FaithStash: generated {alloy.defName} x{thing.stackCount}");
         }
     }
 }

@@ -24,24 +24,24 @@ public static class Patch_RitualCompleted
         // Already recorded by RemoveObligation patch
         if (Patch_RitualObligation.justRecorded)
         {
-            Log.Message($"[FaithTracker] RITUAL '{ritualName}': skipped (already recorded by obligation patch)");
+            // Log.Message($"[FaithTracker] RITUAL '{ritualName}': skipped (already recorded by obligation patch)");
             return;
         }
 
         if (ritual == null)
         {
-            Log.Message("[FaithTracker] RITUAL: skipped (ritual is null)");
+            // Log.Message("[FaithTracker] RITUAL: skipped (ritual is null)");
             return;
         }
 
         // Skip role change ceremonies — they don't affect faith
         if (IsRoleChange(ritual))
         {
-            Log.Message($"[FaithTracker] RITUAL '{ritualName}': skipped (role change)");
+            // Log.Message($"[FaithTracker] RITUAL '{ritualName}': skipped (role change)");
             return;
         }
 
-        Log.Message($"[FaithTracker] RITUAL '{ritualName}': lastFinishedTick={ritual.lastFinishedTick}, prevTick={__state}, isAnytime={ritual.isAnytime}, useRepeatPenalty={ritual.def.useRepeatPenalty}, requiredMemes={ritual.def.requiredMemes?.Select(m => m.defName).ToStringSafeEnumerable() ?? "none"}");
+        // Log.Message($"[FaithTracker] RITUAL '{ritualName}': lastFinishedTick={ritual.lastFinishedTick}, prevTick={__state}, isAnytime={ritual.isAnytime}, useRepeatPenalty={ritual.def.useRepeatPenalty}, requiredMemes={ritual.def.requiredMemes?.Select(m => m.defName).ToStringSafeEnumerable() ?? "none"}");
 
         // lastFinishedTick changed = ritual completed successfully
         if (ritual.lastFinishedTick != __state && ritual.lastFinishedTick > 0)
@@ -55,7 +55,7 @@ public static class Patch_RitualCompleted
                 faithStatus = "faith skipped (negative outcome)";
             else
                 faithStatus = comp.TryRecordRitualFaith(ritual, weight) ? $"RECORDED weight={weight}" : "faith skipped (repeat this year)";
-            Log.Message($"[FaithTracker] RITUAL '{ritualName}': {faithStatus}");
+            // Log.Message($"[FaithTracker] RITUAL '{ritualName}': {faithStatus}");
 
 
             // Certainty shift: holidays with date +3%/-3%, others +1%/-1%
@@ -71,7 +71,7 @@ public static class Patch_RitualCompleted
                 int sections = System.Math.Max(1, comp.MemeCount);
                 int bonus = 15 * colonists * 4 / sections;
                 comp.blindPoints += bonus;
-                Log.Message($"[FaithTracker] BLINDSIGHT BONUS: +{bonus} blindPoints (colonists={colonists}, sections={sections})");
+                // Log.Message($"[FaithTracker] BLINDSIGHT BONUS: +{bonus} blindPoints (colonists={colonists}, sections={sections})");
 
                 // Add psylink + adaptation hediffs to all blind colonists who don't have them
                 var psyHediffDef = DefDatabase<HediffDef>.GetNamed("FT_BlindsightPsylink", false);
@@ -85,7 +85,7 @@ public static class Patch_RitualCompleted
                             var h = HediffMaker.MakeHediff(psyHediffDef, p);
                             h.Severity = 0.01f;
                             p.health.AddHediff(h);
-                            Log.Message($"[FaithTracker] BLINDSIGHT PSY HEDIFF added to {p.LabelShortCap}");
+                            // Log.Message($"[FaithTracker] BLINDSIGHT PSY HEDIFF added to {p.LabelShortCap}");
                         }
                         var trueSightDef = DefDatabase<HediffDef>.GetNamed("FT_BlindsightTrueSight", false);
                         if (trueSightDef != null && p.health.hediffSet.GetFirstHediffOfDef(trueSightDef) == null)
@@ -93,7 +93,7 @@ public static class Patch_RitualCompleted
                             var h = HediffMaker.MakeHediff(trueSightDef, p);
                             h.Severity = 0.01f;
                             p.health.AddHediff(h);
-                            Log.Message($"[FaithTracker] BLINDSIGHT TRUE SIGHT added to {p.LabelShortCap}");
+                            // Log.Message($"[FaithTracker] BLINDSIGHT TRUE SIGHT added to {p.LabelShortCap}");
                         }
                     }
                 }
@@ -101,7 +101,7 @@ public static class Patch_RitualCompleted
         }
         else
         {
-            Log.Message($"[FaithTracker] RITUAL '{ritualName}': NOT recorded (tick unchanged or <=0)");
+            // Log.Message($"[FaithTracker] RITUAL '{ritualName}': NOT recorded (tick unchanged or <=0)");
         }
     }
 

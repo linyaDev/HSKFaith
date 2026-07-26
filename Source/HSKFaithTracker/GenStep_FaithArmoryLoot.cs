@@ -30,6 +30,6 @@ public class GenStep_FaithArmoryLoot : GenStep
                 (IntVec3 c) => c.Standable(map), out cell);
 
         parms.sitePart.things.TryDropAll(cell, map, ThingPlaceMode.Near);
-        Log.Message($"[HSKFaith] FaithStash: loot dropped at {cell}, {parms.sitePart.things.Count} items");
+        // Log.Message($"[HSKFaith] FaithStash: loot dropped at {cell}, {parms.sitePart.things.Count} items");
     }
 }

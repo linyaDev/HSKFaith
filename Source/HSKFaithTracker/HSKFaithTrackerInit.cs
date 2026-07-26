@@ -11,6 +11,6 @@ public static class HSKFaithTrackerInit
         var harmony = new Harmony("linya.hskfaithtracker");
         harmony.PatchAll();
         Patch_Skarnite.TryPatch(harmony);
-        Log.Message("[HSKFaithTracker] Patches applied.");
+        // Log.Message("[HSKFaithTracker] Patches applied.");
     }
 }

@@ -266,6 +266,10 @@
 	<FT_RelicNeedMoreFaith>Not enough faith. Need at least {0} points.</FT_RelicNeedMoreFaith>
 	<FT_GenderColonists>In colony: ♂ {0}  ♀ {1}</FT_GenderColonists>
 	<FT_GenderColonistsDetailed>In colony: {0}  {1}</FT_GenderColonistsDetailed>
+	<FT_XenoColonists>Races in colony:</FT_XenoColonists>
+	<FT_PastorGender>Moral guide: {0} ({1})</FT_PastorGender>
+	<FT_GenderMale>male</FT_GenderMale>
+	<FT_GenderFemale>female</FT_GenderFemale>
 	<FT_Colony>Colony</FT_Colony>
 	<FT_SkarniteTooltip>Sacrifices: {0}/{1}\nTails in colony: {1}\n\nEarning points:\n+5 per sacrifice</FT_SkarniteTooltip>
 	<FT_RelicFromWeapon>Sanctify weapon: {0}</FT_RelicFromWeapon>
@@ -278,6 +282,7 @@
 	<FT_CertaintyCurrent>Certainty</FT_CertaintyCurrent>
 	<FT_CertaintyTotal>Total</FT_CertaintyTotal>
 	<FT_CertaintyDay>day</FT_CertaintyDay>
+	<FT_Reform>Reform</FT_Reform>
 	<FT_ExchangeFaith>Exchange</FT_ExchangeFaith>
 	<FT_ExchangeFaithTip>Exchange {0} faith points for {1} reformation point.\nAllows changing your ideology.</FT_ExchangeFaithTip>
 	<FT_FaithExchange>Faith exchanged for reformation</FT_FaithExchange>

@@ -32,6 +32,6 @@ public static class Patch_PsychicRitualCompleted
 
         comp.ritualistPoints += 2;
         string name = psychicRitual.def?.LabelCap ?? "unknown";
-        Log.Message($"[HSKFaith] Ritualist: +2 points from psychic ritual '{name}' (total {comp.ritualistPoints})");
+        // Log.Message($"[HSKFaith] Ritualist: +2 points from psychic ritual '{name}' (total {comp.ritualistPoints})");
     }
 }

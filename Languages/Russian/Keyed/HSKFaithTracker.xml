@@ -268,6 +268,10 @@
 	<FT_RelicNeedMoreFaith>Недостаточно веры. Нужно минимум {0} очков.</FT_RelicNeedMoreFaith>
 	<FT_GenderColonists>В колонии: ♂ {0}  ♀ {1}</FT_GenderColonists>
 	<FT_GenderColonistsDetailed>В колонии: {0}  {1}</FT_GenderColonistsDetailed>
+	<FT_XenoColonists>Расы в колонии:</FT_XenoColonists>
+	<FT_PastorGender>Священник: {0} ({1})</FT_PastorGender>
+	<FT_GenderMale>мужчина</FT_GenderMale>
+	<FT_GenderFemale>женщина</FT_GenderFemale>
 	<FT_Colony>Колония</FT_Colony>
 	<FT_SkarniteTooltip>Жертвоприношений: {0}/{1}\nХвостов в колонии: {1}\n\nПолучение очков:\n+5 за жертвоприношение</FT_SkarniteTooltip>
 	<FT_RelicFromWeapon>Освятить оружие: {0}</FT_RelicFromWeapon>
@@ -280,6 +284,7 @@
 	<FT_CertaintyCurrent>Уверенность</FT_CertaintyCurrent>
 	<FT_CertaintyTotal>Всего</FT_CertaintyTotal>
 	<FT_CertaintyDay>день</FT_CertaintyDay>
+	<FT_Reform>Реформация</FT_Reform>
 	<FT_ExchangeFaith>Обмен</FT_ExchangeFaith>
 	<FT_ExchangeFaithTip>Обменять {0} очков веры на {1} очко реформации.\nПозволяет изменить идеологию.</FT_ExchangeFaithTip>
 	<FT_FaithExchange>Обмен веры на реформацию</FT_FaithExchange>

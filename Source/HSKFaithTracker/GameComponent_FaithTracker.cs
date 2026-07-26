@@ -1363,7 +1363,7 @@ public class GameComponent_FaithTracker : GameComponent
 
         lastRaiderWorkSiteDay = today;
         DebugLog($"Raider: spawned WorkSite quest '{quest.name}', points {parms.points:F0}, timeout 15d");
-        Log.Message($"[HSKFaith] Raider: spawned WorkSite quest '{quest.name}', points {parms.points:F0}, timeout 15 days");
+        // Log.Message($"[HSKFaith] Raider: spawned WorkSite quest '{quest.name}', points {parms.points:F0}, timeout 15 days");
     }
 
     public static void FixQuestLootDescription(Quest quest)

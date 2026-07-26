@@ -31,7 +31,7 @@ public static class Patch_IdeoDesignatorDebug
                             names.Add(c?.compClass?.Name ?? "NULL_COMP");
                         comps = string.Join(", ", names);
                     }
-                    Log.Message($"[HSKFaith] IdeoBuilding: ideo={ideo.name} precept={precept.def.defName} thingDef={td?.defName ?? "NULL"} category={td?.designationCategory?.defName ?? "NULL"} comps=[{comps}]");
+                    // Log.Message($"[HSKFaith] IdeoBuilding: ideo={ideo.name} precept={precept.def.defName} thingDef={td?.defName ?? "NULL"} category={td?.designationCategory?.defName ?? "NULL"} comps=[{comps}]");
 
                     if (td == null || td.comps == null || comps.Contains("NULL_COMP"))
                     {
