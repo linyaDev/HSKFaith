@@ -32,8 +32,10 @@ public static class Patch_WorkSitePawns
 
         Faction faction = parms.sitePart.site.Faction;
 #if V16
-        // 1.6: delayBeforeAssault, vanilla work sites use 25000
-        Lord lord = LordMaker.MakeNewLord(faction, new LordJob_DefendBase(faction, baseCenter, 25000), map);
+        // 1.6: delayBeforeAssault is a ctor param; 251999 (~4 days) matches the value
+        // hardcoded in 1.5 — defenders effectively never assault on their own.
+        // (1.6 vanilla work sites shortened it to 25000, we keep 1.5 behavior.)
+        Lord lord = LordMaker.MakeNewLord(faction, new LordJob_DefendBase(faction, baseCenter, 251999), map);
 #else
         Lord lord = LordMaker.MakeNewLord(faction, new LordJob_DefendBase(faction, baseCenter), map);
 #endif
