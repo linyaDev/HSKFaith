@@ -136,7 +136,7 @@ public static class Patch_MemeTip
         if (meme.defName == "MaleSupremacy" || meme.defName == "FemaleSupremacy")
         {
             int males = 0, females = 0;
-            foreach (var p in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists)
+            foreach (var p in VersionCompat.FreeColonistsEverywhere)
             {
                 if (p.gender == Gender.Male) males++;
                 else if (p.gender == Gender.Female) females++;
@@ -177,7 +177,7 @@ public static class Patch_MemeTip
         if (meme.defName == "HAR_Xenophilia" || meme.defName == "HAR_Xenophobia")
         {
             var raceCounts = new System.Collections.Generic.Dictionary<string, int>();
-            foreach (var p in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists)
+            foreach (var p in VersionCompat.FreeColonistsEverywhere)
             {
                 string race = p.def.label ?? p.def.defName;
                 if (raceCounts.ContainsKey(race)) raceCounts[race]++;

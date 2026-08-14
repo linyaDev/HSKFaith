@@ -191,6 +191,17 @@ public class Dialog_FaithDebug : Window
     private static List<int> PotentialSiteTiles(int root)
     {
         var tiles = new List<int>();
+#if V16
+        // 1.6: flood filler moved to the planet layer; PlanetTile <-> int are implicit
+        RimWorld.Planet.PlanetTile rootTile = root;
+        rootTile.Layer.Filler.FloodFill(rootTile,
+            p => !Find.World.Impassable(p) && Find.WorldGrid.ApproxDistanceInTiles(p, rootTile) <= 9f,
+            delegate(RimWorld.Planet.PlanetTile p)
+            {
+                if (Find.WorldGrid.ApproxDistanceInTiles(p, rootTile) >= 3f)
+                    tiles.Add(p);
+            });
+#else
         Find.WorldFloodFiller.FloodFill(root,
             p => !Find.World.Impassable(p) && Find.WorldGrid.ApproxDistanceInTiles(p, root) <= 9f,
             delegate(int p)
@@ -198,6 +209,7 @@ public class Dialog_FaithDebug : Window
                 if (Find.WorldGrid.ApproxDistanceInTiles(p, root) >= 3f)
                     tiles.Add(p);
             });
+#endif
         return tiles;
     }
 

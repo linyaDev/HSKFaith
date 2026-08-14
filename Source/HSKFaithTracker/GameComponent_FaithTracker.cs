@@ -1073,7 +1073,7 @@ public class GameComponent_FaithTracker : GameComponent
         var deepDef = DefDatabase<HediffDef>.GetNamedSilentFail("FT_DeepDarknessBonus");
         var debuffDef = DefDatabase<HediffDef>.GetNamedSilentFail("FT_LightWeakness");
 
-        foreach (var pawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists)
+        foreach (var pawn in VersionCompat.FreeColonistsEverywhere)
         {
             if (pawn.Dead || pawn.Map == null) continue;
             float glow = pawn.Map.glowGrid.GroundGlowAt(pawn.Position);
