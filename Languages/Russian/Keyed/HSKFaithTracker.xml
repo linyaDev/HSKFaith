@@ -97,7 +97,7 @@
 	<FT_GenderTooltip>Получение очков:\n+1 оч./день за каждого мужчину/женщину своего пола\n+3 оч./день за раба противоположного пола</FT_GenderTooltip>
 	<FT_GenderSlaveBonus></FT_GenderSlaveBonus>
 	<FT_NudismPts>дней наготы</FT_NudismPts>
-	<FT_NudismTooltip>Очков за сезон:\nбез одежды {0} ({1})\nодетых {2}\n\nПолучение очков:\n+1 оч./час за каждого раздетого колониста\n+3 оч./час за нудиста (трейт)</FT_NudismTooltip>
+	<FT_NudismTooltip>Очков: {0} / {1}\n{2} очков на секцию\n\nПолучение очков:\n+1 оч./час за каждого раздетого колониста\n+3 оч./час за нудиста (трейт)</FT_NudismTooltip>
 	<FT_XenophiliaFulfilled>Расовая гармония</FT_XenophiliaFulfilled>
 	<FT_XenophiliaPenalty>Расовая изоляция</FT_XenophiliaPenalty>
 	<FT_Races>рас</FT_Races>
@@ -285,6 +285,8 @@
 	<FT_CertaintyTotal>Всего</FT_CertaintyTotal>
 	<FT_CertaintyDay>день</FT_CertaintyDay>
 	<FT_Reform>Реформация</FT_Reform>
+	<FT_MemeCatLimit>Лимит категории</FT_MemeCatLimit>
+	<FT_MemeNeedEarly>Нужна основа вашей веры</FT_MemeNeedEarly>
 	<FT_ExchangeFaith>Обмен</FT_ExchangeFaith>
 	<FT_ExchangeFaithTip>Обменять {0} очков веры на {1} очко реформации.\nПозволяет изменить идеологию.</FT_ExchangeFaithTip>
 	<FT_FaithExchange>Обмен веры на реформацию</FT_FaithExchange>

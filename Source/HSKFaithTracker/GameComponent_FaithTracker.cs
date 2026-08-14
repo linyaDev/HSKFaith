@@ -13,7 +13,8 @@ public enum RitualRecordType : byte
     Fulfilled,
     Missed,
     CorpsePenalty,
-    FaithDecay
+    FaithDecay,
+    YearlySummary
 }
 
 public struct RitualRecord : IExposable
@@ -32,6 +33,7 @@ public struct RitualRecord : IExposable
             {
                 case RitualRecordType.Fulfilled: return customWeight != 0 ? customWeight : 1;
                 case RitualRecordType.FaithDecay: return customWeight;
+                case RitualRecordType.YearlySummary: return customWeight;
                 case RitualRecordType.CorpsePenalty: return GameComponent_FaithTracker.CorpsePenaltyWeight;
                 default: return GameComponent_FaithTracker.MissedWeight;
             }
@@ -298,7 +300,7 @@ public class GameComponent_FaithTracker : GameComponent
     public static int FilledFromRatio(float ratio, int sections)
     {
         if (sections <= 0) return 0;
-        return System.Math.Min((int)(ratio * sections + 0.5f), sections);
+        return System.Math.Min((int)(ratio * sections), sections);
     }
 
     private void RecordSections(string memeName, int filled, int unfilled)
@@ -580,7 +582,7 @@ public class GameComponent_FaithTracker : GameComponent
                         continue;
                     foreach (var group in ap.def.apparel.bodyPartGroups)
                     {
-                        if (group == BodyPartGroupDefOf.Torso || group == BodyPartGroupDefOf.Legs)
+                        if (group == BodyPartGroupDefOf.Torso)
                         {
                             isNude = false;
                             break;
@@ -1016,7 +1018,7 @@ public class GameComponent_FaithTracker : GameComponent
                             continue;
                         foreach (var group in ap.def.apparel.bodyPartGroups)
                         {
-                            if (group == BodyPartGroupDefOf.Torso || group == BodyPartGroupDefOf.Legs)
+                            if (group == BodyPartGroupDefOf.Torso)
                             {
                                 naked = false;
                                 break;
@@ -1586,19 +1588,15 @@ public class GameComponent_FaithTracker : GameComponent
         RecordSections("HighLife", filled, unfilled);
     }
 
+    private const int NudismPointsPerSection = 360; // 15 days × 24 hours
+
     private void SeasonNudism()
     {
         if (!HasMeme("Nudism")) return;
         int sections = MemeCount;
         if (sections <= 0) return;
 
-        int total = nudismPoints + nudismDressedPoints;
-        int filled = 0;
-        if (total > 0)
-        {
-            float ratio = (float)nudismPoints / total;
-            filled = FilledFromRatio(ratio, sections);
-        }
+        int filled = System.Math.Min(nudismPoints / NudismPointsPerSection, sections);
         int unfilled = sections - filled;
         RecordSections("Nudism", filled, unfilled);
     }
@@ -1679,7 +1677,7 @@ public class GameComponent_FaithTracker : GameComponent
     private void CleanupRecords()
     {
         int cutoff = GenTicks.TicksGame - YearTicks;
-        records.RemoveAll(r => r.tick < cutoff);
+        records.RemoveAll(r => r.tick < cutoff && r.type != RitualRecordType.YearlySummary);
 
         // Remove corpse penalties if corpse no longer exists or is far from home area
         records.RemoveAll(r =>
@@ -1703,7 +1701,8 @@ public class GameComponent_FaithTracker : GameComponent
         for (int i = records.Count - 1; i >= 0; i--)
         {
             var r = records[i];
-            if (r.type == RitualRecordType.FaithDecay || r.type == RitualRecordType.CorpsePenalty)
+            if (r.type == RitualRecordType.FaithDecay || r.type == RitualRecordType.CorpsePenalty
+                || r.type == RitualRecordType.YearlySummary)
                 continue;
             totalScore += r.Points;
             count++;
@@ -1711,12 +1710,13 @@ public class GameComponent_FaithTracker : GameComponent
 
         if (count <= 1) return;
 
-        records.RemoveAll(r => r.type != RitualRecordType.FaithDecay && r.type != RitualRecordType.CorpsePenalty);
+        records.RemoveAll(r => r.type != RitualRecordType.FaithDecay && r.type != RitualRecordType.CorpsePenalty
+                               && r.type != RitualRecordType.YearlySummary);
         records.Insert(0, new RitualRecord
         {
             tick = Find.TickManager.TicksGame,
             ritualName = "FT_YearlySummary".Translate(GenDate.Year(Find.TickManager.TicksAbs, 0)),
-            type = totalScore >= 0 ? RitualRecordType.Fulfilled : RitualRecordType.FaithDecay,
+            type = RitualRecordType.YearlySummary,
             customWeight = totalScore
         });
     }
@@ -1857,5 +1857,18 @@ public class GameComponent_FaithTracker : GameComponent
             ritualFaithThisYear = new List<string>();
         if (records == null)
             records = new List<RitualRecord>();
+
+        if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        {
+            for (int i = 0; i < records.Count; i++)
+            {
+                var r = records[i];
+                if (r.type == RitualRecordType.Fulfilled && (r.customWeight > 3 || r.customWeight < -3))
+                {
+                    r.type = RitualRecordType.YearlySummary;
+                    records[i] = r;
+                }
+            }
+        }
     }
 }

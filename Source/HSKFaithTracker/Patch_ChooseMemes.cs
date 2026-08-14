@@ -95,14 +95,16 @@ public static class Patch_ChooseMemes
 
         var drawMemeMethod = AccessTools.Method(typeof(Dialog_ChooseMemes), "DrawMeme");
 
+        bool hasHandledMeme = newMemes.Any(m => m.category != MemeCategory.Structure && m.GetModExtension<MemeEffectExtension>() != null);
+
         if (early.Count > 0)
             DrawCategory(viewRect, ref curY, "FT_MemeCatEarly".Translate(), early, maxPerRow, gapBetweenBoxes, __instance, newMemes, drawMemeMethod, selectionComplete);
         if (mid.Count > 0)
             DrawCategory(viewRect, ref curY, "FT_MemeCatMid".Translate(), mid, maxPerRow, gapBetweenBoxes, __instance, newMemes, drawMemeMethod, selectionComplete);
         if (late.Count > 0)
-            DrawCategory(viewRect, ref curY, "FT_MemeCatLate".Translate(), late, maxPerRow, gapBetweenBoxes, __instance, newMemes, drawMemeMethod, selectionComplete);
+            DrawCategory(viewRect, ref curY, "FT_MemeCatLate".Translate(), late, maxPerRow, gapBetweenBoxes, __instance, newMemes, drawMemeMethod, selectionComplete, blockAll: !hasHandledMeme);
         if (situational.Count > 0)
-            DrawCategory(viewRect, ref curY, "FT_MemeCatSituational".Translate(), situational, maxPerRow, gapBetweenBoxes, __instance, newMemes, drawMemeMethod, selectionComplete);
+            DrawCategory(viewRect, ref curY, "FT_MemeCatSituational".Translate(), situational, maxPerRow, gapBetweenBoxes, __instance, newMemes, drawMemeMethod, selectionComplete, maxFromCategory: 1, blockAll: !hasHandledMeme);
 
         return false;
     }
@@ -117,8 +119,16 @@ public static class Patch_ChooseMemes
     }
 
     private static void DrawCategory(Rect viewRect, ref float curY, string label, List<MemeDef> memes,
-        int maxPerRow, float gap, object instance, List<MemeDef> newMemes, MethodInfo drawMemeMethod, bool selectionComplete)
+        int maxPerRow, float gap, object instance, List<MemeDef> newMemes, MethodInfo drawMemeMethod, bool selectionComplete, int maxFromCategory = -1, bool blockAll = false)
     {
+        // Count how many from this category are already selected
+        int selectedFromCategory = 0;
+        if (maxFromCategory > 0)
+        {
+            foreach (var m in memes)
+                if (newMemes.Contains(m))
+                    selectedFromCategory++;
+        }
         // Category header
         Rect headerRect = new Rect(viewRect.x, curY, viewRect.width, 30f);
         Widgets.Label(headerRect, label);
@@ -150,22 +160,25 @@ public static class Patch_ChooseMemes
                 curY, IdeoUIUtility.MemeBoxSize.x, IdeoUIUtility.MemeBoxSize.y).Rounded();
 
             bool isDisabled = disabledMemes.Contains(memes[i].defName);
+            bool isCategoryFull = maxFromCategory > 0 && selectedFromCategory >= maxFromCategory && !newMemes.Contains(memes[i]);
+            bool isBlocked = isDisabled || isCategoryFull || (blockAll && !newMemes.Contains(memes[i]));
 
             // Block click BEFORE DrawMeme processes it
-            if (isDisabled && Event.current.type == EventType.MouseDown && Mouse.IsOver(memeBox))
+            if (isBlocked && Event.current.type == EventType.MouseDown && Mouse.IsOver(memeBox))
                 Event.current.Use();
 
             // Call private DrawMeme
             drawMemeMethod.Invoke(instance, new object[] { memes[i], memeBox, false });
 
             // Disabled overlay — dark tint
-            if (isDisabled)
+            if (isBlocked)
             {
                 Widgets.DrawBoxSolid(memeBox, new Color(0f, 0f, 0f, 0.6f));
                 Text.Font = GameFont.Tiny;
                 GUI.color = new Color(1f, 0.4f, 0.4f);
                 Text.Anchor = TextAnchor.LowerCenter;
-                Widgets.Label(memeBox, "FT_MemeDisabled".Translate());
+                string blockReason = isDisabled ? "FT_MemeDisabled".Translate() : (blockAll ? "FT_MemeNeedEarly".Translate() : "FT_MemeCatLimit".Translate());
+                Widgets.Label(memeBox, blockReason);
                 Text.Anchor = TextAnchor.UpperLeft;
                 GUI.color = Color.white;
                 Text.Font = GameFont.Small;

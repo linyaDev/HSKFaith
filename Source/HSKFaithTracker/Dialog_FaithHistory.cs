@@ -49,7 +49,8 @@ public class Dialog_FaithHistory : Window
             var r = records[i];
             Rect rowRect = new Rect(0f, rowY, viewRect.width, 28f);
 
-            bool isFulfilled = r.type == RitualRecordType.Fulfilled;
+            bool isFulfilled = r.type == RitualRecordType.Fulfilled
+                               || (r.type == RitualRecordType.YearlySummary && r.Points >= 0);
             int points = r.Points;
             string pointsStr = points > 0 ? "+" + points : points.ToString();
 

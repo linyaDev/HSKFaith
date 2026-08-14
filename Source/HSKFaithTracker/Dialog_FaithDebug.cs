@@ -145,6 +145,25 @@ public class Dialog_FaithDebug : Window
         DrawLine(ref y, w, "Game ticks", $"{ticks}  ({ticks / 60000f:F1} days)");
         DrawLine(ref y, w, "WorkSite enabled", canSpawn ? "Yes (>600k ticks)" : $"No (need {600000 - ticks} more)");
 
+        // Faith adjustment
+        y += 10f;
+        DrawSection(ref y, w, "Faith Score (Dev)");
+        var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
+        if (comp != null)
+        {
+            DrawLine(ref y, w, "Current Score", comp.Score.ToString());
+            float btnW = (w - 15f) / 4f;
+            if (Widgets.ButtonText(new Rect(0f, y, btnW, 28f), "-5"))
+                comp.RecordRitual("Debug", RitualRecordType.FaithDecay, customWeight: -5, showMote: false);
+            if (Widgets.ButtonText(new Rect(btnW + 5f, y, btnW, 28f), "-1"))
+                comp.RecordRitual("Debug", RitualRecordType.FaithDecay, customWeight: -1, showMote: false);
+            if (Widgets.ButtonText(new Rect((btnW + 5f) * 2, y, btnW, 28f), "+1"))
+                comp.RecordRitual("Debug", RitualRecordType.Fulfilled, customWeight: 1, showMote: false);
+            if (Widgets.ButtonText(new Rect((btnW + 5f) * 3, y, btnW, 28f), "+5"))
+                comp.RecordRitual("Debug", RitualRecordType.Fulfilled, customWeight: 5, showMote: false);
+            y += 32f;
+        }
+
         // Spawn button
         y += 10f;
         DrawSection(ref y, w, "Spawn (Dev)");

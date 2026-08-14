@@ -166,10 +166,7 @@ public class Dialog_FaithInfo : Window
                 Rect reformRect = new Rect(rightX - ptsW - 4f - reformW - 4f, 4f, reformW, 28f);
                 if (Widgets.ButtonText(reformRect, "FT_Reform".Translate()))
                 {
-                    Find.WindowStack.Add(new Dialog_ChooseMemes(fluidIdeo, MemeCategory.Normal, done: () =>
-                    {
-                        fluidIdeo.development.Notify_Reformed();
-                    }, reformingIdeo: true));
+                    Find.WindowStack.Add(new Dialog_ReformIdeo(fluidIdeo));
                 }
             }
             else
@@ -1231,6 +1228,7 @@ Text.Anchor = TextAnchor.MiddleRight;
 
 
         // Custom bars for specific memes
+        var situationalMemes = new List<MemeDef>();
         foreach (var meme in ideo.memes)
         {
             if (meme.category == MemeCategory.Structure) continue;
@@ -1267,7 +1265,7 @@ Text.Anchor = TextAnchor.MiddleRight;
             }
             else if (def == "ReviaRaceSkarniteMeme") y = DrawSkarniteBar(inRect, y, meme, comp);
             else
-                y = DrawGenericMemeBar(inRect, y, meme);
+                situationalMemes.Add(meme);
         }
 
         // Empty slot placeholders (max 4 memes total)
@@ -1293,6 +1291,12 @@ Text.Anchor = TextAnchor.MiddleRight;
             GUI.color = Color.white;
 
             y += 48f;
+        }
+
+        // Situational memes — icon + name, no bar, no forecast
+        foreach (var meme in situationalMemes)
+        {
+            y = DrawSituationalMeme(inRect, y, meme);
         }
 
         // Season total summary — sum of current forecasts from all bars
@@ -3227,10 +3231,9 @@ Text.Anchor = TextAnchor.MiddleRight;
 
         float blockH = 22f + barH;
         int sections = comp.MemeCount;
-        int total = comp.nudismPoints + comp.nudismDressedPoints;
-        float ratio = total > 0 ? (float)comp.nudismPoints / total : 0f;
-        int filledSections = GameComponent_FaithTracker.FilledFromRatio(ratio, sections);
-        int forecast = ComputeForecast(ext, filledSections, sections);
+        const int ptsPerSection = 360;
+        int filled = System.Math.Min(comp.nudismPoints / ptsPerSection, sections);
+        int forecast = ComputeForecast(ext, filled, sections);
 
         DrawForecastLabel(inRect, y, forecastW, blockH, forecast);
 
@@ -3262,34 +3265,36 @@ Text.Anchor = TextAnchor.MiddleRight;
         Text.Anchor = TextAnchor.UpperLeft;
         y += 22f;
 
-        // Bar — ratio-based (nude vs dressed)
+        // Bar — threshold-based (360 pts per section)
         Widgets.DrawBoxSolid(new Rect(barX, y, barW, barH), new Color(0.1f, 0.1f, 0.1f, 0.8f));
-        if (total > 0)
+
+        float sectionW = sections > 0 ? barW / sections : barW;
+
+        if (filled > 0)
+            Widgets.DrawBoxSolid(new Rect(barX, y, filled * sectionW, barH), FaithSectionBg);
+
+        // Partial fill
+        int remainder = comp.nudismPoints - filled * ptsPerSection;
+        float partialFill = ptsPerSection > 0 ? (float)remainder / ptsPerSection : 0f;
+        if (partialFill > 0f && filled < sections)
+            Widgets.DrawBoxSolid(new Rect(barX + filled * sectionW, y, partialFill * sectionW, barH), FaithSectionBg * 0.7f);
+
+        // Section dividers
+        for (int i = 1; i < sections; i++)
         {
-            float nudeW = ratio * barW;
-            float dressedW = barW - nudeW;
-            if (nudeW > 0f)
-                Widgets.DrawBoxSolid(new Rect(barX, y, nudeW, barH), FaithSectionBg);
-            if (dressedW > 0f)
-                Widgets.DrawBoxSolid(new Rect(barX + nudeW, y, dressedW, barH), new Color(0.5f, 0.3f, 0.3f, 0.7f));
-            Widgets.DrawBoxSolid(new Rect(barX + nudeW - 1f, y, 2f, barH), new Color(1f, 1f, 1f, 0.6f));
-
-            // Section dividers
-            for (int i = 1; i < sections; i++)
-            {
-                float divX = barX + (barW / sections) * i;
-                Widgets.DrawBoxSolid(new Rect(divX - 1f, y, 2f, barH), new Color(1f, 1f, 1f, 0.4f));
-            }
-
-            Text.Font = GameFont.Tiny;
-            Text.Anchor = TextAnchor.MiddleCenter;
-            if (nudeW > 30f)
-                Widgets.Label(new Rect(barX, y, nudeW, barH), comp.nudismPoints.ToString());
-            if (dressedW > 30f)
-                Widgets.Label(new Rect(barX + nudeW, y, dressedW, barH), comp.nudismDressedPoints.ToString());
-            Text.Font = GameFont.Small;
-            Text.Anchor = TextAnchor.UpperLeft;
+            float divX = barX + sectionW * i;
+            Widgets.DrawBoxSolid(new Rect(divX - 1f, y, 2f, barH), new Color(1f, 1f, 1f, 0.4f));
         }
+
+        // Score label
+        int threshold = ptsPerSection * sections;
+        Text.Font = GameFont.Tiny;
+        Text.Anchor = TextAnchor.MiddleCenter;
+        GUI.color = Color.white;
+        Widgets.Label(new Rect(barX, y, barW, barH), comp.nudismPoints + " / " + threshold);
+        Text.Font = GameFont.Small;
+        Text.Anchor = TextAnchor.UpperLeft;
+
         Widgets.DrawBox(new Rect(barX, y, barW, barH), 1);
 
         // Tooltip
@@ -3297,9 +3302,8 @@ Text.Anchor = TextAnchor.MiddleRight;
         if (Mouse.IsOver(barRect))
         {
             Widgets.DrawHighlight(barRect);
-            string nudePct = total > 0 ? ((float)comp.nudismPoints / total * 100f).ToString("F0") + "%" : "0%";
             TooltipHandler.TipRegion(barRect,
-                "FT_NudismTooltip".Translate(comp.nudismPoints, nudePct, comp.nudismDressedPoints));
+                "FT_NudismTooltip".Translate(comp.nudismPoints, threshold, ptsPerSection));
         }
 
         y += barH + 8f;
@@ -3309,6 +3313,46 @@ Text.Anchor = TextAnchor.MiddleRight;
     // === Generic meme bar ===
     private static readonly Color GenericMemeColor = new Color(0.5f, 0.7f, 0.9f);
     private static readonly Color GenericMemeBg = new Color(0.5f, 0.7f, 0.9f, 0.7f);
+
+    private float DrawSituationalMeme(Rect inRect, float y, MemeDef meme)
+    {
+        float iconSize = 24f;
+        float rowH = 32f;
+
+        // Separator
+        GUI.color = new Color(1f, 1f, 1f, 0.15f);
+        Widgets.DrawLineHorizontal(0f, y, inRect.width);
+        GUI.color = Color.white;
+        y += 4f;
+
+        // Icon
+        Texture2D memeIcon = meme.Icon;
+        if (memeIcon != null)
+        {
+            Rect iconRect = new Rect(10f, y + (rowH - iconSize) / 2f, iconSize, iconSize);
+            Rect clickRect = iconRect.ExpandedBy(10f);
+            if (Mouse.IsOver(clickRect))
+            {
+                GUI.color = new Color(1f, 1f, 0.6f);
+                Widgets.DrawHighlight(clickRect);
+                TooltipHandler.TipRegion(clickRect, meme.LabelCap + "\n" + "FT_ClickForDetails".Translate());
+            }
+            GUI.DrawTexture(iconRect, memeIcon, ScaleMode.ScaleToFit);
+            GUI.color = Color.white;
+            if (Widgets.ButtonInvisible(clickRect))
+                Find.WindowStack.Add(new Dialog_MemeInfo(meme));
+        }
+
+        // Name centered
+        Text.Anchor = TextAnchor.MiddleCenter;
+        GUI.color = new Color(1f, 0.85f, 0.4f);
+        Widgets.Label(new Rect(0f, y, inRect.width, rowH), meme.LabelCap);
+        GUI.color = Color.white;
+        Text.Anchor = TextAnchor.UpperLeft;
+
+        y += rowH + 4f;
+        return y;
+    }
 
     private float DrawGenericMemeBar(Rect inRect, float y, MemeDef meme)
     {

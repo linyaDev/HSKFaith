@@ -13,10 +13,9 @@
         <maxSeverity>1.0</maxSeverity>
         <stages>
             <li>
-                <statFactors>
-                    <MoveSpeed>1.10</MoveSpeed>
-                </statFactors>
                 <statOffsets>
+                    <MoveSpeed>0.45</MoveSpeed>
+                    <WorkSpeedGlobal>0.10</WorkSpeedGlobal>
                     <MentalBreakThreshold>-0.05</MentalBreakThreshold>
                     <IncomingDamageFactor>-0.15</IncomingDamageFactor>
                     <FoodPoisonChance>-0.10</FoodPoisonChance>

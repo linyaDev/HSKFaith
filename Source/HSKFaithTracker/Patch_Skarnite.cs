@@ -65,8 +65,7 @@ public static class Patch_Skarnite
         var nerfDef = DefDatabase<HediffDef>.GetNamedSilentFail("FT_SoulreapNerf");
         if (nerfDef == null) return;
 
-        var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
-        bool hasSkarnite = comp?.HasMeme("ReviaRaceSkarniteMeme") == true;
+        var skarniteDef = DefDatabase<MemeDef>.GetNamedSilentFail("ReviaRaceSkarniteMeme");
 
         foreach (var map in Find.Maps)
         {
@@ -75,17 +74,16 @@ public static class Patch_Skarnite
                 if (p.IsSlave) continue;
 
                 int tier = GetSoulreapTier(p);
+                bool pawnHasSkarnite = skarniteDef != null && p.Ideo?.memes?.Contains(skarniteDef) == true;
                 var existing = p.health.hediffSet.GetFirstHediffOfDef(nerfDef);
 
-                if (hasSkarnite || tier == 0)
+                if (pawnHasSkarnite || tier == 0)
                 {
-                    // Remove nerf if has meme or no soulreap
                     if (existing != null)
                         p.health.RemoveHediff(existing);
                 }
                 else
                 {
-                    // Apply/update nerf
                     float severity = tier * 0.1f;
                     if (existing == null)
                     {
