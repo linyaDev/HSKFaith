@@ -16,14 +16,15 @@ public static class Patch_PlantSown
         if (__instance.pawn?.Faction != Faction.OfPlayer)
             return;
 
+        var pawn = __instance.pawn;
+        var plant = pawn?.CurJob?.GetTarget(TargetIndex.A).Thing as Plant;
+        if (plant?.def?.defName == "Plant_Haygrass") return;
+
         var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
         if (comp == null) return;
 
         comp.naturePlantsSown++;
 
-        // Check if it's a tree — get the plant from the current job
-        var pawn = __instance.pawn;
-        var plant = pawn?.CurJob?.GetTarget(TargetIndex.A).Thing as Plant;
         if (plant?.def?.plant != null && plant.def.plant.IsTree)
             comp.treesSown++;
     }
