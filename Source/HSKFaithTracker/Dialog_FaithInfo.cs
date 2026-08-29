@@ -53,6 +53,8 @@ public class Dialog_FaithInfo : Window
         doCloseX = false;
         draggable = true;
         absorbInputAroundWindow = false;
+        focusWhenOpened = false;
+        preventCameraMotion = false;
 
         // Debug: log ideo stats on open
         var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;

@@ -22,6 +22,8 @@ public class Dialog_FaithHistory : Window
         doCloseX = true;
         draggable = true;
         absorbInputAroundWindow = false;
+        focusWhenOpened = false;
+        preventCameraMotion = false;
     }
 
     public override void DoWindowContents(Rect inRect)
@@ -49,8 +51,7 @@ public class Dialog_FaithHistory : Window
             var r = records[i];
             Rect rowRect = new Rect(0f, rowY, viewRect.width, 28f);
 
-            bool isFulfilled = r.type == RitualRecordType.Fulfilled
-                               || (r.type == RitualRecordType.YearlySummary && r.Points >= 0);
+            bool isFulfilled = r.type == RitualRecordType.Fulfilled;
             int points = r.Points;
             string pointsStr = points > 0 ? "+" + points : points.ToString();
 

@@ -13,8 +13,7 @@ public enum RitualRecordType : byte
     Fulfilled,
     Missed,
     CorpsePenalty,
-    FaithDecay,
-    YearlySummary
+    FaithDecay
 }
 
 public struct RitualRecord : IExposable
@@ -33,7 +32,6 @@ public struct RitualRecord : IExposable
             {
                 case RitualRecordType.Fulfilled: return customWeight != 0 ? customWeight : 1;
                 case RitualRecordType.FaithDecay: return customWeight;
-                case RitualRecordType.YearlySummary: return customWeight;
                 case RitualRecordType.CorpsePenalty: return GameComponent_FaithTracker.CorpsePenaltyWeight;
                 default: return GameComponent_FaithTracker.MissedWeight;
             }
@@ -873,74 +871,6 @@ public class GameComponent_FaithTracker : GameComponent
 
     private void DailyNaturePrimacySpawn()
     {
-        if (!HasMeme("NaturePrimacy")) return;
-
-        int today = GenDate.DaysPassed;
-        if (today == lastBerrySpawnDay) return;
-        lastBerrySpawnDay = today;
-
-        var berryDef = DefDatabase<ThingDef>.GetNamedSilentFail("Plant_Berry");
-        if (berryDef == null) return;
-
-        var map = Find.CurrentMap;
-        if (map == null) return;
-
-        var homeZone = map.areaManager?.Home;
-        if (homeZone == null) return;
-
-        // Spawn 1 bush per day
-        {
-            IntVec3 cell = IntVec3.Invalid;
-            for (int attempt = 0; attempt < 50; attempt++)
-            {
-                var candidate = CellFinder.RandomCell(map);
-
-                // 15-75 tiles from home zone
-                if (homeZone[candidate]) continue;
-                float dist = MinDistToHomeZone(candidate, map, homeZone);
-                if (dist < 15f || dist > 75f) continue;
-
-                // Valid growing conditions
-                if (map.roofGrid.Roofed(candidate)) continue;
-                if (candidate.GetEdifice(map) != null) continue;
-                if (candidate.GetPlant(map) != null) continue;
-                if (map.terrainGrid.TerrainAt(candidate).fertility < 0.5f) continue;
-                if (map.zoneManager.ZoneAt(candidate) is Zone_Growing) continue;
-
-                cell = candidate;
-                break;
-            }
-
-            if (cell.IsValid)
-            {
-                var plant = (Plant)GenSpawn.Spawn(berryDef, cell, map);
-                plant.Growth = 0.05f;
-            }
-        }
-    }
-
-    private float MinDistToHomeZone(IntVec3 cell, Map map, Area_Home home)
-    {
-        float minDist = float.MaxValue;
-        // Sample nearby cells instead of checking all home zone cells
-        int radius = 80;
-        int minX = System.Math.Max(0, cell.x - radius);
-        int maxX = System.Math.Min(map.Size.x - 1, cell.x + radius);
-        int minZ = System.Math.Max(0, cell.z - radius);
-        int maxZ = System.Math.Min(map.Size.z - 1, cell.z + radius);
-        for (int x = minX; x <= maxX; x += 3)
-        {
-            for (int z = minZ; z <= maxZ; z += 3)
-            {
-                var c = new IntVec3(x, 0, z);
-                if (home[c])
-                {
-                    float d = c.DistanceTo(cell);
-                    if (d < minDist) minDist = d;
-                }
-            }
-        }
-        return minDist;
     }
 
     private void UpdateGenderHediffs()
@@ -1674,10 +1604,37 @@ public class GameComponent_FaithTracker : GameComponent
         CompressYearlyRecords();
     }
 
+    private static bool IsYearlySummary(RitualRecord r)
+    {
+        return r.ritualName != null
+               && (r.ritualName.StartsWith("Итог ") || r.ritualName.StartsWith("Year "));
+    }
+
     private void CleanupRecords()
     {
         int cutoff = GenTicks.TicksGame - YearTicks;
-        records.RemoveAll(r => r.tick < cutoff && r.type != RitualRecordType.YearlySummary);
+
+        int summaryIdx = -1;
+        for (int i = 0; i < records.Count; i++)
+        {
+            if (IsYearlySummary(records[i]) && (summaryIdx < 0 || records[i].tick > records[summaryIdx].tick))
+                summaryIdx = i;
+        }
+
+        for (int i = records.Count - 1; i >= 0; i--)
+        {
+            var r = records[i];
+            if (r.tick >= cutoff || IsYearlySummary(r)) continue;
+
+            if (summaryIdx >= 0)
+            {
+                var s = records[summaryIdx];
+                s.customWeight += r.Points;
+                records[summaryIdx] = s;
+            }
+            records.RemoveAt(i);
+            if (i < summaryIdx) summaryIdx--;
+        }
 
         // Remove corpse penalties if corpse no longer exists or is far from home area
         records.RemoveAll(r =>
@@ -1702,7 +1659,7 @@ public class GameComponent_FaithTracker : GameComponent
         {
             var r = records[i];
             if (r.type == RitualRecordType.FaithDecay || r.type == RitualRecordType.CorpsePenalty
-                || r.type == RitualRecordType.YearlySummary)
+                || IsYearlySummary(r))
                 continue;
             totalScore += r.Points;
             count++;
@@ -1711,12 +1668,12 @@ public class GameComponent_FaithTracker : GameComponent
         if (count <= 1) return;
 
         records.RemoveAll(r => r.type != RitualRecordType.FaithDecay && r.type != RitualRecordType.CorpsePenalty
-                               && r.type != RitualRecordType.YearlySummary);
+                               && !IsYearlySummary(r));
         records.Insert(0, new RitualRecord
         {
             tick = Find.TickManager.TicksGame,
             ritualName = "FT_YearlySummary".Translate(GenDate.Year(Find.TickManager.TicksAbs, 0)),
-            type = RitualRecordType.YearlySummary,
+            type = RitualRecordType.Fulfilled,
             customWeight = totalScore
         });
     }
@@ -1858,17 +1815,5 @@ public class GameComponent_FaithTracker : GameComponent
         if (records == null)
             records = new List<RitualRecord>();
 
-        if (Scribe.mode == LoadSaveMode.PostLoadInit)
-        {
-            for (int i = 0; i < records.Count; i++)
-            {
-                var r = records[i];
-                if (r.type == RitualRecordType.Fulfilled && (r.customWeight > 3 || r.customWeight < -3))
-                {
-                    r.type = RitualRecordType.YearlySummary;
-                    records[i] = r;
-                }
-            }
-        }
     }
 }
