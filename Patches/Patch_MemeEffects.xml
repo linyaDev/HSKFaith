@@ -190,7 +190,7 @@
                     <seasonalFaithChange>3</seasonalFaithChange>
                     <faithPerSection>1</faithPerSection>
                     <penaltyPerSection>-1</penaltyPerSection>
-                    <certaintyPerSeason>-0.06</certaintyPerSeason>
+                    <certaintyPerSeason>0.06</certaintyPerSeason>
                     <startingItems>
                         <Seed_TreeWillow>15</Seed_TreeWillow>
                         <Seed_GrayPine>15</Seed_GrayPine>
