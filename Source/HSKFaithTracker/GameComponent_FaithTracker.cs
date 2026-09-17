@@ -178,10 +178,13 @@ public class GameComponent_FaithTracker : GameComponent
     {
         get
         {
+            // Clamp cumulatively as records accrue (not just the final sum) so points
+            // above the ceiling actually burn off instead of sitting as hidden slack
+            // that would otherwise absorb the next several negative records unnoticed.
             int score = 0;
             foreach (var r in records)
-                score += r.Points;
-            return Mathf.Clamp(score, (int)ScoreMin, (int)ScoreMax);
+                score = Mathf.Clamp(score + r.Points, (int)ScoreMin, (int)ScoreMax);
+            return score;
         }
     }
 
