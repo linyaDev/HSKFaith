@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -45,9 +46,20 @@ public class Dialog_FaithHistory : Window
 
         Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
 
-        float rowY = 0f;
+        // Regular records newest-first, then all yearly summaries grouped at the end
+        // (also newest-first within that group, so the very first year sits at the bottom)
+        var order = new List<int>();
         for (int i = records.Count - 1; i >= 0; i--)
+            if (!GameComponent_FaithTracker.IsYearlySummary(records[i]))
+                order.Add(i);
+        for (int i = records.Count - 1; i >= 0; i--)
+            if (GameComponent_FaithTracker.IsYearlySummary(records[i]))
+                order.Add(i);
+
+        float rowY = 0f;
+        for (int row = 0; row < order.Count; row++)
         {
+            int i = order[row];
             var r = records[i];
             Rect rowRect = new Rect(0f, rowY, viewRect.width, 28f);
 
@@ -56,7 +68,7 @@ public class Dialog_FaithHistory : Window
             string pointsStr = points > 0 ? "+" + points : points.ToString();
 
             Widgets.DrawBoxSolid(rowRect, isFulfilled ? GreenBg : RedBg);
-            if (i % 2 == 0)
+            if (row % 2 == 0)
                 Widgets.DrawLightHighlight(rowRect);
 
             GUI.color = isFulfilled ? GreenText : RedText;

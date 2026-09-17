@@ -1604,7 +1604,7 @@ public class GameComponent_FaithTracker : GameComponent
         CompressYearlyRecords();
     }
 
-    private static bool IsYearlySummary(RitualRecord r)
+    public static bool IsYearlySummary(RitualRecord r)
     {
         return r.ritualName != null
                && (r.ritualName.StartsWith("Итог ") || r.ritualName.StartsWith("Year "));
@@ -1669,7 +1669,7 @@ public class GameComponent_FaithTracker : GameComponent
 
         records.RemoveAll(r => r.type != RitualRecordType.FaithDecay && r.type != RitualRecordType.CorpsePenalty
                                && !IsYearlySummary(r));
-        records.Insert(0, new RitualRecord
+        records.Add(new RitualRecord
         {
             tick = Find.TickManager.TicksGame,
             ritualName = "FT_YearlySummary".Translate(GenDate.Year(Find.TickManager.TicksAbs, 0)),

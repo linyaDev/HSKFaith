@@ -6,4 +6,28 @@
 		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="RandomRecruit"]</xpath>
 	</Operation>
 
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="DiscoverAncientComplex"]</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="FarmAnimalsWanderIn"]</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="GauranlenTreePod"]</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="InsectJellyTunnels"]</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="NearbyFactionGoodwill"]</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="RechargePsyfocus"]</xpath>
+	</Operation>
+
 </Patch>

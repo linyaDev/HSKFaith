@@ -293,7 +293,6 @@
 	<FT_ButtonNeeds>Needs</FT_ButtonNeeds>
 	<FT_OpenFaith>Faith</FT_OpenFaith>
 	<FT_OpenDiet>Diet</FT_OpenDiet>
-	<FT_OpenKarma>Karma</FT_OpenKarma>
 	<FT_AnimalTrained>{0} fully trained by {1}</FT_AnimalTrained>
 	<FT_AnimalCompanion1>Animal companions (1-2)</FT_AnimalCompanion1>
 	<FT_AnimalCompanion2>Animal companions (3-4)</FT_AnimalCompanion2>
