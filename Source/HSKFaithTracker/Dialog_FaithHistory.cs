@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -47,14 +48,13 @@ public class Dialog_FaithHistory : Window
         Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
 
         // Regular records newest-first, then all yearly summaries grouped at the end
-        // (also newest-first within that group, so the very first year sits at the bottom)
-        var order = new List<int>();
-        for (int i = records.Count - 1; i >= 0; i--)
-            if (!GameComponent_FaithTracker.IsYearlySummary(records[i]))
-                order.Add(i);
-        for (int i = records.Count - 1; i >= 0; i--)
-            if (GameComponent_FaithTracker.IsYearlySummary(records[i]))
-                order.Add(i);
+        // (also newest-first within that group, so the very first year sits at the bottom).
+        // Sorted by tick rather than list position so already-scrambled summaries from
+        // saves made before the ordering fix land correctly too.
+        var order = Enumerable.Range(0, records.Count)
+            .OrderBy(i => GameComponent_FaithTracker.IsYearlySummary(records[i]) ? 1 : 0)
+            .ThenByDescending(i => records[i].tick)
+            .ToList();
 
         float rowY = 0f;
         for (int row = 0; row < order.Count; row++)
