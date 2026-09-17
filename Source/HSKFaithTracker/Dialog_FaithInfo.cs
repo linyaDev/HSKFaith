@@ -3441,7 +3441,7 @@ Text.Anchor = TextAnchor.MiddleRight;
     }
 
     // === Faith progress bar ===
-    private static readonly int[] FaithMoods = { -6, -4, -2, 0, 2, 4, 6 };
+    private static readonly int[] FaithMoods = { -12, -8, -4, 0, 2, 4, 6 };
     private static readonly float[] FaithThresholds = { 0.14f, 0.28f, 0.42f, 0.57f, 0.71f, 0.85f, 1.0f };
     private static readonly Color[] FaithColors =
     {
@@ -3505,7 +3505,8 @@ Text.Anchor = TextAnchor.MiddleRight;
 
         if (currentStage < FaithThresholds.Length - 1)
         {
-            int nextScore = (int)(FaithThresholds[currentStage] * 60f - 30f) + 1;
+            float scoreRange = GameComponent_FaithTracker.ScoreMax - GameComponent_FaithTracker.ScoreMin;
+            int nextScore = (int)(FaithThresholds[currentStage] * scoreRange + GameComponent_FaithTracker.ScoreMin) + 1;
             int pointsToNext = nextScore - score;
             if (pointsToNext > 0)
                 text += "  →  " + "FT_FNextLevel".Translate(pointsToNext);

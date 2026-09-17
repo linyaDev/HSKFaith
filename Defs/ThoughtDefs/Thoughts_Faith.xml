@@ -7,17 +7,17 @@
 			<li>
 				<label>godless</label>
 				<description>We have abandoned our faith completely. The rituals mean nothing to us.</description>
-				<baseMoodEffect>-6</baseMoodEffect>
+				<baseMoodEffect>-12</baseMoodEffect>
 			</li>
 			<li>
 				<label>faithless</label>
 				<description>We barely follow our beliefs anymore. It feels wrong.</description>
-				<baseMoodEffect>-4</baseMoodEffect>
+				<baseMoodEffect>-8</baseMoodEffect>
 			</li>
 			<li>
 				<label>doubting</label>
 				<description>I'm starting to doubt our commitment to our beliefs.</description>
-				<baseMoodEffect>-2</baseMoodEffect>
+				<baseMoodEffect>-4</baseMoodEffect>
 			</li>
 			<li>
 				<label>faithful</label>

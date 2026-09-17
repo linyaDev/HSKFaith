@@ -53,8 +53,8 @@ public class GameComponent_FaithTracker : GameComponent
     // === Constants ===
     public const int MissedWeight = -2;
     public const int CorpsePenaltyWeight = -1;
-    public const float ScoreMin = -30f;
-    public const float ScoreMax = 30f;
+    public const float ScoreMin = -60f;
+    public const float ScoreMax = 60f;
     private const int YearTicks = 3600000;
     private const int SeasonTicks = 900000;
     private const int MemeCheckInterval = 2500; // 1 game hour
@@ -181,7 +181,7 @@ public class GameComponent_FaithTracker : GameComponent
             int score = 0;
             foreach (var r in records)
                 score += r.Points;
-            return score;
+            return Mathf.Clamp(score, (int)ScoreMin, (int)ScoreMax);
         }
     }
 
