@@ -3330,6 +3330,7 @@ Text.Anchor = TextAnchor.MiddleRight;
     {
         float iconSize = 24f;
         float rowH = 32f;
+        float forecastW = 55f;
 
         // Separator
         GUI.color = new Color(1f, 1f, 1f, 0.15f);
@@ -3361,6 +3362,18 @@ Text.Anchor = TextAnchor.MiddleRight;
         Widgets.Label(new Rect(0f, y, inRect.width, rowH), meme.LabelCap);
         GUI.color = Color.white;
         Text.Anchor = TextAnchor.UpperLeft;
+
+        // Seasonal forecast (memes with only a flat seasonalFaithChange, e.g. Collectivist/Individualist/Loyalist)
+        var ext = meme.GetModExtension<MemeEffectExtension>();
+        int forecast = ComputeForecast(ext, 0, 0);
+        if (forecast != 0)
+        {
+            Text.Anchor = TextAnchor.MiddleRight;
+            GUI.color = forecast > 0 ? new Color(0.4f, 0.95f, 0.4f) : new Color(0.95f, 0.4f, 0.4f);
+            Widgets.Label(new Rect(inRect.width - forecastW - 6f, y, forecastW, rowH), (forecast >= 0 ? "+" : "") + forecast + " в.");
+            GUI.color = Color.white;
+            Text.Anchor = TextAnchor.UpperLeft;
+        }
 
         y += rowH + 4f;
         return y;
