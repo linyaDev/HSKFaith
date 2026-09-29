@@ -12,8 +12,8 @@ namespace HSKFaithTracker;
 public static class Patch_CreateRelic
 {
     public const float MinFaithScore = 15f;
-    public const int WeaponFaithCost = 25;
-    public const int RandomFaithCost = 15;
+    public const int WeaponFaithCost = 45;
+    public const int RandomFaithCost = 30;
 
     private static readonly HashSet<string> RelicBuildings = new HashSet<string>
     {

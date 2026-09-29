@@ -247,6 +247,190 @@ public class GameComponent_FaithTracker : GameComponent
         }
     }
 
+    public int SeasonForecast
+    {
+        get
+        {
+            var memes = GetPlayerMemes();
+            if (memes == null) return 0;
+
+            int sections = MemeCount;
+            if (sections <= 0) return 0;
+
+            int total = 0;
+            foreach (var meme in memes)
+            {
+                if (meme.category == MemeCategory.Structure) continue;
+                var ext = meme.GetModExtension<MemeEffectExtension>();
+                if (ext == null) continue;
+
+                int filled = 0, unfilled = 0;
+
+                switch (meme.defName)
+                {
+                    case "Supremacist":
+                    {
+                        float max = SlaveryMax;
+                        if (max > 0f)
+                        {
+                            float pps = max / sections;
+                            filled = (int)(slaveryPoints / pps);
+                            unfilled = sections - filled;
+                        }
+                        break;
+                    }
+                    case "MaleSupremacy":
+                    case "FemaleSupremacy":
+                    {
+                        int gTotal = malePoints + femalePoints;
+                        if (gTotal > 0)
+                        {
+                            int dom = meme.defName == "MaleSupremacy" ? malePoints : femalePoints;
+                            filled = FilledFromRatio((float)dom / gTotal, sections);
+                        }
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "TreeConnection":
+                        filled = System.Math.Min(treeConnectionPoints / 30, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "AnimalPersonhood":
+                        filled = System.Math.Min(animalCompanionPoints / 45, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "HAR_Xenophilia":
+                    {
+                        int xTotal = xenoPhiliaOtherPoints + xenoPhiliaMainPoints;
+                        if (xTotal > 0)
+                            filled = FilledFromRatio((float)xenoPhiliaOtherPoints / xTotal, sections);
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "HAR_Xenophobia":
+                    {
+                        int xTotal = xenoMainRacePoints + xenoOtherRacePoints;
+                        if (xTotal > 0)
+                            filled = FilledFromRatio((float)xenoMainRacePoints / xTotal, sections);
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "HumanPrimacy":
+                        filled = System.Math.Min(collectivistPoints / 2, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Bloodfeeding":
+                        filled = System.Math.Min(bloodfeedCount / 6, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Raider":
+                        filled = System.Math.Min(raiderPoints, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Ritualist":
+                        filled = System.Math.Min(ritualistPoints, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Inhuman":
+                    {
+                        int iTotal = inhumanPoints + humanPoints;
+                        if (iTotal > 0)
+                            filled = (int)((float)inhumanPoints / iTotal * sections);
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "Tunneler":
+                        filled = System.Math.Min(tunnelerPoints / 20, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Darkness":
+                        filled = System.Math.Min(darknessPoints / 10, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Rancher":
+                        filled = System.Math.Min(rancherPoints / 10, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Proselytizer":
+                        filled = System.Math.Min(proselytizePoints, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Transhumanist":
+                    {
+                        int tTotal = transImplantedPoints + transPurePoints;
+                        if (tTotal > 0)
+                            filled = FilledFromRatio((float)transImplantedPoints / tTotal, sections);
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "FleshPurity":
+                    {
+                        int fTotal = purePoints + implantedPoints;
+                        if (fTotal > 0)
+                            filled = FilledFromRatio((float)purePoints / fTotal, sections);
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "PainIsVirtue":
+                    {
+                        int pTotal = scarredPoints + unscarredPoints;
+                        if (pTotal > 0)
+                            filled = FilledFromRatio((float)scarredPoints / pTotal, sections);
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "Blindsight":
+                    {
+                        int bTotal = blindPoints + sightedPoints;
+                        if (bTotal > 0)
+                            filled = FilledFromRatio((float)blindPoints / bTotal, sections);
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "Cannibal":
+                        filled = System.Math.Min(cannibalPoints / 25, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Guilty":
+                    {
+                        int gTotal = guiltyWounds + guiltyCharityPoints;
+                        filled = gTotal > 0 ? System.Math.Min(gTotal / 10, sections) : 0;
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "HighLife":
+                        filled = System.Math.Min(highLifePoints / HighLifeThreshold, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "Nudism":
+                        filled = System.Math.Min(nudismPoints / NudismPointsPerSection, sections);
+                        unfilled = sections - filled;
+                        break;
+                    case "NaturePrimacy":
+                    {
+                        int score = naturePlantsSown - natureTreesCut * 2;
+                        filled = score > 0 ? System.Math.Min(score / 30, sections) : 0;
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    case "ReviaRaceSkarniteMeme":
+                    {
+                        int tails = System.Math.Max(1, Patch_Skarnite.GetTotalTails());
+                        filled = System.Math.Min(skarnitePoints / tails, sections);
+                        unfilled = sections - filled;
+                        break;
+                    }
+                    default:
+                        break;
+                }
+
+                total += ext.ComputeSeasonTotal(filled, unfilled);
+            }
+
+            return total;
+        }
+    }
+
     public int MemeCount
     {
         get

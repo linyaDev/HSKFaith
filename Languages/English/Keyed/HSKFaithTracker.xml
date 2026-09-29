@@ -299,4 +299,8 @@
 	<FT_AnimalCompanion3>Animal companions (5-6)</FT_AnimalCompanion3>
 	<FT_AnimalCompanion4>Animal companions (7-8)</FT_AnimalCompanion4>
 	<FT_AnimalCompanion5>Animal companions (9+)</FT_AnimalCompanion5>
+	<FT_AlertFaithHigh>Faith is overflowing</FT_AlertFaithHigh>
+	<FT_AlertFaithHighDesc>Colony faith is {0}/{1}. Excess faith above the cap is wasted — consider creating a relic or exchanging faith for reformation.</FT_AlertFaithHighDesc>
+	<FT_AlertSeasonNegative>Faith decline expected</FT_AlertSeasonNegative>
+	<FT_AlertSeasonNegativeDesc>Season forecast: {0} faith. Meme requirements are not being met — tend to your memes before the season ends.</FT_AlertSeasonNegativeDesc>
 </LanguageData>

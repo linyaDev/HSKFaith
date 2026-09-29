@@ -88,11 +88,12 @@ public class JobDriver_CreateRelic : JobDriver
             relic.stuff = weaponStuff;
         relic.RegenerateName();
 
-        // Spawn new legendary weapon at altar
         Thing weapon = ThingMaker.MakeThing(weaponDef, weaponStuff);
         weapon.TryGetComp<CompQuality>()?.SetQuality(QualityCategory.Legendary, ArtGenerationContext.Colony);
         weapon.HitPoints = weapon.MaxHitPoints;
         weapon.StyleSourcePrecept = relic;
+        relic.relicGenerated = true;
+        relic.generatedRelic = weapon;
         GenPlace.TryPlaceThing(weapon, Altar.Position, Altar.Map, ThingPlaceMode.Near);
 
         comp.RecordRitual("FT_RelicCreated".Translate(relic.LabelCap), RitualRecordType.FaithDecay, customWeight: -FaithCost);

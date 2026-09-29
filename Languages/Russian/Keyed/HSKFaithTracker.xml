@@ -301,4 +301,8 @@
 	<FT_AnimalCompanion3>Друзья животные (5-6)</FT_AnimalCompanion3>
 	<FT_AnimalCompanion4>Друзья животные (7-8)</FT_AnimalCompanion4>
 	<FT_AnimalCompanion5>Друзья животные (9+)</FT_AnimalCompanion5>
+	<FT_AlertFaithHigh>Вера переполнена</FT_AlertFaithHigh>
+	<FT_AlertFaithHighDesc>Вера колонии: {0}/{1}. Излишки веры сверх лимита пропадают — создайте реликвию или обменяйте веру на реформацию.</FT_AlertFaithHighDesc>
+	<FT_AlertSeasonNegative>Ожидается падение веры</FT_AlertSeasonNegative>
+	<FT_AlertSeasonNegativeDesc>Прогноз на конец сезона: {0} веры. Требования мемов не выполняются — позаботьтесь о мемах до конца сезона.</FT_AlertSeasonNegativeDesc>
 </LanguageData>
