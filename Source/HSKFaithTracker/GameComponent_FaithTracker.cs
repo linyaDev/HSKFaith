@@ -445,7 +445,7 @@ public class GameComponent_FaithTracker : GameComponent
         }
     }
 
-    public float SlaveryMax => MemeCount * 15f;
+    public float SlaveryMax => MemeCount * 45f;
     public int CollectivistTarget => MemeCount * 2;
 
     public int SlaveCount
@@ -696,7 +696,7 @@ public class GameComponent_FaithTracker : GameComponent
     {
         if (!HasSupremacist) return;
         int slaves = SlaveCount;
-        slaveryPoints += slaves;
+        slaveryPoints += slaves * 4;
         if (slaveryPoints > SlaveryMax)
             slaveryPoints = SlaveryMax;
     }

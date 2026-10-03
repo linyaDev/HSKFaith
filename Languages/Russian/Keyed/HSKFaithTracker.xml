@@ -47,7 +47,7 @@
 	<FT_Slaves5>{0} рабов</FT_Slaves5>
 	<FT_SlaveryPenalty>Нехватка рабов</FT_SlaveryPenalty>
 	<FT_SlaveryFulfilled>Господство подтверждено</FT_SlaveryFulfilled>
-	<FT_SlaveryTooltip>Очков рабства: {0}/15 за секцию\nПолучение очков:\n+1 оч./день за каждого раба</FT_SlaveryTooltip>
+	<FT_SlaveryTooltip>Очков рабства: {0}/45 за секцию\nПолучение очков:\n+4 оч./день за каждого раба\nПодавление: 100% если рабов ≤ {1}</FT_SlaveryTooltip>
 	<FT_SlaveryDeadline>ост. {0} дн.</FT_SlaveryDeadline>
 	<FT_SlaveryDeadlineHours>ост. {0}ч</FT_SlaveryDeadlineHours>
 	<FT_SeasonDeadline>Осталось до конца сезона: {0} дн.</FT_SeasonDeadline>
@@ -301,6 +301,7 @@
 	<FT_AnimalCompanion3>Друзья животные (5-6)</FT_AnimalCompanion3>
 	<FT_AnimalCompanion4>Друзья животные (7-8)</FT_AnimalCompanion4>
 	<FT_AnimalCompanion5>Друзья животные (9+)</FT_AnimalCompanion5>
+	<FT_SupremacistSuppression>Подавление: 100% пока рабов ≤ количества мемов</FT_SupremacistSuppression>
 	<FT_AlertFaithHigh>Вера переполнена</FT_AlertFaithHigh>
 	<FT_AlertFaithHighDesc>Вера колонии: {0}/{1}. Излишки веры сверх лимита пропадают — создайте реликвию или обменяйте веру на реформацию.</FT_AlertFaithHighDesc>
 	<FT_AlertSeasonNegative>Ожидается падение веры</FT_AlertSeasonNegative>

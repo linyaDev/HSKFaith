@@ -45,7 +45,7 @@
 	<FT_Slaves5>{0} slaves</FT_Slaves5>
 	<FT_SlaveryPenalty>Slave shortage</FT_SlaveryPenalty>
 	<FT_SlaveryFulfilled>Supremacy upheld</FT_SlaveryFulfilled>
-	<FT_SlaveryTooltip>Slavery points: {0}/15 per section\nEarning points:\n+1 pt/day per slave</FT_SlaveryTooltip>
+	<FT_SlaveryTooltip>Slavery points: {0}/45 per section\nEarning points:\n+4 pt/day per slave\nSuppression: 100% if slaves ≤ {1}</FT_SlaveryTooltip>
 	<FT_SlaveryDeadline>{0} days left</FT_SlaveryDeadline>
 	<FT_SlaveryDeadlineHours>{0}h left</FT_SlaveryDeadlineHours>
 	<FT_SeasonDeadline>Season ends in {0} days</FT_SeasonDeadline>
@@ -299,6 +299,7 @@
 	<FT_AnimalCompanion3>Animal companions (5-6)</FT_AnimalCompanion3>
 	<FT_AnimalCompanion4>Animal companions (7-8)</FT_AnimalCompanion4>
 	<FT_AnimalCompanion5>Animal companions (9+)</FT_AnimalCompanion5>
+	<FT_SupremacistSuppression>Suppression: 100% while slaves ≤ number of memes</FT_SupremacistSuppression>
 	<FT_AlertFaithHigh>Faith is overflowing</FT_AlertFaithHigh>
 	<FT_AlertFaithHighDesc>Colony faith is {0}/{1}. Excess faith above the cap is wasted — consider creating a relic or exchanging faith for reformation.</FT_AlertFaithHighDesc>
 	<FT_AlertSeasonNegative>Faith decline expected</FT_AlertSeasonNegative>

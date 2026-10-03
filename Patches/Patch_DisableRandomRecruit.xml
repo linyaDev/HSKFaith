@@ -26,8 +26,4 @@
 		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="NearbyFactionGoodwill"]</xpath>
 	</Operation>
 
-	<Operation Class="PatchOperationRemove">
-		<xpath>/Defs/RitualAttachableOutcomeEffectDef[defName="RechargePsyfocus"]</xpath>
-	</Operation>
-
 </Patch>

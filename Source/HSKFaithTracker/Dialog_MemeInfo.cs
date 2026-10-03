@@ -153,6 +153,14 @@ public class Dialog_MemeInfo : Window
                 positive = ext.yearlyGoodwillChange > 0
             });
         }
+        if (meme.defName == "Supremacist")
+        {
+            statItems.Add(new StatItem
+            {
+                label = "FT_SupremacistSuppression".Translate(),
+                positive = true
+            });
+        }
 
         // Scrollable content
         float contentH = (statItems.Count > 0 ? 26f + statItems.Count * 28f : 26f) + 10f;

@@ -725,7 +725,7 @@ Text.Anchor = TextAnchor.MiddleRight;
                 int filled = (int)(comp.slaveryPoints / (max / memes));
                 int unfilled = memes - filled;
                 TooltipHandler.TipRegion(barRect,
-                    "FT_SlaveryTooltip".Translate((int)comp.slaveryPoints));
+                    "FT_SlaveryTooltip".Translate((int)comp.slaveryPoints, memes));
             }
         }
 
