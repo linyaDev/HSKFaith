@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <FaithArmory_Weapons.label>оружейный склад</FaithArmory_Weapons.label>
+  <FaithArmory_Weapons.description>Небольшой аванпост с ценным оружием продвинутых технологий. Охраняется враждебными силами.</FaithArmory_Weapons.description>
+  <FaithArmory_Armor.label>склад доспехов</FaithArmory_Armor.label>
+  <FaithArmory_Armor.description>Небольшой аванпост с продвинутой бронёй. Охраняется враждебными силами.</FaithArmory_Armor.description>
+  <FaithStash_Leather.label>склад кож и тканей</FaithStash_Leather.label>
+  <FaithStash_Leather.description>Небольшой аванпост с запасами редких кож и тканей. Охраняется враждебными силами.</FaithStash_Leather.description>
+  <FaithStash_Steel.label>склад сплавов</FaithStash_Steel.label>
+  <FaithStash_Steel.description>Небольшой аванпост с запасами ценных сплавов. Охраняется враждебными силами.</FaithStash_Steel.description>
+</LanguageData>

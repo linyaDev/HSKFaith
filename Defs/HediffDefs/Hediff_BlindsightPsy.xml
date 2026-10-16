@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <HediffDef>
+        <defName>FT_BlindsightPsylink</defName>
+        <label>blindsight attunement</label>
+        <description>Потеряв зрение, колонист начинает ощущать мир иначе. Его разум открывается для психических потоков. Когда связь окрепнет, он обретёт новый уровень псионики и пробудит скрытую способность.</description>
+        <hediffClass>HSKFaithTracker.Hediff_BlindsightPsylink</hediffClass>
+        <defaultLabelColor>(0.5, 0.5, 0.9)</defaultLabelColor>
+        <isBad>false</isBad>
+        <makesAlert>false</makesAlert>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <initialSeverity>0.01</initialSeverity>
+        <maxSeverity>1.0</maxSeverity>
+        <stages>
+            <li>
+                <label>attuning</label>
+            </li>
+        </stages>
+    </HediffDef>
+</Defs>

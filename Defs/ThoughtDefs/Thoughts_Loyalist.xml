@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ThoughtDef>
+        <defName>FT_LoyalistBond</defName>
+        <thoughtClass>Thought_Situational</thoughtClass>
+        <workerClass>HSKFaithTracker.ThoughtWorker_Loyalist</workerClass>
+        <validWhileDespawned>false</validWhileDespawned>
+        <stages>
+            <li>
+                <label>we are loyal to each other</label>
+                <description>Our colony stands together. We are bound by loyalty and trust.</description>
+                <baseMoodEffect>10</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+</Defs>

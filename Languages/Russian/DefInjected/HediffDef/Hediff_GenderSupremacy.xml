@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <FT_GenderDominant.label>доминирующий пол</FT_GenderDominant.label>
+    <FT_GenderDominant.description>Представитель доминирующего пола обладает большим социальным влиянием.</FT_GenderDominant.description>
+    <FT_GenderSubmissive.label>подчинённый пол</FT_GenderSubmissive.label>
+    <FT_GenderSubmissive.description>Представитель недоминирующего пола имеет пониженное социальное влияние.</FT_GenderSubmissive.description>
+</LanguageData>

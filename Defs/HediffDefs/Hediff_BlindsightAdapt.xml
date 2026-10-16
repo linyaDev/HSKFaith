@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <!-- True sight: severity controls sight bonus. 20 stages, each +5% sight -->
+    <HediffDef>
+        <defName>FT_BlindsightTrueSight</defName>
+        <label>true sight</label>
+        <description>Слепота не лишила колониста восприятия — она его преобразила. Он видит мир не глазами, а разумом. Со временем это чувство становится всё сильнее.</description>
+        <hediffClass>HSKFaithTracker.Hediff_BlindsightTrueSight</hediffClass>
+        <defaultLabelColor>(0.4, 0.7, 1.0)</defaultLabelColor>
+        <isBad>false</isBad>
+        <makesAlert>false</makesAlert>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <initialSeverity>0.01</initialSeverity>
+        <maxSeverity>1.0</maxSeverity>
+        <stages>
+            <li><minSeverity>0.00</minSeverity><label>0%</label></li>
+            <li><minSeverity>0.05</minSeverity><label>5%</label><capMods><li><capacity>Sight</capacity><offset>0.05</offset></li></capMods></li>
+            <li><minSeverity>0.10</minSeverity><label>10%</label><capMods><li><capacity>Sight</capacity><offset>0.10</offset></li></capMods></li>
+            <li><minSeverity>0.15</minSeverity><label>15%</label><capMods><li><capacity>Sight</capacity><offset>0.15</offset></li></capMods></li>
+            <li><minSeverity>0.20</minSeverity><label>20%</label><capMods><li><capacity>Sight</capacity><offset>0.20</offset></li></capMods></li>
+            <li><minSeverity>0.25</minSeverity><label>25%</label><capMods><li><capacity>Sight</capacity><offset>0.25</offset></li></capMods></li>
+            <li><minSeverity>0.30</minSeverity><label>30%</label><capMods><li><capacity>Sight</capacity><offset>0.30</offset></li></capMods></li>
+            <li><minSeverity>0.35</minSeverity><label>35%</label><capMods><li><capacity>Sight</capacity><offset>0.35</offset></li></capMods></li>
+            <li><minSeverity>0.40</minSeverity><label>40%</label><capMods><li><capacity>Sight</capacity><offset>0.40</offset></li></capMods></li>
+            <li><minSeverity>0.45</minSeverity><label>45%</label><capMods><li><capacity>Sight</capacity><offset>0.45</offset></li></capMods></li>
+            <li><minSeverity>0.50</minSeverity><label>50%</label><capMods><li><capacity>Sight</capacity><offset>0.50</offset></li></capMods></li>
+            <li><minSeverity>0.55</minSeverity><label>55%</label><capMods><li><capacity>Sight</capacity><offset>0.55</offset></li></capMods></li>
+            <li><minSeverity>0.60</minSeverity><label>60%</label><capMods><li><capacity>Sight</capacity><offset>0.60</offset></li></capMods></li>
+            <li><minSeverity>0.65</minSeverity><label>65%</label><capMods><li><capacity>Sight</capacity><offset>0.65</offset></li></capMods></li>
+            <li><minSeverity>0.70</minSeverity><label>70%</label><capMods><li><capacity>Sight</capacity><offset>0.70</offset></li></capMods></li>
+            <li><minSeverity>0.75</minSeverity><label>75%</label><capMods><li><capacity>Sight</capacity><offset>0.75</offset></li></capMods></li>
+            <li><minSeverity>0.80</minSeverity><label>80%</label><capMods><li><capacity>Sight</capacity><offset>0.80</offset></li></capMods></li>
+            <li><minSeverity>0.85</minSeverity><label>85%</label><capMods><li><capacity>Sight</capacity><offset>0.85</offset></li></capMods></li>
+            <li><minSeverity>0.90</minSeverity><label>90%</label><capMods><li><capacity>Sight</capacity><offset>0.90</offset></li></capMods></li>
+            <li><minSeverity>0.95</minSeverity><label>95%</label><capMods><li><capacity>Sight</capacity><offset>0.95</offset></li></capMods></li>
+            <li><minSeverity>1.00</minSeverity><label>100%</label><capMods><li><capacity>Sight</capacity><offset>1.00</offset></li></capMods></li>
+        </stages>
+    </HediffDef>
+</Defs>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<ThoughtDef>
+		<defName>AnimalPersonhoodCompanion</defName>
+		<workerClass>HSKFaithTracker.ThoughtWorker_AnimalCompanion</workerClass>
+		<validWhileDespawned>false</validWhileDespawned>
+		<stages>
+			<li>
+				<label>animal companions (1-2)</label>
+				<description>We have a few animal friends with us. It's comforting.</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+			<li>
+				<label>animal companions (3-4)</label>
+				<description>We have several animal friends with us. They bring joy.</description>
+				<baseMoodEffect>4</baseMoodEffect>
+			</li>
+			<li>
+				<label>animal companions (5-6)</label>
+				<description>We have many animal friends with us. Life is better with them.</description>
+				<baseMoodEffect>6</baseMoodEffect>
+			</li>
+			<li>
+				<label>animal companions (7-8)</label>
+				<description>We have a herd of animal friends. Our faith is rewarded.</description>
+				<baseMoodEffect>8</baseMoodEffect>
+			</li>
+			<li>
+				<label>animal companions (9+)</label>
+				<description>We are surrounded by animal friends. This is true harmony.</description>
+				<baseMoodEffect>10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+</Defs>

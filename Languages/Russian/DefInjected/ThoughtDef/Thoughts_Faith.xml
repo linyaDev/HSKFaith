@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<FaithThought.stages.0.label>безбожник</FaithThought.stages.0.label>
+	<FaithThought.stages.0.description>Мы полностью забросили веру. Ритуалы для нас ничего не значат.</FaithThought.stages.0.description>
+	<FaithThought.stages.1.label>маловерный</FaithThought.stages.1.label>
+	<FaithThought.stages.1.description>Мы почти не следуем своим убеждениям. Это ощущается неправильно.</FaithThought.stages.1.description>
+	<FaithThought.stages.2.label>сомневающийся</FaithThought.stages.2.label>
+	<FaithThought.stages.2.description>Я начинаю сомневаться в нашей приверженности вере.</FaithThought.stages.2.description>
+	<FaithThought.stages.3.label>верующий</FaithThought.stages.3.label>
+	<FaithThought.stages.3.description>Мы следуем своим убеждениям как можем.</FaithThought.stages.3.description>
+	<FaithThought.stages.4.label>набожный</FaithThought.stages.4.label>
+	<FaithThought.stages.4.description>Мы регулярно чтим наши ритуалы. Это приносит утешение.</FaithThought.stages.4.description>
+	<FaithThought.stages.5.label>благочестивый</FaithThought.stages.5.label>
+	<FaithThought.stages.5.description>Наша преданность вере сильна и непоколебима.</FaithThought.stages.5.description>
+	<FaithThought.stages.6.label>святой</FaithThought.stages.6.label>
+	<FaithThought.stages.6.description>Мы не пропускаем ни одного ритуала. Наша вера горит ярко.</FaithThought.stages.6.description>
+</LanguageData>

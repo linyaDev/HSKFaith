@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!-- Allow Xenophobia to choose any EatingAliens precept, not just Preferred/RequiredStrong -->
+	<Operation Class="PatchOperationReplace">
+		<xpath>/Defs/MemeDef[defName="HAR_Xenophobia"]/requireOne/li[li="HAR_EatingAliens_Preferred"]</xpath>
+		<value>
+			<li>
+				<li>HAR_EatingAliens_Abhorrent</li>
+				<li>HAR_EatingAliens_Disapproved</li>
+				<li>HAR_EatingAliens_Acceptable</li>
+				<li>HAR_EatingAliens_Preferred</li>
+				<li>HAR_EatingAliens_RequiredStrong</li>
+			</li>
+		</value>
+	</Operation>
+
+</Patch>

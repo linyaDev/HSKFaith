@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!-- Cannibalism_Acceptable: only available with Cannibal meme -->
+	<Operation Class="PatchOperationAdd">
+		<xpath>/Defs/PreceptDef[defName="Cannibalism_Acceptable"]</xpath>
+		<value>
+			<requiredMemes>
+				<li>Cannibal</li>
+			</requiredMemes>
+		</value>
+	</Operation>
+
+	<!-- Cannibalism_Preferred: only available with Cannibal meme -->
+	<Operation Class="PatchOperationAdd">
+		<xpath>/Defs/PreceptDef[defName="Cannibalism_Preferred"]</xpath>
+		<value>
+			<requiredMemes>
+				<li>Cannibal</li>
+			</requiredMemes>
+		</value>
+	</Operation>
+
+</Patch>
