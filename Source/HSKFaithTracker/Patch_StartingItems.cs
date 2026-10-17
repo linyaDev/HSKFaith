@@ -20,15 +20,10 @@ public static class Patch_StartingItems
         {
             foreach (var relic in relics)
                 ideo.RemovePrecept(relic);
-
-            // В онлайне старт собирает OnlineHost, а не обычная страница создания
-            // мира - реликвии там и так лишние по замыслу, а не по ошибке, которую
-            // стоит объяснять письмом каждый раз на старте.
-            if (!Multiplayer.API.MP.IsInMultiplayer)
-                Find.LetterStack.ReceiveLetter(
-                    "FT_RelicsRemovedTitle".Translate(),
-                    "FT_RelicsRemoved".Translate(relics.Count),
-                    LetterDefOf.NeutralEvent);
+            Find.LetterStack.ReceiveLetter(
+                "FT_RelicsRemovedTitle".Translate(),
+                "FT_RelicsRemoved".Translate(relics.Count),
+                LetterDefOf.NeutralEvent);
         }
 
         var map = Find.CurrentMap;

@@ -10,16 +10,7 @@
     <DefineConstants>V16</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <!-- D:\RimWorld_HSK был удалён 2026-10-15 - подбираем первую живую копию, как в
-         HSKMultiplayer.csproj. -->
-    <RimWorldPath Condition="'$(RimWorldPath)' == '' AND Exists('D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed')">D:\SteamLibrary\steamapps\common\RimWorld</RimWorldPath>
-    <RimWorldPath Condition="'$(RimWorldPath)' == '' AND Exists('D:\RimWorld_HSK_ONLAIN\RimWorldWin64_Data\Managed')">D:\RimWorld_HSK_ONLAIN</RimWorldPath>
-    <RimWorldPath Condition="'$(RimWorldPath)' == '' AND Exists('D:\RimWorld_HSK2\RimWorldWin64_Data\Managed')">D:\RimWorld_HSK2</RimWorldPath>
-    <RimWorldPath Condition="'$(RimWorldPath)' == '' AND Exists('D:\RimWorld_HSK3\RimWorldWin64_Data\Managed')">D:\RimWorld_HSK3</RimWorldPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <MultiplayerApiPath Condition="'$(MultiplayerApiPath)' == '' AND Exists('D:\SteamLibrary\steamapps\workshop\content\294100\2606448745\1.6\Assemblies\0MultiplayerAPI.dll')">D:\SteamLibrary\steamapps\workshop\content\294100\2606448745\1.6\Assemblies\0MultiplayerAPI.dll</MultiplayerApiPath>
-    <MultiplayerApiPath Condition="'$(MultiplayerApiPath)' == ''">$(RimWorldPath)\Mods\Multiplayer\1.6\Assemblies\0MultiplayerAPI.dll</MultiplayerApiPath>
+    <RimWorldPath>D:\RimWorld_HSK</RimWorldPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp" Publicize="true">
@@ -40,12 +31,6 @@
     </Reference>
     <Reference Include="0Harmony">
       <HintPath>$(RimWorldPath)\Mods\Harmony\Current\Assemblies\0Harmony.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <!-- Только чтобы спросить MP.IsInMultiplayer - не грузим Multiplayer сами, он
-         приходит вместе с самим модом Multiplayer, если он есть. -->
-    <Reference Include="0MultiplayerAPI">
-      <HintPath>$(MultiplayerApiPath)</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
