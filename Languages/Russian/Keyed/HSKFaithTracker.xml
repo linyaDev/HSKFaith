@@ -279,8 +279,6 @@
 	<FT_RelicCreated>Создана реликвия: {0}</FT_RelicCreated>
 	<FT_RelicCreatedTitle>Реликвия создана</FT_RelicCreatedTitle>
 	<FT_RelicCreatedDesc>{0} сотворил(а) реликвию «{1}» силой веры колонии.</FT_RelicCreatedDesc>
-	<FT_RelicsRemovedTitle>Реликвии удалены</FT_RelicsRemovedTitle>
-	<FT_RelicsRemoved>Реликвии ({0}) были удалены из идеологии. Вы сможете получить их позже через веру.</FT_RelicsRemoved>
 	<FT_CertaintyCurrent>Уверенность</FT_CertaintyCurrent>
 	<FT_CertaintyTotal>Всего</FT_CertaintyTotal>
 	<FT_CertaintyDay>день</FT_CertaintyDay>

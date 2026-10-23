@@ -277,8 +277,6 @@
 	<FT_RelicCreated>Relic created: {0}</FT_RelicCreated>
 	<FT_RelicCreatedTitle>Relic created</FT_RelicCreatedTitle>
 	<FT_RelicCreatedDesc>{0} has forged the relic "{1}" through the colony's faith.</FT_RelicCreatedDesc>
-	<FT_RelicsRemovedTitle>Relics removed</FT_RelicsRemovedTitle>
-	<FT_RelicsRemoved>Relics ({0}) were removed from your ideology. You can earn them later through faith.</FT_RelicsRemoved>
 	<FT_CertaintyCurrent>Certainty</FT_CertaintyCurrent>
 	<FT_CertaintyTotal>Total</FT_CertaintyTotal>
 	<FT_CertaintyDay>day</FT_CertaintyDay>

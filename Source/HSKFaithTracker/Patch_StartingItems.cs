@@ -14,17 +14,15 @@ public static class Patch_StartingItems
         var ideo = Faction.OfPlayer?.ideos?.PrimaryIdeo;
         if (ideo == null) return;
 
-        // Remove all relics from ideology
+        // Remove all relics from ideology.
+        //
+        // Silently: this is our own decision, taken before the player sees the
+        // ideology at all, not news about something that happened to them. The
+        // letter used to say it and was pure noise - in multiplayer doubly so,
+        // where every side starts without relics by design.
         var relics = ideo.PreceptsListForReading.OfType<Precept_Relic>().ToList();
-        if (relics.Count > 0)
-        {
-            foreach (var relic in relics)
-                ideo.RemovePrecept(relic);
-            Find.LetterStack.ReceiveLetter(
-                "FT_RelicsRemovedTitle".Translate(),
-                "FT_RelicsRemoved".Translate(relics.Count),
-                LetterDefOf.NeutralEvent);
-        }
+        foreach (var relic in relics)
+            ideo.RemovePrecept(relic);
 
         var map = Find.CurrentMap;
         if (map == null) return;
