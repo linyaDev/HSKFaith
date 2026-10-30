@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -8,6 +9,7 @@ namespace HSKFaithTracker;
 public class MainButtonWorker_Needs : MainButtonWorker
 {
     private static bool? dietTrackerLoaded;
+    private static bool? onlineLoaded;
     private bool labelSet;
     private static Rect lastButtonRect;
 
@@ -18,6 +20,22 @@ public class MainButtonWorker_Needs : MainButtonWorker
             dietTrackerLoaded ??= ModsConfig.IsActive("linya.hskdiettracker");
             return dietTrackerLoaded.Value;
         }
+    }
+
+    private static bool IsOnlineLoaded
+    {
+        get
+        {
+            onlineLoaded ??= ModsConfig.IsActive("linya.hskmultiplayer");
+            return onlineLoaded.Value;
+        }
+    }
+
+    private static bool OnlineInSession()
+    {
+        var bridge = GenTypes.GetTypeInAnyAssembly("HSKMultiplayer.Online.MultiplayerBridge");
+        PropertyInfo prop = bridge?.GetProperty("InSession", BindingFlags.Public | BindingFlags.Static);
+        return prop != null && (bool)prop.GetValue(null, null);
     }
 
     public override void DoButton(Rect rect)
@@ -34,8 +52,9 @@ public class MainButtonWorker_Needs : MainButtonWorker
     public override void Activate()
     {
         bool hasDiet = IsDietTrackerLoaded;
+        bool hasOnline = IsOnlineLoaded && OnlineInSession();
 
-        if (!hasDiet)
+        if (!hasDiet && !hasOnline)
         {
             // Only faith tracker — open directly
             var comp = Current.Game?.GetComponent<GameComponent_FaithTracker>();
@@ -49,6 +68,20 @@ public class MainButtonWorker_Needs : MainButtonWorker
 
         // Multiple mods — show popup
         var options = new List<(string, System.Action)>();
+
+        if (hasOnline)
+        {
+            options.Add(("FT_OpenOnline".Translate(), () =>
+            {
+                var type = GenTypes.GetTypeInAnyAssembly("HSKMultiplayer.Online.Dialog_OnlineInfo");
+                if (type == null || Find.WindowStack.IsOpen(type))
+                    return;
+
+                var dialog = System.Activator.CreateInstance(type) as Window;
+                if (dialog != null)
+                    Find.WindowStack.Add(dialog);
+            }));
+        }
 
         options.Add(("FT_OpenFaith".Translate(), () =>
         {

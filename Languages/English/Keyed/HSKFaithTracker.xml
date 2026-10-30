@@ -289,6 +289,7 @@
 	<FT_FaithExchanged>Faith exchanged for reformation point!</FT_FaithExchanged>
 	<FT_ButtonFaith>Faith</FT_ButtonFaith>
 	<FT_ButtonNeeds>Needs</FT_ButtonNeeds>
+	<FT_OpenOnline>Online</FT_OpenOnline>
 	<FT_OpenFaith>Faith</FT_OpenFaith>
 	<FT_OpenDiet>Diet</FT_OpenDiet>
 	<FT_AnimalTrained>{0} fully trained by {1}</FT_AnimalTrained>

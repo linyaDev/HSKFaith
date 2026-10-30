@@ -291,6 +291,7 @@
 	<FT_FaithExchanged>Вера обменяна на очко реформации!</FT_FaithExchanged>
 	<FT_ButtonFaith>Вера</FT_ButtonFaith>
 	<FT_ButtonNeeds>Потребности</FT_ButtonNeeds>
+	<FT_OpenOnline>Онлайн</FT_OpenOnline>
 	<FT_OpenFaith>Вера</FT_OpenFaith>
 	<FT_OpenDiet>Диета</FT_OpenDiet>
 	<FT_AnimalTrained>{0} полностью обучен(о) благодаря {1}</FT_AnimalTrained>
